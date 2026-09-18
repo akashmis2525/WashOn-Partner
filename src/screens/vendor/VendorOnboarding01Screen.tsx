@@ -33,7 +33,7 @@ export const VendorOnboarding01Screen: React.FC = () => {
   const navigation = useNavigation<VendorOnboardingNavProp>();
 
   const handleNext = () => {
-    // Navigate to next onboarding screen (V003 Vendor Onboarding 2)
+    navigation.navigate(Routes.VENDOR_ONBOARDING_2 as never);
   };
 
   const handleSkip = () => {
