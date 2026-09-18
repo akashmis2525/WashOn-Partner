@@ -7,6 +7,7 @@ import { VendorOnboarding01Screen } from '../screens/vendor/VendorOnboarding01Sc
 import { VendorOnboarding02Screen } from '../screens/vendor/VendorOnboarding02Screen';
 import { VendorOnboarding03Screen } from '../screens/vendor/VendorOnboarding03Screen';
 import { VendorLoginScreen } from '../screens/vendor/VendorLoginScreen';
+import { VendorOtpVerificationScreen } from '../screens/vendor/VendorOtpVerificationScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -25,6 +26,7 @@ export const RootNavigator: React.FC = () => {
       <Stack.Screen name={Routes.VENDOR_ONBOARDING_2} component={VendorOnboarding02Screen} />
       <Stack.Screen name={Routes.VENDOR_ONBOARDING_3} component={VendorOnboarding03Screen} />
       <Stack.Screen name={Routes.VENDOR_LOGIN} component={VendorLoginScreen} />
+      <Stack.Screen name={Routes.VENDOR_OTP_VERIFY} component={VendorOtpVerificationScreen} />
     </Stack.Navigator>
   );
 };
