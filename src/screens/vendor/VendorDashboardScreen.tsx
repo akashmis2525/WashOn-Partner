@@ -71,8 +71,8 @@ export const VendorDashboardScreen: React.FC = () => {
   };
 
   const handleStartCurrentJob = () => {
-    // Navigate to Screen V024 / V025 Navigation Map
-    navigation.navigate(Routes.VENDOR_NAVIGATION_MAP as any, {
+    // Navigate to Screen V028 Navigation Map
+    navigation.navigate(Routes.VENDOR_NAVIGATE_CUSTOMER as any, {
       jobId: 'WASH-JOB-8941',
     });
   };

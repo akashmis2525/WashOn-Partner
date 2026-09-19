@@ -24,13 +24,39 @@ export type RootStackParamList = {
   [Routes.VENDOR_DASHBOARD]: { initialOnline?: boolean } | undefined;
   [Routes.VENDOR_ONLINE_CONFIRM]: undefined;
   [Routes.VENDOR_OFFLINE_CONFIRM]: { hasActiveBooking?: boolean } | undefined;
-  [Routes.VENDOR_LIVE_REQUEST]: { jobId: string };
-  [Routes.VENDOR_NAVIGATION_MAP]: { jobId: string };
-  [Routes.VENDOR_ARRIVED]: { jobId: string };
-  [Routes.VENDOR_PRE_WASH_PHOTOS]: { jobId: string };
-  [Routes.VENDOR_WASH_EXECUTION]: { jobId: string };
-  [Routes.VENDOR_POST_WASH_PHOTOS]: { jobId: string };
-  [Routes.VENDOR_PAYMENT_COLLECTION]: { jobId: string };
+
+  // SECTION 5: BOOKING REQUESTS (V024 - V027)
+  [Routes.VENDOR_NEW_REQUEST]: undefined;
+  [Routes.VENDOR_REQUEST_DETAILS]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_BOOKING_ACCEPTED]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_BOOKING_REJECTED]: { reason?: string } | undefined;
+
+  // SECTION 6: NAVIGATION & CUSTOMER ARRIVAL (V028 - V031)
+  [Routes.VENDOR_NAVIGATE_CUSTOMER]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_ON_THE_WAY]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_ARRIVED]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_UNABLE_TO_FIND]: { bookingId?: string } | undefined;
+
+  // SECTION 7: SERVICE START & BEFORE PHOTOS (V032 - V035)
+  [Routes.VENDOR_START_VERIFICATION]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_BEFORE_PHOTOS]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_DAMAGE_NOTES]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_CUSTOMER_APPROVAL_START]: { bookingId?: string } | undefined;
+
+  // SECTION 8: WASH PROCESS (V036 - V039)
+  [Routes.VENDOR_SERVICE_IN_PROGRESS]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_ACTIVITY_UPDATE]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_ADDON_CONFIRMATION]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_ISSUE_REPORT]: { bookingId?: string } | undefined;
+
+  // SECTION 9: COMPLETION & AFTER PHOTOS (V040 - V044)
+  [Routes.VENDOR_AFTER_PHOTOS]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_BEFORE_AFTER_COMPARE]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_COMPLETION_SUMMARY]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_CUSTOMER_APPROVAL_PENDING]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_SERVICE_COMPLETED]: { bookingId?: string } | undefined;
+
+  // REMAINING VENDOR SECTIONS
   [Routes.VENDOR_EARNINGS]: undefined;
   [Routes.VENDOR_PROFILE]: undefined;
 };

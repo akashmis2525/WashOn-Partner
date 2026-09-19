@@ -28,16 +28,40 @@ export const Routes = {
   VENDOR_ONLINE_CONFIRM: 'V022_VendorOnlineConfirm',
   VENDOR_OFFLINE_CONFIRM: 'V023_VendorOfflineConfirm',
 
-  // VENDOR JOBS & EXECUTION (V024 - V032)
-  VENDOR_LIVE_REQUEST: 'V024_VendorLiveRequest',
-  VENDOR_NAVIGATION_MAP: 'V025_VendorNavigationMap',
-  VENDOR_ARRIVED: 'V026_VendorArrived',
-  VENDOR_PRE_WASH_PHOTOS: 'V027_VendorPreWashPhotos',
-  VENDOR_WASH_EXECUTION: 'V028_VendorWashExecution',
-  VENDOR_POST_WASH_PHOTOS: 'V029_VendorPostWashPhotos',
-  VENDOR_PAYMENT_COLLECTION: 'V030_VendorPaymentCollection',
-  VENDOR_EARNINGS: 'V031_VendorEarnings',
-  VENDOR_PROFILE: 'V032_VendorProfile',
+  // SECTION 5: BOOKING REQUESTS (V024 - V027)
+  VENDOR_NEW_REQUEST: 'V024_VendorNewRequest',
+  VENDOR_REQUEST_DETAILS: 'V025_VendorRequestDetails',
+  VENDOR_BOOKING_ACCEPTED: 'V026_VendorBookingAccepted',
+  VENDOR_BOOKING_REJECTED: 'V027_VendorBookingRejected',
+
+  // SECTION 6: NAVIGATION & CUSTOMER ARRIVAL (V028 - V031)
+  VENDOR_NAVIGATE_CUSTOMER: 'V028_VendorNavigateCustomer',
+  VENDOR_ON_THE_WAY: 'V029_VendorOnTheWay',
+  VENDOR_ARRIVED: 'V030_VendorArrived',
+  VENDOR_UNABLE_TO_FIND: 'V031_VendorUnableToFind',
+
+  // SECTION 7: SERVICE START & BEFORE PHOTOS (V032 - V035)
+  VENDOR_START_VERIFICATION: 'V032_VendorStartVerification',
+  VENDOR_BEFORE_PHOTOS: 'V033_VendorBeforePhotos',
+  VENDOR_DAMAGE_NOTES: 'V034_VendorDamageNotes',
+  VENDOR_CUSTOMER_APPROVAL_START: 'V035_VendorCustomerApprovalStart',
+
+  // SECTION 8: WASH PROCESS (V036 - V039)
+  VENDOR_SERVICE_IN_PROGRESS: 'V036_VendorServiceInProgress',
+  VENDOR_ACTIVITY_UPDATE: 'V037_VendorActivityUpdate',
+  VENDOR_ADDON_CONFIRMATION: 'V038_VendorAddonConfirmation',
+  VENDOR_ISSUE_REPORT: 'V039_VendorIssueReport',
+
+  // SECTION 9: COMPLETION & AFTER PHOTOS (V040 - V044)
+  VENDOR_AFTER_PHOTOS: 'V040_VendorAfterPhotos',
+  VENDOR_BEFORE_AFTER_COMPARE: 'V041_VendorBeforeAfterCompare',
+  VENDOR_COMPLETION_SUMMARY: 'V042_VendorCompletionSummary',
+  VENDOR_CUSTOMER_APPROVAL_PENDING: 'V043_VendorCustomerApprovalPending',
+  VENDOR_SERVICE_COMPLETED: 'V044_VendorServiceCompleted',
+
+  // REMAINING VENDOR SECTIONS
+  VENDOR_EARNINGS: 'V045_VendorEarnings',
+  VENDOR_PROFILE: 'V046_VendorProfile',
 } as const;
 
 export type RouteNames = typeof Routes[keyof typeof Routes];
