@@ -8,6 +8,7 @@ export type RootStackParamList = {
   [Routes.VENDOR_LOGIN]: undefined;
   [Routes.VENDOR_OTP_VERIFY]: { phoneNumber: string };
   [Routes.VENDOR_PROFILE_SETUP]: undefined;
+  [Routes.VENDOR_TYPE_SELECTION]: undefined;
   [Routes.VENDOR_KYC_DOCUMENTS]: undefined;
   [Routes.VENDOR_DASHBOARD]: undefined;
   [Routes.VENDOR_LIVE_REQUEST]: { jobId: string };

@@ -7,7 +7,8 @@ export const Routes = {
   VENDOR_LOGIN: 'V005_VendorLogin',
   VENDOR_OTP_VERIFY: 'V006_VendorOtpVerify',
   VENDOR_PROFILE_SETUP: 'V007_VendorProfileSetup',
-  VENDOR_KYC_DOCUMENTS: 'V008_VendorKycDocuments',
+  VENDOR_TYPE_SELECTION: 'V008_VendorTypeSelection',
+  VENDOR_KYC_DOCUMENTS: 'V009_VendorKycDocuments',
 
   // VENDOR DASHBOARD & JOBS
   VENDOR_DASHBOARD: 'V009_VendorDashboard',

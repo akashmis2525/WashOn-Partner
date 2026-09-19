@@ -100,8 +100,8 @@ export const VendorProfileSetupScreen: React.FC = () => {
 
   const handleContinue = () => {
     if (!validate()) return;
-    // Navigate to Screen V008: Vendor KYC Documents
-    navigation.navigate(Routes.VENDOR_KYC_DOCUMENTS as never);
+    // Navigate to Screen V008: Vendor Type Selection
+    navigation.navigate(Routes.VENDOR_TYPE_SELECTION as never);
   };
 
   return (
