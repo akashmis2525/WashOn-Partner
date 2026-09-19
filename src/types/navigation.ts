@@ -56,7 +56,14 @@ export type RootStackParamList = {
   [Routes.VENDOR_CUSTOMER_APPROVAL_PENDING]: { bookingId?: string } | undefined;
   [Routes.VENDOR_SERVICE_COMPLETED]: { bookingId?: string } | undefined;
 
+  // SECTION 10: EARNINGS & PAYMENTS (V045 - V050)
+  [Routes.VENDOR_EARNINGS_DASHBOARD]: undefined;
+  [Routes.VENDOR_EARNINGS_BREAKDOWN]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_PAYMENT_STATUS]: { bookingId?: string; status?: string } | undefined;
+  [Routes.VENDOR_BANK_DETAILS]: undefined;
+  [Routes.VENDOR_WITHDRAWAL]: undefined;
+  [Routes.VENDOR_TRANSACTION_HISTORY]: undefined;
+
   // REMAINING VENDOR SECTIONS
-  [Routes.VENDOR_EARNINGS]: undefined;
   [Routes.VENDOR_PROFILE]: undefined;
 };

@@ -59,9 +59,17 @@ export const Routes = {
   VENDOR_CUSTOMER_APPROVAL_PENDING: 'V043_VendorCustomerApprovalPending',
   VENDOR_SERVICE_COMPLETED: 'V044_VendorServiceCompleted',
 
+  // SECTION 10: EARNINGS & PAYMENTS (V045 - V050)
+  VENDOR_EARNINGS_DASHBOARD: 'V045_VendorEarningsDashboard',
+  VENDOR_EARNINGS: 'V045_VendorEarningsDashboard',
+  VENDOR_EARNINGS_BREAKDOWN: 'V046_VendorEarningsBreakdown',
+  VENDOR_PAYMENT_STATUS: 'V047_VendorPaymentStatus',
+  VENDOR_BANK_DETAILS: 'V048_VendorBankDetails',
+  VENDOR_WITHDRAWAL: 'V049_VendorWithdrawal',
+  VENDOR_TRANSACTION_HISTORY: 'V050_VendorTransactionHistory',
+
   // REMAINING VENDOR SECTIONS
-  VENDOR_EARNINGS: 'V045_VendorEarnings',
-  VENDOR_PROFILE: 'V046_VendorProfile',
+  VENDOR_PROFILE: 'V051_VendorProfile',
 } as const;
 
 export type RouteNames = typeof Routes[keyof typeof Routes];

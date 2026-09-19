@@ -65,6 +65,14 @@ import { VendorCompletionSummaryScreen } from '../screens/vendor/VendorCompletio
 import { VendorCustomerApprovalPendingScreen } from '../screens/vendor/VendorCustomerApprovalPendingScreen';
 import { VendorServiceCompletedScreen } from '../screens/vendor/VendorServiceCompletedScreen';
 
+// Section 10: Earnings & Payments
+import { VendorEarningsDashboardScreen } from '../screens/vendor/VendorEarningsDashboardScreen';
+import { VendorEarningsBreakdownScreen } from '../screens/vendor/VendorEarningsBreakdownScreen';
+import { VendorPaymentStatusScreen } from '../screens/vendor/VendorPaymentStatusScreen';
+import { VendorBankDetailsScreen } from '../screens/vendor/VendorBankDetailsScreen';
+import { VendorWithdrawalScreen } from '../screens/vendor/VendorWithdrawalScreen';
+import { VendorTransactionHistoryScreen } from '../screens/vendor/VendorTransactionHistoryScreen';
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootNavigator: React.FC = () => {
@@ -138,6 +146,14 @@ export const RootNavigator: React.FC = () => {
       <Stack.Screen name={Routes.VENDOR_COMPLETION_SUMMARY} component={VendorCompletionSummaryScreen} />
       <Stack.Screen name={Routes.VENDOR_CUSTOMER_APPROVAL_PENDING} component={VendorCustomerApprovalPendingScreen} />
       <Stack.Screen name={Routes.VENDOR_SERVICE_COMPLETED} component={VendorServiceCompletedScreen} />
+
+      {/* Section 10: Earnings & Payments */}
+      <Stack.Screen name={Routes.VENDOR_EARNINGS_DASHBOARD} component={VendorEarningsDashboardScreen} />
+      <Stack.Screen name={Routes.VENDOR_EARNINGS_BREAKDOWN} component={VendorEarningsBreakdownScreen} />
+      <Stack.Screen name={Routes.VENDOR_PAYMENT_STATUS} component={VendorPaymentStatusScreen} />
+      <Stack.Screen name={Routes.VENDOR_BANK_DETAILS} component={VendorBankDetailsScreen} />
+      <Stack.Screen name={Routes.VENDOR_WITHDRAWAL} component={VendorWithdrawalScreen} />
+      <Stack.Screen name={Routes.VENDOR_TRANSACTION_HISTORY} component={VendorTransactionHistoryScreen} />
     </Stack.Navigator>
   );
 };
