@@ -10,6 +10,9 @@ import { VendorLoginScreen } from '../screens/vendor/VendorLoginScreen';
 import { VendorOtpVerificationScreen } from '../screens/vendor/VendorOtpVerificationScreen';
 import { VendorProfileSetupScreen } from '../screens/vendor/VendorProfileSetupScreen';
 import { VendorTypeSelectionScreen } from '../screens/vendor/VendorTypeSelectionScreen';
+import { VendorKycVerifyScreen } from '../screens/vendor/VendorKycVerifyScreen';
+import { VendorVerificationPendingScreen } from '../screens/vendor/VendorVerificationPendingScreen';
+import { VendorVerificationApprovedScreen } from '../screens/vendor/VendorVerificationApprovedScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -31,6 +34,9 @@ export const RootNavigator: React.FC = () => {
       <Stack.Screen name={Routes.VENDOR_OTP_VERIFY} component={VendorOtpVerificationScreen} />
       <Stack.Screen name={Routes.VENDOR_PROFILE_SETUP} component={VendorProfileSetupScreen} />
       <Stack.Screen name={Routes.VENDOR_TYPE_SELECTION} component={VendorTypeSelectionScreen} />
+      <Stack.Screen name={Routes.VENDOR_KYC_VERIFY} component={VendorKycVerifyScreen} />
+      <Stack.Screen name={Routes.VENDOR_VERIFICATION_PENDING} component={VendorVerificationPendingScreen} />
+      <Stack.Screen name={Routes.VENDOR_VERIFICATION_APPROVED} component={VendorVerificationApprovedScreen} />
     </Stack.Navigator>
   );
 };

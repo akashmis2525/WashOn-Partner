@@ -77,8 +77,8 @@ export const VendorTypeSelectionScreen: React.FC = () => {
   const [selectedType, setSelectedType] = useState<string>('individual');
 
   const handleContinue = () => {
-    // Navigate to Screen V009: Vendor KYC Documents
-    navigation.navigate(Routes.VENDOR_KYC_DOCUMENTS as never);
+    // Navigate to Screen V009: Vendor KYC Verification
+    navigation.navigate(Routes.VENDOR_KYC_VERIFY as never);
   };
 
   return (
