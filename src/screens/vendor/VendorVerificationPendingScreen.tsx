@@ -87,11 +87,61 @@ export const VendorVerificationPendingScreen: React.FC = () => {
 
           <AppText style={styles.title}>Application Under Review</AppText>
           <AppText style={styles.subtitle}>
-            Your vendor documents have been securely received. Our onboarding team is reviewing your profile.
+            Your Document is Under Process
           </AppText>
         </View>
 
-        {/* APPLICATION STATUS CARD */}
+        {/* VERIFICATION PROGRESS TIMELINE FIRST */}
+        <View style={styles.timelineSection}>
+          <AppText style={styles.timelineSectionTitle}>
+            Verification Steps
+          </AppText>
+
+          {/* STEP 1: COMPLETED */}
+          <View style={styles.timelineItem}>
+            <View style={styles.timelineLeft}>
+              <View style={[styles.timelineDot, styles.timelineDotDone]}>
+                <CheckCircle2 size={16} color="#FFFFFF" />
+              </View>
+              <View style={[styles.timelineLine, styles.timelineLineDone]} />
+            </View>
+            <View style={styles.timelineContent}>
+              <AppText style={styles.stepTitle}>Details Submitted</AppText>
+            </View>
+          </View>
+
+          {/* STEP 2: IN PROGRESS */}
+          <View style={styles.timelineItem}>
+            <View style={styles.timelineLeft}>
+              <View style={[styles.timelineDot, styles.timelineDotActive]}>
+                <Hourglass size={14} color="#0F172A" />
+              </View>
+              <View style={styles.timelineLine} />
+            </View>
+            <View style={styles.timelineContent}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                <AppText style={styles.stepTitleActive}>Document Review</AppText>
+                <View style={styles.inReviewBadge}>
+                  <AppText style={styles.inReviewBadgeText}>IN PROGRESS</AppText>
+                </View>
+              </View>
+            </View>
+          </View>
+
+          {/* STEP 3: PENDING */}
+          <View style={styles.timelineItem}>
+            <View style={styles.timelineLeft}>
+              <View style={styles.timelineDot}>
+                <ShieldCheck size={14} color="#94A3B8" />
+              </View>
+            </View>
+            <View style={styles.timelineContent}>
+              <AppText style={styles.stepTitlePending}>Account Activation</AppText>
+            </View>
+          </View>
+        </View>
+
+        {/* APPLICATION STATUS SUMMARY CARD SECOND */}
         <View style={styles.statusCard}>
           <View style={styles.statusCardHeader}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
@@ -114,65 +164,6 @@ export const VendorVerificationPendingScreen: React.FC = () => {
           <View style={styles.summaryRow}>
             <AppText style={styles.summaryLabel}>Operating City</AppText>
             <AppText style={styles.summaryValue}>Indore (Madhya Pradesh)</AppText>
-          </View>
-        </View>
-
-        {/* VERIFICATION PROGRESS TIMELINE */}
-        <View style={styles.timelineSection}>
-          <AppText style={styles.timelineSectionTitle}>
-            Verification Steps
-          </AppText>
-
-          {/* STEP 1: COMPLETED */}
-          <View style={styles.timelineItem}>
-            <View style={styles.timelineLeft}>
-              <View style={[styles.timelineDot, styles.timelineDotDone]}>
-                <CheckCircle2 size={16} color="#FFFFFF" />
-              </View>
-              <View style={[styles.timelineLine, styles.timelineLineDone]} />
-            </View>
-            <View style={styles.timelineContent}>
-              <AppText style={styles.stepTitle}>Details Submitted</AppText>
-              <AppText style={styles.stepDesc}>
-                Personal profile, phone & government ID uploaded
-              </AppText>
-            </View>
-          </View>
-
-          {/* STEP 2: IN PROGRESS */}
-          <View style={styles.timelineItem}>
-            <View style={styles.timelineLeft}>
-              <View style={[styles.timelineDot, styles.timelineDotActive]}>
-                <Hourglass size={14} color="#0F172A" />
-              </View>
-              <View style={styles.timelineLine} />
-            </View>
-            <View style={styles.timelineContent}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                <AppText style={styles.stepTitleActive}>Document Review</AppText>
-                <View style={styles.inReviewBadge}>
-                  <AppText style={styles.inReviewBadgeText}>IN PROGRESS</AppText>
-                </View>
-              </View>
-              <AppText style={styles.stepDesc}>
-                Automated face matching & background verification
-              </AppText>
-            </View>
-          </View>
-
-          {/* STEP 3: PENDING */}
-          <View style={styles.timelineItem}>
-            <View style={styles.timelineLeft}>
-              <View style={styles.timelineDot}>
-                <ShieldCheck size={14} color="#94A3B8" />
-              </View>
-            </View>
-            <View style={styles.timelineContent}>
-              <AppText style={styles.stepTitlePending}>Account Activation</AppText>
-              <AppText style={styles.stepDesc}>
-                Start receiving wash bookings in your area
-              </AppText>
-            </View>
           </View>
         </View>
 

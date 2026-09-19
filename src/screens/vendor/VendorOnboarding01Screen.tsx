@@ -52,16 +52,14 @@ export const VendorOnboarding01Screen: React.FC = () => {
       {/* TOP HEADER */}
       <View style={styles.header}>
         {/* LOGO */}
-        <View style={styles.logoBox}>
-          <View style={styles.carMiniIcon}>
-            <View style={styles.carMiniRoof} />
-            <View style={styles.carMiniDrop} />
-          </View>
-          <View style={{ marginLeft: 6 }}>
-            <AppText style={styles.logoTitle}>
-              Wash<AppText style={styles.logoTitleYellow}>On</AppText>
-            </AppText>
-            <AppText style={styles.logoSubtitle}>VENDOR APP</AppText>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Image
+            source={require('../../assets/images/logo.jpg')}
+            style={{ width: 120, height: 38 }}
+            resizeMode="contain"
+          />
+          <View style={{ backgroundColor: '#FFC80A', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4, marginLeft: 6 }}>
+            <AppText style={{ fontSize: 10, fontWeight: '800', color: '#0F172A' }}>PARTNER</AppText>
           </View>
         </View>
 
@@ -81,10 +79,10 @@ export const VendorOnboarding01Screen: React.FC = () => {
       >
         {/* MAIN HEADINGS */}
         <View style={styles.headingSection}>
-          <AppText style={styles.headingBlack}>Turn Your Skill</AppText>
-          <AppText style={styles.headingYellow}>Into Earnings</AppText>
+          <AppText style={styles.headingBlack}>Get Nearby</AppText>
+          <AppText style={styles.headingYellow}>Wash Bookings</AppText>
           <AppText style={styles.description}>
-            Join WashOn and provide professional vehicle washing services at your customer's doorstep.
+            Join WashOn and provide vehicle washing services at doorstep.
           </AppText>
         </View>
 
@@ -111,31 +109,28 @@ export const VendorOnboarding01Screen: React.FC = () => {
 
         {/* 3 BENEFIT BADGES ROW */}
         <View style={styles.benefitsRow}>
-          {/* 1. FLEXIBLE WORKING */}
+          {/* 1. REAL TIME REQUESTS */}
           <View style={styles.benefitItem}>
             <View style={styles.benefitIconCircle}>
               <Calendar size={18} color="#0F172A" />
             </View>
-            <AppText style={styles.benefitTitle}>Flexible Working</AppText>
-            <AppText style={styles.benefitSub}>Work on your own schedule</AppText>
+            <AppText style={styles.benefitTitle}>Real Time Requests</AppText>
           </View>
 
-          {/* 2. EARN MORE */}
-          <View style={styles.benefitItem}>
-            <View style={styles.benefitIconCircle}>
-              <IndianRupee size={18} color="#0F172A" />
-            </View>
-            <AppText style={styles.benefitTitle}>Earn More</AppText>
-            <AppText style={styles.benefitSub}>Get regular bookings nearby</AppText>
-          </View>
-
-          {/* 3. DOORSTEP SERVICE */}
+          {/* 2. NEARBY CUSTOMERS */}
           <View style={styles.benefitItem}>
             <View style={styles.benefitIconCircle}>
               <MapPin size={18} color="#0F172A" />
             </View>
-            <AppText style={styles.benefitTitle}>Doorstep Service</AppText>
-            <AppText style={styles.benefitSub}>No shop needed. We bring customers to you.</AppText>
+            <AppText style={styles.benefitTitle}>Nearby Customers</AppText>
+          </View>
+
+          {/* 3. MORE EARNINGS */}
+          <View style={styles.benefitItem}>
+            <View style={styles.benefitIconCircle}>
+              <IndianRupee size={18} color="#0F172A" />
+            </View>
+            <AppText style={styles.benefitTitle}>More Earnings</AppText>
           </View>
         </View>
 

@@ -100,7 +100,7 @@ export const VendorVerificationApprovedScreen: React.FC = () => {
 
           <AppText style={styles.title}>You're Approved!</AppText>
           <AppText style={styles.subtitle}>
-            Welcome to the WashOn Partner Network. Your partner account is active and verified.
+            Your partner account is active and verified.
           </AppText>
         </View>
 
@@ -141,7 +141,7 @@ export const VendorVerificationApprovedScreen: React.FC = () => {
         {/* IMPORTANT SERVICE GUIDELINES */}
         <View style={styles.guidelinesSection}>
           <AppText style={styles.guidelinesTitle}>
-            Important Service Guidelines
+            Service Guidelines
           </AppText>
 
           <View style={styles.guidelinesList}>
@@ -152,9 +152,8 @@ export const VendorVerificationApprovedScreen: React.FC = () => {
                   <View style={styles.guidelineIconCircle}>
                     <IconComp size={20} color="#0F172A" />
                   </View>
-                  <View style={{ flex: 1 }}>
+                  <View style={{ flex: 1, justifyContent: 'center' }}>
                     <AppText style={styles.guidelineHeading}>{item.title}</AppText>
-                    <AppText style={styles.guidelineDesc}>{item.desc}</AppText>
                   </View>
                 </View>
               );

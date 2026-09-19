@@ -23,6 +23,7 @@ import {
   Clock,
   Star,
 } from 'lucide-react-native';
+import Svg, { Path } from 'react-native-svg';
 import { AppText } from '../../components/common/AppText';
 import { Typography } from '../../constants/typography';
 import { Routes } from '../../constants/routes';
@@ -35,11 +36,34 @@ type VendorLoginNavProp = NativeStackNavigationProp<
   typeof Routes.VENDOR_LOGIN
 >;
 
+// Official Google Multi-Color G Icon
+const GoogleIcon: React.FC<{ size?: number }> = ({ size = 20 }) => (
+  <Svg width={size} height={size} viewBox="0 0 48 48">
+    <Path
+      fill="#EA4335"
+      d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
+    />
+    <Path
+      fill="#4285F4"
+      d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"
+    />
+    <Path
+      fill="#FBBC05"
+      d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"
+    />
+    <Path
+      fill="#34A853"
+      d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"
+    />
+  </Svg>
+);
+
 export const VendorLoginScreen: React.FC = () => {
   const navigation = useNavigation<VendorLoginNavProp>();
   const [mobileNumber, setMobileNumber] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState<boolean>(false);
 
   const handlePhoneChange = (text: string) => {
     // Only numbers, max 10 digits
@@ -75,10 +99,12 @@ export const VendorLoginScreen: React.FC = () => {
   };
 
   const handleGoogleLogin = () => {
-    Alert.alert(
-      'Google Login',
-      'Signing in with your verified Google Partner account...'
-    );
+    setIsGoogleLoading(true);
+    setTimeout(() => {
+      setIsGoogleLoading(false);
+      // Simulated Google Partner authentication
+      navigation.navigate(Routes.VENDOR_PROFILE_SETUP as any);
+    }, 700);
   };
 
   const handleNeedHelp = () => {
@@ -133,26 +159,20 @@ export const VendorLoginScreen: React.FC = () => {
         >
           {/* BRANDING */}
           <View style={styles.brandSection}>
-            <View style={styles.logoIconContainer}>
-              <View style={styles.carBody}>
-                <View style={styles.carRoof} />
-                <View style={styles.carBubble1} />
-                <View style={styles.carBubble2} />
-                <View style={styles.carBubble3} />
-                <View style={styles.dropIcon}>
-                  <View style={styles.innerDrop} />
-                </View>
+            <View style={{ alignItems: 'center', marginBottom: 12 }}>
+              <Image
+                source={require('../../assets/images/logo.jpg')}
+                style={{ width: 140, height: 44 }}
+                resizeMode="contain"
+              />
+              <View style={{ backgroundColor: '#FFC80A', paddingHorizontal: 8, paddingVertical: 2, borderRadius: 4, marginTop: 4 }}>
+                <AppText style={{ fontSize: 10, fontWeight: '800', color: '#0F172A', letterSpacing: 0.5 }}>PARTNER APP</AppText>
               </View>
             </View>
 
-            <AppText style={styles.brandTitle}>
-              Wash<AppText style={styles.brandTitleYellow}>On</AppText>
-            </AppText>
-            <AppText style={styles.vendorAppBadge}>VENDOR APP</AppText>
-
-            <AppText style={styles.welcomeTitle}>Welcome Back!</AppText>
+            <AppText style={styles.welcomeTitle}>Welcome Partner!</AppText>
             <AppText style={styles.welcomeSubtitle}>
-              Login to your vendor account and start earning with WashOn.
+              Login to accept nearby vehicle wash bookings.
             </AppText>
           </View>
 
@@ -161,9 +181,9 @@ export const VendorLoginScreen: React.FC = () => {
             {/* LEFT NOTE */}
             <View style={styles.leftNoteBadge}>
               <AppText style={styles.leftNoteText}>Clean</AppText>
-              <AppText style={styles.leftNoteText}>Roads</AppText>
-              <AppText style={styles.leftNoteHighlight}>Brighter</AppText>
-              <AppText style={styles.leftNoteHighlight}>Tomorrows</AppText>
+              <AppText style={styles.leftNoteText}>Vehicles</AppText>
+              <AppText style={styles.leftNoteHighlight}>Higher</AppText>
+              <AppText style={styles.leftNoteHighlight}>Earnings</AppText>
             </View>
 
             {/* RIGHT BENEFITS CARD */}
@@ -184,7 +204,7 @@ export const VendorLoginScreen: React.FC = () => {
                 <View style={styles.benefitIconBg}>
                   <Star size={11} color="#0F172A" />
                 </View>
-                <AppText style={styles.benefitRowText}>Be Your Own Boss</AppText>
+                <AppText style={styles.benefitRowText}>Daily Payouts</AppText>
               </View>
             </View>
 
@@ -238,7 +258,7 @@ export const VendorLoginScreen: React.FC = () => {
               ]}
               onPress={handleContinue}
               activeOpacity={0.85}
-              disabled={isLoading}
+              disabled={isLoading || isGoogleLoading}
             >
               <AppText style={styles.continueButtonText}>
                 {isLoading ? 'Sending OTP...' : 'Continue'}
@@ -258,29 +278,27 @@ export const VendorLoginScreen: React.FC = () => {
               style={styles.googleButton}
               onPress={handleGoogleLogin}
               activeOpacity={0.75}
+              disabled={isLoading || isGoogleLoading}
             >
-              {/* GOOGLE 'G' ICON SIMULATED */}
-              <View style={styles.googleIconCircle}>
-                <AppText style={styles.googleIconLetter}>G</AppText>
+              <View style={{ marginRight: 10 }}>
+                <GoogleIcon size={20} />
               </View>
-              <AppText style={styles.googleButtonText}>Continue with Google</AppText>
+              <AppText style={styles.googleButtonText}>
+                {isGoogleLoading ? 'Connecting Google...' : 'Continue with Google'}
+              </AppText>
             </TouchableOpacity>
 
             {/* TERMS & PRIVACY */}
             <View style={styles.legalSection}>
               <AppText style={styles.legalText}>
-                By continuing, you agree to our{'\n'}
+                By continuing, you agree to WashOn Partner{' '}
                 <AppText style={styles.legalLink} onPress={handleTerms}>
-                  Terms of Service
+                  Terms
                 </AppText>{' '}
-                and{' '}
+                &{' '}
                 <AppText style={styles.legalLink} onPress={handlePrivacy}>
                   Privacy Policy
                 </AppText>
-              </AppText>
-
-              <AppText style={styles.footerTagline}>
-                CLEANER ROADS • BRIGHTER TOMORROW
               </AppText>
             </View>
           </View>

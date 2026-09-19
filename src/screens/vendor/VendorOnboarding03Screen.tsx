@@ -51,16 +51,14 @@ export const VendorOnboarding03Screen: React.FC = () => {
       {/* TOP HEADER */}
       <View style={styles.header}>
         {/* LOGO */}
-        <View style={styles.logoBox}>
-          <View style={styles.carMiniIcon}>
-            <View style={styles.carMiniRoof} />
-            <View style={styles.carMiniDrop} />
-          </View>
-          <View style={{ marginLeft: 6 }}>
-            <AppText style={styles.logoTitle}>
-              Wash<AppText style={styles.logoTitleYellow}>On</AppText>
-            </AppText>
-            <AppText style={styles.logoSubtitle}>VENDOR APP</AppText>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Image
+            source={require('../../assets/images/logo.jpg')}
+            style={{ width: 120, height: 38 }}
+            resizeMode="contain"
+          />
+          <View style={{ backgroundColor: '#FFC80A', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4, marginLeft: 6 }}>
+            <AppText style={{ fontSize: 10, fontWeight: '800', color: '#0F172A' }}>PARTNER</AppText>
           </View>
         </View>
 
@@ -80,11 +78,8 @@ export const VendorOnboarding03Screen: React.FC = () => {
       >
         {/* MAIN HEADINGS */}
         <View style={styles.headingSection}>
-          <AppText style={styles.headingBlack}>
-            Work. Earn. <AppText style={styles.headingYellow}>Grow.</AppText>
-          </AppText>
-          <AppText style={styles.description}>
-            Be your own boss, provide quality vehicle washing services and build a better future with WashOn.
+          <AppText style={[styles.headingBlack, { fontSize: 32, letterSpacing: -0.5 }]}>
+            Work. Earn. <AppText style={[styles.headingYellow, { fontSize: 32 }]}>Grow.</AppText>
           </AppText>
         </View>
 
@@ -133,7 +128,6 @@ export const VendorOnboarding03Screen: React.FC = () => {
               <Calendar size={18} color="#0F172A" />
             </View>
             <AppText style={styles.benefitTitle}>Flexible Schedule</AppText>
-            <AppText style={styles.benefitSub}>Work when you want, how you want.</AppText>
           </View>
 
           {/* 2. TRANSPARENT PAYMENT */}
@@ -142,7 +136,6 @@ export const VendorOnboarding03Screen: React.FC = () => {
               <IndianRupee size={18} color="#0F172A" />
             </View>
             <AppText style={styles.benefitTitle}>Transparent Payment</AppText>
-            <AppText style={styles.benefitSub}>Track your earnings clearly and securely.</AppText>
           </View>
 
           {/* 3. GROW YOUR BUSINESS */}
@@ -151,7 +144,6 @@ export const VendorOnboarding03Screen: React.FC = () => {
               <TrendingUp size={18} color="#0F172A" />
             </View>
             <AppText style={styles.benefitTitle}>Grow Your Business</AppText>
-            <AppText style={styles.benefitSub}>More bookings, more opportunities.</AppText>
           </View>
         </View>
 

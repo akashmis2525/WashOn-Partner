@@ -60,16 +60,14 @@ export const VendorOnboarding02Screen: React.FC = () => {
       {/* TOP HEADER */}
       <View style={styles.header}>
         {/* LOGO */}
-        <View style={styles.logoBox}>
-          <View style={styles.carMiniIcon}>
-            <View style={styles.carMiniRoof} />
-            <View style={styles.carMiniDrop} />
-          </View>
-          <View style={{ marginLeft: 6 }}>
-            <AppText style={styles.logoTitle}>
-              Wash<AppText style={styles.logoTitleYellow}>On</AppText>
-            </AppText>
-            <AppText style={styles.logoSubtitle}>VENDOR APP</AppText>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Image
+            source={require('../../assets/images/logo.jpg')}
+            style={{ width: 120, height: 38 }}
+            resizeMode="contain"
+          />
+          <View style={{ backgroundColor: '#FFC80A', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4, marginLeft: 6 }}>
+            <AppText style={{ fontSize: 10, fontWeight: '800', color: '#0F172A' }}>PARTNER</AppText>
           </View>
         </View>
 
@@ -215,7 +213,6 @@ export const VendorOnboarding02Screen: React.FC = () => {
               <Zap size={18} color="#0F172A" />
             </View>
             <AppText style={styles.benefitTitle}>Real-Time Requests</AppText>
-            <AppText style={styles.benefitSub}>Get instant booking notifications.</AppText>
           </View>
 
           {/* 2. NEARBY CUSTOMERS */}
@@ -224,7 +221,6 @@ export const VendorOnboarding02Screen: React.FC = () => {
               <MapPin size={18} color="#0F172A" />
             </View>
             <AppText style={styles.benefitTitle}>Nearby Customers</AppText>
-            <AppText style={styles.benefitSub}>Find bookings around you.</AppText>
           </View>
 
           {/* 3. MORE EARNINGS */}
@@ -233,7 +229,6 @@ export const VendorOnboarding02Screen: React.FC = () => {
               <BarChart3 size={18} color="#0F172A" />
             </View>
             <AppText style={styles.benefitTitle}>More Earnings</AppText>
-            <AppText style={styles.benefitSub}>The more you work, the more you earn.</AppText>
           </View>
         </View>
 

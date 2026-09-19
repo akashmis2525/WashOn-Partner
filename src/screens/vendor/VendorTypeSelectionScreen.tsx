@@ -181,9 +181,6 @@ export const VendorTypeSelectionScreen: React.FC = () => {
                       </View>
                     ) : null}
                   </View>
-                  <AppText style={styles.optionSubtitle}>
-                    {item.subtitle}
-                  </AppText>
                 </View>
 
                 {/* SELECTION RADIO */}
