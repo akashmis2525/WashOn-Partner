@@ -18,6 +18,7 @@ import {
 } from 'lucide-react-native';
 import { Colors } from '../../constants/colors';
 import { Routes } from '../../constants/routes';
+import { VendorBottomNav } from '../../components/common/VendorBottomNav';
 
 export const VendorCustomerRatingsScreen = ({ navigation }: any) => {
   return (
@@ -141,6 +142,9 @@ export const VendorCustomerRatingsScreen = ({ navigation }: any) => {
           </TouchableOpacity>
         ))}
       </ScrollView>
+
+      {/* FOOTER TAB BAR */}
+      <VendorBottomNav activeTab="ratings" />
     </SafeAreaView>
   );
 };

@@ -148,7 +148,7 @@ export const VendorVehicleTypesScreen: React.FC = () => {
           </View>
           <AppText style={styles.title}>Vehicle Types Supported</AppText>
           <AppText style={styles.subtitle}>
-            Select the vehicle types your equipment and team are equipped to clean and detail.
+            Select vehicle types you service.
           </AppText>
         </View>
 

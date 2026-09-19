@@ -142,7 +142,7 @@ export const VendorEquipmentDetailsScreen: React.FC = () => {
           </View>
           <AppText style={styles.title}>Equipment Details</AppText>
           <AppText style={styles.subtitle}>
-            Select the tools you own. Equipment quality guarantees 5-star customer ratings and higher job allocations.
+            Select the equipment and tools you own.
           </AppText>
         </View>
 

@@ -86,7 +86,7 @@ export const VendorEquipmentVerifyScreen: React.FC = () => {
           </View>
           <AppText style={styles.title}>Equipment Verification</AppText>
           <AppText style={styles.subtitle}>
-            Your registered wash kit has been audited and approved for active customer bookings.
+            Your registered equipment has been verified.
           </AppText>
         </View>
 

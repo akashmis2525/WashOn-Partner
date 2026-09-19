@@ -22,6 +22,7 @@ import {
 } from 'lucide-react-native';
 import { Colors } from '../../constants/colors';
 import { Routes } from '../../constants/routes';
+import { VendorBottomNav } from '../../components/common/VendorBottomNav';
 
 type TimeFilter = 'today' | 'week' | 'month' | 'all';
 
@@ -265,6 +266,9 @@ export const VendorEarningsDashboardScreen = ({ navigation }: any) => {
           </TouchableOpacity>
         ))}
       </ScrollView>
+
+      {/* FOOTER TAB BAR */}
+      <VendorBottomNav activeTab="earnings" />
     </SafeAreaView>
   );
 };

@@ -34,6 +34,7 @@ import {
   Award,
 } from 'lucide-react-native';
 import { AppText } from '../../components/common/AppText';
+import { VendorBottomNav } from '../../components/common/VendorBottomNav';
 import { Typography } from '../../constants/typography';
 import { Routes } from '../../constants/routes';
 import { RootStackParamList } from '../../types/navigation';
@@ -150,8 +151,8 @@ export const VendorDashboardScreen: React.FC = () => {
               </AppText>
               <AppText style={styles.statusSub}>
                 {isOnline
-                  ? 'Accepting nearby doorstep wash requests'
-                  : 'Turn on to receive customer bookings'}
+                  ? 'Online • Ready for incoming jobs'
+                  : 'Offline • Tap switch to go online'}
               </AppText>
             </View>
           </View>
@@ -273,7 +274,7 @@ export const VendorDashboardScreen: React.FC = () => {
               <MapPin size={20} color="#0F172A" />
             </View>
             <AppText style={styles.quickTileTitle}>Service Area</AppText>
-            <AppText style={styles.quickTileSub}>10 km • 8 Areas</AppText>
+            <AppText style={styles.quickTileSub}>10 km radius</AppText>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -285,7 +286,7 @@ export const VendorDashboardScreen: React.FC = () => {
               <Wallet size={20} color="#0F172A" />
             </View>
             <AppText style={styles.quickTileTitle}>My Pricing</AppText>
-            <AppText style={styles.quickTileSub}>5 Wash Packages</AppText>
+            <AppText style={styles.quickTileSub}>5 Packages</AppText>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -297,7 +298,7 @@ export const VendorDashboardScreen: React.FC = () => {
               <Clock size={20} color="#0F172A" />
             </View>
             <AppText style={styles.quickTileTitle}>Working Slots</AppText>
-            <AppText style={styles.quickTileSub}>Mon - Sun Active</AppText>
+            <AppText style={styles.quickTileSub}>Mon - Sun</AppText>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -309,7 +310,7 @@ export const VendorDashboardScreen: React.FC = () => {
               <Radio size={20} color="#0F172A" />
             </View>
             <AppText style={styles.quickTileTitle}>Live Status</AppText>
-            <AppText style={styles.quickTileSub}>Online Dispatch</AppText>
+            <AppText style={styles.quickTileSub}>Live Radar</AppText>
           </TouchableOpacity>
         </View>
 
@@ -334,6 +335,9 @@ export const VendorDashboardScreen: React.FC = () => {
           </View>
         </View>
       </ScrollView>
+
+      {/* FOOTER TAB BAR */}
+      <VendorBottomNav activeTab="home" />
     </SafeAreaView>
   );
 };

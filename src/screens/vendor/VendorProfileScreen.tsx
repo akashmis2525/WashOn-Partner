@@ -24,6 +24,7 @@ import {
 } from 'lucide-react-native';
 import { Colors } from '../../constants/colors';
 import { Routes } from '../../constants/routes';
+import { VendorBottomNav } from '../../components/common/VendorBottomNav';
 
 export const VendorProfileScreen = ({ navigation }: any) => {
   return (
@@ -106,8 +107,8 @@ export const VendorProfileScreen = ({ navigation }: any) => {
             <Bike size={20} color="#2563EB" />
           </View>
           <View style={styles.menuTextWrap}>
-            <Text style={styles.menuTitle}>Serviced Vehicle Types</Text>
-            <Text style={styles.menuSub}>Bikes, Scooters, Hatchbacks, Sedans, SUVs</Text>
+            <Text style={styles.menuTitle}>Serviced Vehicles</Text>
+            <Text style={styles.menuSub}>Bikes, Sedans & SUVs</Text>
           </View>
           <ChevronRight size={18} color="#94A3B8" />
         </TouchableOpacity>
@@ -122,7 +123,7 @@ export const VendorProfileScreen = ({ navigation }: any) => {
           </View>
           <View style={styles.menuTextWrap}>
             <Text style={styles.menuTitle}>Equipment & Documents</Text>
-            <Text style={styles.menuSub}>High-pressure washer, Foam cannon, Aadhaar verified</Text>
+            <Text style={styles.menuSub}>Pressure kit • KYC Verified</Text>
           </View>
           <ChevronRight size={18} color="#94A3B8" />
         </TouchableOpacity>
@@ -136,12 +137,15 @@ export const VendorProfileScreen = ({ navigation }: any) => {
             <Award size={20} color="#7C3AED" />
           </View>
           <View style={styles.menuTextWrap}>
-            <Text style={styles.menuTitle}>Partner Account Health & Status</Text>
-            <Text style={styles.menuSub}>Active • Compliant • 0 Pending Flags</Text>
+            <Text style={styles.menuTitle}>Account Health & Status</Text>
+            <Text style={styles.menuSub}>Active • Verified</Text>
           </View>
           <ChevronRight size={18} color="#94A3B8" />
         </TouchableOpacity>
       </ScrollView>
+
+      {/* FOOTER TAB BAR */}
+      <VendorBottomNav activeTab="profile" />
     </SafeAreaView>
   );
 };

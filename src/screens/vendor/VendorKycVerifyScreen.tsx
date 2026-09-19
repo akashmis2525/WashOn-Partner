@@ -168,7 +168,7 @@ export const VendorKycVerifyScreen: React.FC = () => {
             </View>
             <AppText style={styles.title}>KYC Verification</AppText>
             <AppText style={styles.subtitle}>
-              Upload government ID and a live selfie to activate your WashOn partner wallet & job allocations.
+              Upload ID and a live selfie to activate your account.
             </AppText>
           </View>
 

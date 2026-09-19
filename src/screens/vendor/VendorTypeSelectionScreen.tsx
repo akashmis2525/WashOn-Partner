@@ -119,7 +119,7 @@ export const VendorTypeSelectionScreen: React.FC = () => {
           </View>
           <AppText style={styles.title}>Select Your Vendor Type</AppText>
           <AppText style={styles.subtitle}>
-            Choose the category that best describes your car wash service setup.
+            Select your service category setup.
           </AppText>
         </View>
 

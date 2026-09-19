@@ -147,7 +147,7 @@ export const VendorProfileSetupScreen: React.FC = () => {
             </View>
             <AppText style={styles.title}>Create Vendor Profile</AppText>
             <AppText style={styles.subtitle}>
-              Set up your partner account to start receiving nearby wash bookings.
+              Set up your profile to receive wash bookings.
             </AppText>
           </View>
 

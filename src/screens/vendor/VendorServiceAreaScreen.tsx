@@ -131,7 +131,7 @@ export const VendorServiceAreaScreen: React.FC = () => {
           </View>
           <AppText style={styles.title}>Service Area Setup</AppText>
           <AppText style={styles.subtitle}>
-            Select your base location, operating radius, and preferred servicing zones in your city.
+            Set your base location and service radius.
           </AppText>
         </View>
 
