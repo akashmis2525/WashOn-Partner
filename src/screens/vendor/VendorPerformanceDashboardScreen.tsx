@@ -33,8 +33,7 @@ export const VendorPerformanceDashboardScreen = ({ navigation }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Partner Performance</Text>
-          <Text style={styles.headerSubtitle}>Tier & Quality Analytics</Text>
+          <Text style={styles.headerTitle}>Performance</Text>
         </View>
         <View style={styles.tierBadge}>
           <Trophy size={14} color="#B45309" />

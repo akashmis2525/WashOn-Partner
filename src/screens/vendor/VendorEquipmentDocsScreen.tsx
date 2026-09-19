@@ -31,8 +31,7 @@ export const VendorEquipmentDocsScreen = ({ navigation }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Equipment & Documents</Text>
-          <Text style={styles.headerSubtitle}>KYC & Asset Verifications</Text>
+          <Text style={styles.headerTitle}>Equipment & KYC Docs</Text>
         </View>
       </View>
 

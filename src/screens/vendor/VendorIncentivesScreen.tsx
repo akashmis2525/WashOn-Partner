@@ -32,7 +32,6 @@ export const VendorIncentivesScreen = ({ navigation }: any) => {
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
           <Text style={styles.headerTitle}>Incentives & Bonuses</Text>
-          <Text style={styles.headerSubtitle}>Earn extra cash on daily targets</Text>
         </View>
       </View>
 

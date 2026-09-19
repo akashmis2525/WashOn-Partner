@@ -53,8 +53,7 @@ export const VendorSettingsScreen = ({ navigation }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>App Settings</Text>
-          <Text style={styles.headerSubtitle}>Preferences & Account Security</Text>
+          <Text style={styles.headerTitle}>Settings</Text>
         </View>
       </View>
 

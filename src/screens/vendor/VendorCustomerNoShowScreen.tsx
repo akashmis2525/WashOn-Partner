@@ -65,8 +65,7 @@ export const VendorCustomerNoShowScreen = ({ navigation }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Customer Unreachable</Text>
-          <Text style={styles.headerSubtitle}>No-Show Protocol</Text>
+          <Text style={styles.headerTitle}>Customer No-Show</Text>
         </View>
         <TouchableOpacity
           style={styles.supportBtn}

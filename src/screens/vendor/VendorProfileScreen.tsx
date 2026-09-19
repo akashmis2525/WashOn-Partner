@@ -37,8 +37,7 @@ export const VendorProfileScreen = ({ navigation }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Partner Profile</Text>
-          <Text style={styles.headerSubtitle}>Verified Professional Detailer</Text>
+          <Text style={styles.headerTitle}>My Profile</Text>
         </View>
         <TouchableOpacity
           style={styles.settingsBtn}

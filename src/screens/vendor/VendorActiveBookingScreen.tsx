@@ -37,8 +37,7 @@ export const VendorActiveBookingScreen = ({ navigation, route }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Active Booking</Text>
-          <Text style={styles.headerSubtitle}>Booking #{bookingId}</Text>
+          <Text style={styles.headerTitle}>Booking #{bookingId}</Text>
         </View>
         <View style={styles.liveBadge}>
           <View style={styles.liveDot} />

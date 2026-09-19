@@ -92,7 +92,6 @@ export const VendorWithdrawalScreen = ({ navigation }: any) => {
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
           <Text style={styles.headerTitle}>Withdrawal & Settlements</Text>
-          <Text style={styles.headerSubtitle}>Direct Wallet to Bank Transfer</Text>
         </View>
       </View>
 

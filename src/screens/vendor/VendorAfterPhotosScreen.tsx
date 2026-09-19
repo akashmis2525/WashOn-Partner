@@ -93,7 +93,6 @@ export const VendorAfterPhotosScreen = ({ navigation, route }: any) => {
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
           <Text style={styles.headerTitle}>After Wash Photos</Text>
-          <Text style={styles.headerSubtitle}>Booking ID: #{bookingId}</Text>
         </View>
         <View style={styles.stepBadge}>
           <Text style={styles.stepText}>Step 2/2</Text>
@@ -101,18 +100,6 @@ export const VendorAfterPhotosScreen = ({ navigation, route }: any) => {
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        {/* Info banner */}
-        <View style={styles.infoBanner}>
-          <View style={styles.infoIconWrap}>
-            <Sparkles size={22} color="#059669" />
-          </View>
-          <View style={styles.infoTextWrap}>
-            <Text style={styles.infoTitle}>Capture Cleaned Quality Proof</Text>
-            <Text style={styles.infoDesc}>
-              High quality photos show off your work and help secure fast customer approval & tips!
-            </Text>
-          </View>
-        </View>
 
         {/* Progress Bar */}
         <View style={styles.progressCard}>

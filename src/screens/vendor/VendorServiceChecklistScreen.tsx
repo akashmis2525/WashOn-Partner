@@ -49,8 +49,7 @@ export const VendorServiceChecklistScreen = ({ navigation }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Job Quality Checklist</Text>
-          <Text style={styles.headerSubtitle}>{completedCount} of {checklist.length} verified</Text>
+          <Text style={styles.headerTitle}>Quality Checklist</Text>
         </View>
       </View>
 

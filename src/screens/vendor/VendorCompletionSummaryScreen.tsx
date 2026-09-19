@@ -48,8 +48,7 @@ export const VendorCompletionSummaryScreen = ({ navigation, route }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Service Completion Summary</Text>
-          <Text style={styles.headerSubtitle}>Booking ID: #{bookingId}</Text>
+          <Text style={styles.headerTitle}>Job Summary (#{bookingId})</Text>
         </View>
       </View>
 

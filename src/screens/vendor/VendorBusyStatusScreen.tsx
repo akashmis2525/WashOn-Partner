@@ -30,8 +30,7 @@ export const VendorBusyStatusScreen = ({ navigation }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Partner Status: Busy on Job</Text>
-          <Text style={styles.headerSubtitle}>New requests temporarily paused</Text>
+          <Text style={styles.headerTitle}>Busy Status</Text>
         </View>
       </View>
 

@@ -62,8 +62,7 @@ export const VendorReworkRequestScreen = ({ navigation, route }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Rework / Revisit Request</Text>
-          <Text style={styles.headerSubtitle}>#{reworkId}</Text>
+          <Text style={styles.headerTitle}>Rework Request</Text>
         </View>
         <TouchableOpacity
           style={styles.supportBtn}

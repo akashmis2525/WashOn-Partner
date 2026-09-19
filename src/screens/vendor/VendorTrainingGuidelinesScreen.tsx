@@ -83,8 +83,7 @@ export const VendorTrainingGuidelinesScreen = ({ navigation }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Partner Training Manual</Text>
-          <Text style={styles.headerSubtitle}>SOP & Quality Best Practices</Text>
+          <Text style={styles.headerTitle}>Training & SOP</Text>
         </View>
       </View>
 

@@ -119,7 +119,6 @@ export const VendorUpcomingBookingsScreen = ({ navigation }: any) => {
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
           <Text style={styles.headerTitle}>Upcoming Bookings</Text>
-          <Text style={styles.headerSubtitle}>{bookings.length} scheduled washes</Text>
         </View>
       </View>
 

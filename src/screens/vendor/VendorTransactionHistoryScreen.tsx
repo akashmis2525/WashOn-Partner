@@ -157,7 +157,6 @@ export const VendorTransactionHistoryScreen = ({ navigation }: any) => {
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
           <Text style={styles.headerTitle}>Transaction History</Text>
-          <Text style={styles.headerSubtitle}>Partner Passbook & Wallet Ledger</Text>
         </View>
       </View>
 

@@ -139,7 +139,6 @@ export const VendorBookingHistoryScreen = ({ navigation }: any) => {
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
           <Text style={styles.headerTitle}>Booking History</Text>
-          <Text style={styles.headerSubtitle}>All past washes & statuses</Text>
         </View>
       </View>
 

@@ -62,8 +62,7 @@ export const VendorServiceAreasScreen = ({ navigation }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Operating Service Areas</Text>
-          <Text style={styles.headerSubtitle}>Radius & Localities</Text>
+          <Text style={styles.headerTitle}>Service Areas</Text>
         </View>
       </View>
 

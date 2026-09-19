@@ -109,18 +109,10 @@ export const VendorEarningsBreakdownScreen = ({ navigation }: any) => {
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
           <Text style={styles.headerTitle}>Earnings Breakdown</Text>
-          <Text style={styles.headerSubtitle}>Itemized Per-Booking Payouts</Text>
         </View>
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        {/* Info Box */}
-        <View style={styles.infoBox}>
-          <Receipt size={20} color="#0284C7" />
-          <Text style={styles.infoText}>
-            Transparent calculation: Net Earning = (Service + Add-ons + Travel) − Platform Fee − TDS/Tax.
-          </Text>
-        </View>
 
         {bookings.map(item => {
           const isExpanded = expandedId === item.id;

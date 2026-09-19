@@ -78,19 +78,11 @@ export const VendorSubscriptionPlansScreen = ({ navigation }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Partner Memberships & Plans</Text>
-          <Text style={styles.headerSubtitle}>Commission & priority options</Text>
+          <Text style={styles.headerTitle}>Partner Plans</Text>
         </View>
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        {/* Fair pricing notice */}
-        <View style={styles.noticeBox}>
-          <Shield size={20} color="#0284C7" />
-          <Text style={styles.noticeText}>
-            WashOn values its partners! The Starter plan is 100% free with no upfront fees. Upgrade anytime only when you want higher lead volumes.
-          </Text>
-        </View>
 
         {plans.map(p => (
           <TouchableOpacity

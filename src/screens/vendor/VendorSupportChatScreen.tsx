@@ -73,7 +73,7 @@ export const VendorSupportChatScreen = ({ navigation, route }: any) => {
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
           <Text style={styles.headerTitle}>Partner Ops Chat</Text>
-          <Text style={styles.headerSubtitle}>Booking #{bookingId} • Online</Text>
+          <Text style={styles.headerSubtitle}>Online</Text>
         </View>
         <TouchableOpacity
           style={styles.callBtn}

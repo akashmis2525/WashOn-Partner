@@ -36,8 +36,7 @@ export const VendorBookingDetailsScreen = ({ navigation, route }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Booking Details</Text>
-          <Text style={styles.headerSubtitle}>#{bookingId}</Text>
+          <Text style={styles.headerTitle}>Booking #{bookingId}</Text>
         </View>
         <TouchableOpacity
           style={styles.supportBtn}

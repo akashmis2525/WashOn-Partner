@@ -43,8 +43,7 @@ export const VendorCustomerReviewDetailsScreen = ({ navigation, route }: any) =>
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Review Details</Text>
-          <Text style={styles.headerSubtitle}>#{reviewId}</Text>
+          <Text style={styles.headerTitle}>Review #{reviewId}</Text>
         </View>
       </View>
 

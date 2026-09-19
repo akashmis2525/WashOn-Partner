@@ -40,8 +40,7 @@ export const VendorEditProfileScreen = ({ navigation }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Edit Partner Profile</Text>
-          <Text style={styles.headerSubtitle}>Personal & Bio details</Text>
+          <Text style={styles.headerTitle}>Edit Profile</Text>
         </View>
       </View>
 

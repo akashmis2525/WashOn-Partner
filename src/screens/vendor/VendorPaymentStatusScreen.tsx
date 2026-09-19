@@ -208,7 +208,6 @@ export const VendorPaymentStatusScreen = ({ navigation, route }: any) => {
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
           <Text style={styles.headerTitle}>Payment Status</Text>
-          <Text style={styles.headerSubtitle}>Real-time Collection & Settlements</Text>
         </View>
         <TouchableOpacity
           style={styles.supportBtn}

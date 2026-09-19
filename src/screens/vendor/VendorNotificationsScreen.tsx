@@ -90,8 +90,7 @@ export const VendorNotificationsScreen = ({ navigation }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Activity & Notifications</Text>
-          <Text style={styles.headerSubtitle}>Alerts & updates</Text>
+          <Text style={styles.headerTitle}>Notifications</Text>
         </View>
       </View>
 

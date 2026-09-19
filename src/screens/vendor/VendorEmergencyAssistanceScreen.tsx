@@ -55,8 +55,7 @@ export const VendorEmergencyAssistanceScreen = ({ navigation }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Emergency & Safety SOS</Text>
-          <Text style={styles.headerSubtitle}>Instant Partner Protection</Text>
+          <Text style={styles.headerTitle}>Emergency SOS</Text>
         </View>
       </View>
 

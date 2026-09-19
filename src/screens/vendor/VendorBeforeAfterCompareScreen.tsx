@@ -86,8 +86,7 @@ export const VendorBeforeAfterCompareScreen = ({ navigation, route }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Before & After Comparison</Text>
-          <Text style={styles.headerSubtitle}>Booking ID: #{bookingId}</Text>
+          <Text style={styles.headerTitle}>Before & After Proof</Text>
         </View>
         <View style={styles.badge}>
           <ShieldCheck size={16} color="#059669" />
@@ -122,7 +121,7 @@ export const VendorBeforeAfterCompareScreen = ({ navigation, route }: any) => {
           <Text
             style={[styles.tabText, activeTab === 'checklist' && styles.tabTextActive]}
           >
-            Quality Checklist ({checklist.filter(c => c.checked).length}/{checklist.length})
+            Checklist ({checklist.filter(c => c.checked).length}/{checklist.length})
           </Text>
         </TouchableOpacity>
       </View>
@@ -130,12 +129,6 @@ export const VendorBeforeAfterCompareScreen = ({ navigation, route }: any) => {
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         {activeTab === 'sideBySide' ? (
           <>
-            <View style={styles.infoBox}>
-              <Info size={20} color="#0284C7" />
-              <Text style={styles.infoText}>
-                Side-by-side view will be shared with <Text style={{ fontWeight: '700' }}>{customerName}</Text> for instant service approval.
-              </Text>
-            </View>
 
             {comparisons.map(item => (
               <View key={item.id} style={styles.compareCard}>

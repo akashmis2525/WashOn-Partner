@@ -103,8 +103,7 @@ export const VendorAccountStatusScreen = ({ navigation }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Partner Account Health</Text>
-          <Text style={styles.headerSubtitle}>Compliance & Verification</Text>
+          <Text style={styles.headerTitle}>Account Health</Text>
         </View>
         <TouchableOpacity
           style={styles.helpBtn}

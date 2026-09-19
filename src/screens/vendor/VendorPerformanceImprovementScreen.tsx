@@ -45,8 +45,7 @@ export const VendorPerformanceImprovementScreen = ({ navigation }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Performance Coaching</Text>
-          <Text style={styles.headerSubtitle}>Improvement Tips & Checklist</Text>
+          <Text style={styles.headerTitle}>Improvement Tips</Text>
         </View>
       </View>
 

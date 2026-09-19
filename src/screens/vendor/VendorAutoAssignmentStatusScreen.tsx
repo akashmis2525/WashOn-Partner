@@ -39,8 +39,7 @@ export const VendorAutoAssignmentStatusScreen = ({ navigation }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Smart Order Radar</Text>
-          <Text style={styles.headerSubtitle}>Auto-Assignment Engine</Text>
+          <Text style={styles.headerTitle}>Auto-Assignment</Text>
         </View>
       </View>
 

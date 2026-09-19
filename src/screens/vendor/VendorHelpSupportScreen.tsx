@@ -44,8 +44,7 @@ export const VendorHelpSupportScreen = ({ navigation }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Partner Help & Support</Text>
-          <Text style={styles.headerSubtitle}>24x7 Dedicated Partner Desk</Text>
+          <Text style={styles.headerTitle}>Help & Support</Text>
         </View>
       </View>
 

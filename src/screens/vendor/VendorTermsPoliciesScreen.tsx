@@ -62,7 +62,6 @@ export const VendorTermsPoliciesScreen = ({ navigation }: any) => {
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
           <Text style={styles.headerTitle}>Terms & Policies</Text>
-          <Text style={styles.headerSubtitle}>Partner Agreement & Guidelines</Text>
         </View>
       </View>
 

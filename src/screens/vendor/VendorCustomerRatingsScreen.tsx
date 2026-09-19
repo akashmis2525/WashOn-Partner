@@ -31,8 +31,7 @@ export const VendorCustomerRatingsScreen = ({ navigation }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Customer Ratings & Feedback</Text>
-          <Text style={styles.headerSubtitle}>Performance Scorecard</Text>
+          <Text style={styles.headerTitle}>Ratings & Feedback</Text>
         </View>
       </View>
 

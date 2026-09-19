@@ -75,22 +75,11 @@ export const VendorOffersScreen = ({ navigation }: any) => {
           <ArrowLeft size={22} color={Colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
-          <Text style={styles.headerTitle}>Marketing Campaigns & Offers</Text>
-          <Text style={styles.headerSubtitle}>Grow customer volume</Text>
+          <Text style={styles.headerTitle}>Offers & Campaigns</Text>
         </View>
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        {/* Info Box */}
-        <View style={styles.infoBanner}>
-          <Sparkles size={22} color="#059669" />
-          <View style={styles.infoTextWrap}>
-            <Text style={styles.infoTitle}>Platform Funded Discounts</Text>
-            <Text style={styles.infoDesc}>
-              Participating in campaigns boosts your visibility on customer search without cutting your base payout.
-            </Text>
-          </View>
-        </View>
 
         {campaigns.map(item => (
           <View key={item.id} style={styles.card}>

@@ -56,7 +56,6 @@ export const VendorBankDetailsScreen = ({ navigation }: any) => {
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
           <Text style={styles.headerTitle}>Bank & UPI Account</Text>
-          <Text style={styles.headerSubtitle}>Payout Deposit Settings</Text>
         </View>
         <TouchableOpacity
           style={styles.editHeaderBtn}

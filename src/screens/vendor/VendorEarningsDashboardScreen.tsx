@@ -73,7 +73,6 @@ export const VendorEarningsDashboardScreen = ({ navigation }: any) => {
         </TouchableOpacity>
         <View style={styles.headerTitleWrap}>
           <Text style={styles.headerTitle}>Earnings & Payments</Text>
-          <Text style={styles.headerSubtitle}>Financial Dashboard</Text>
         </View>
         <TouchableOpacity
           style={styles.bankBtn}
@@ -154,7 +153,7 @@ export const VendorEarningsDashboardScreen = ({ navigation }: any) => {
               onPress={() => navigation.navigate(Routes.VENDOR_WITHDRAWAL as any)}
             >
               <Wallet size={16} color="#0F172A" />
-              <Text style={styles.settleBtnText}>Withdraw / Settle ₹{current.amount}</Text>
+              <Text style={styles.settleBtnText}>Withdraw ₹{current.amount.toLocaleString()}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -169,7 +168,6 @@ export const VendorEarningsDashboardScreen = ({ navigation }: any) => {
               <TrendingUp size={22} color="#2563EB" />
             </View>
             <Text style={styles.menuTitle}>Order Breakdown</Text>
-            <Text style={styles.menuSub}>Detailed fare splits</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -180,7 +178,6 @@ export const VendorEarningsDashboardScreen = ({ navigation }: any) => {
               <CheckCircle2 size={22} color="#059669" />
             </View>
             <Text style={styles.menuTitle}>Payment Status</Text>
-            <Text style={styles.menuSub}>Cash & Online tracker</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -191,7 +188,6 @@ export const VendorEarningsDashboardScreen = ({ navigation }: any) => {
               <History size={22} color="#7C3AED" />
             </View>
             <Text style={styles.menuTitle}>Passbook History</Text>
-            <Text style={styles.menuSub}>Credits & debits log</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -202,7 +198,6 @@ export const VendorEarningsDashboardScreen = ({ navigation }: any) => {
               <Building2 size={22} color="#B45309" />
             </View>
             <Text style={styles.menuTitle}>Bank & UPI</Text>
-            <Text style={styles.menuSub}>Manage payout account</Text>
           </TouchableOpacity>
         </View>
 
