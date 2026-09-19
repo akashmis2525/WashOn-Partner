@@ -12,7 +12,15 @@ export type RootStackParamList = {
   [Routes.VENDOR_KYC_VERIFY]: undefined;
   [Routes.VENDOR_VERIFICATION_PENDING]: undefined;
   [Routes.VENDOR_VERIFICATION_APPROVED]: undefined;
-  [Routes.VENDOR_SERVICE_SETUP]: undefined;
+  [Routes.VENDOR_VERIFICATION_REJECTED]: undefined;
+  [Routes.VENDOR_SERVICE_AREA]: undefined;
+  [Routes.VENDOR_VEHICLE_TYPES]: undefined;
+  [Routes.VENDOR_EQUIPMENT_DETAILS]: undefined;
+  [Routes.VENDOR_EQUIPMENT_VERIFY]: undefined;
+  [Routes.VENDOR_SERVICES_OFFERED]: undefined;
+  [Routes.VENDOR_PRICING_SETUP]: undefined;
+  [Routes.VENDOR_WORKING_HOURS]: undefined;
+  [Routes.VENDOR_AVAILABILITY_SETUP]: undefined;
   [Routes.VENDOR_DASHBOARD]: undefined;
   [Routes.VENDOR_LIVE_REQUEST]: { jobId: string };
   [Routes.VENDOR_NAVIGATION_MAP]: { jobId: string };

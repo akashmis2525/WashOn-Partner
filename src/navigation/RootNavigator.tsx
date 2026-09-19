@@ -13,6 +13,15 @@ import { VendorTypeSelectionScreen } from '../screens/vendor/VendorTypeSelection
 import { VendorKycVerifyScreen } from '../screens/vendor/VendorKycVerifyScreen';
 import { VendorVerificationPendingScreen } from '../screens/vendor/VendorVerificationPendingScreen';
 import { VendorVerificationApprovedScreen } from '../screens/vendor/VendorVerificationApprovedScreen';
+import { VendorVerificationRejectedScreen } from '../screens/vendor/VendorVerificationRejectedScreen';
+import { VendorServiceAreaScreen } from '../screens/vendor/VendorServiceAreaScreen';
+import { VendorVehicleTypesScreen } from '../screens/vendor/VendorVehicleTypesScreen';
+import { VendorEquipmentDetailsScreen } from '../screens/vendor/VendorEquipmentDetailsScreen';
+import { VendorEquipmentVerifyScreen } from '../screens/vendor/VendorEquipmentVerifyScreen';
+import { VendorServicesOfferedScreen } from '../screens/vendor/VendorServicesOfferedScreen';
+import { VendorPricingSetupScreen } from '../screens/vendor/VendorPricingSetupScreen';
+import { VendorWorkingHoursScreen } from '../screens/vendor/VendorWorkingHoursScreen';
+import { VendorAvailabilitySetupScreen } from '../screens/vendor/VendorAvailabilitySetupScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -37,6 +46,15 @@ export const RootNavigator: React.FC = () => {
       <Stack.Screen name={Routes.VENDOR_KYC_VERIFY} component={VendorKycVerifyScreen} />
       <Stack.Screen name={Routes.VENDOR_VERIFICATION_PENDING} component={VendorVerificationPendingScreen} />
       <Stack.Screen name={Routes.VENDOR_VERIFICATION_APPROVED} component={VendorVerificationApprovedScreen} />
+      <Stack.Screen name={Routes.VENDOR_VERIFICATION_REJECTED} component={VendorVerificationRejectedScreen} />
+      <Stack.Screen name={Routes.VENDOR_SERVICE_AREA} component={VendorServiceAreaScreen} />
+      <Stack.Screen name={Routes.VENDOR_VEHICLE_TYPES} component={VendorVehicleTypesScreen} />
+      <Stack.Screen name={Routes.VENDOR_EQUIPMENT_DETAILS} component={VendorEquipmentDetailsScreen} />
+      <Stack.Screen name={Routes.VENDOR_EQUIPMENT_VERIFY} component={VendorEquipmentVerifyScreen} />
+      <Stack.Screen name={Routes.VENDOR_SERVICES_OFFERED} component={VendorServicesOfferedScreen} />
+      <Stack.Screen name={Routes.VENDOR_PRICING_SETUP} component={VendorPricingSetupScreen} />
+      <Stack.Screen name={Routes.VENDOR_WORKING_HOURS} component={VendorWorkingHoursScreen} />
+      <Stack.Screen name={Routes.VENDOR_AVAILABILITY_SETUP} component={VendorAvailabilitySetupScreen} />
     </Stack.Navigator>
   );
 };

@@ -65,8 +65,8 @@ export const VendorVerificationApprovedScreen: React.FC = () => {
   const navigation = useNavigation<NavProp>();
 
   const handleStartSetup = () => {
-    // Navigate to next section or Vendor Dashboard
-    navigation.navigate(Routes.VENDOR_DASHBOARD as never);
+    // Navigate to Section 3: Vendor Service Setup (Screen V013)
+    navigation.navigate(Routes.VENDOR_SERVICE_AREA as never);
   };
 
   return (
