@@ -22,6 +22,9 @@ import { VendorServicesOfferedScreen } from '../screens/vendor/VendorServicesOff
 import { VendorPricingSetupScreen } from '../screens/vendor/VendorPricingSetupScreen';
 import { VendorWorkingHoursScreen } from '../screens/vendor/VendorWorkingHoursScreen';
 import { VendorAvailabilitySetupScreen } from '../screens/vendor/VendorAvailabilitySetupScreen';
+import { VendorDashboardScreen } from '../screens/vendor/VendorDashboardScreen';
+import { VendorOnlineConfirmScreen } from '../screens/vendor/VendorOnlineConfirmScreen';
+import { VendorOfflineConfirmScreen } from '../screens/vendor/VendorOfflineConfirmScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -55,6 +58,9 @@ export const RootNavigator: React.FC = () => {
       <Stack.Screen name={Routes.VENDOR_PRICING_SETUP} component={VendorPricingSetupScreen} />
       <Stack.Screen name={Routes.VENDOR_WORKING_HOURS} component={VendorWorkingHoursScreen} />
       <Stack.Screen name={Routes.VENDOR_AVAILABILITY_SETUP} component={VendorAvailabilitySetupScreen} />
+      <Stack.Screen name={Routes.VENDOR_DASHBOARD} component={VendorDashboardScreen} />
+      <Stack.Screen name={Routes.VENDOR_ONLINE_CONFIRM} component={VendorOnlineConfirmScreen} />
+      <Stack.Screen name={Routes.VENDOR_OFFLINE_CONFIRM} component={VendorOfflineConfirmScreen} />
     </Stack.Navigator>
   );
 };

@@ -21,7 +21,9 @@ export type RootStackParamList = {
   [Routes.VENDOR_PRICING_SETUP]: undefined;
   [Routes.VENDOR_WORKING_HOURS]: undefined;
   [Routes.VENDOR_AVAILABILITY_SETUP]: undefined;
-  [Routes.VENDOR_DASHBOARD]: undefined;
+  [Routes.VENDOR_DASHBOARD]: { initialOnline?: boolean } | undefined;
+  [Routes.VENDOR_ONLINE_CONFIRM]: undefined;
+  [Routes.VENDOR_OFFLINE_CONFIRM]: { hasActiveBooking?: boolean } | undefined;
   [Routes.VENDOR_LIVE_REQUEST]: { jobId: string };
   [Routes.VENDOR_NAVIGATION_MAP]: { jobId: string };
   [Routes.VENDOR_ARRIVED]: { jobId: string };

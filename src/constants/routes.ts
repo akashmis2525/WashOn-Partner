@@ -23,17 +23,21 @@ export const Routes = {
   VENDOR_WORKING_HOURS: 'V019_VendorWorkingHours',
   VENDOR_AVAILABILITY_SETUP: 'V020_VendorAvailabilitySetup',
 
-  // VENDOR DASHBOARD & JOBS
+  // SECTION 4: VENDOR HOME DASHBOARD & ONLINE STATUS (V021 - V023)
   VENDOR_DASHBOARD: 'V021_VendorDashboard',
-  VENDOR_LIVE_REQUEST: 'V022_VendorLiveRequest',
-  VENDOR_NAVIGATION_MAP: 'V023_VendorNavigationMap',
-  VENDOR_ARRIVED: 'V024_VendorArrived',
-  VENDOR_PRE_WASH_PHOTOS: 'V025_VendorPreWashPhotos',
-  VENDOR_WASH_EXECUTION: 'V026_VendorWashExecution',
-  VENDOR_POST_WASH_PHOTOS: 'V027_VendorPostWashPhotos',
-  VENDOR_PAYMENT_COLLECTION: 'V028_VendorPaymentCollection',
-  VENDOR_EARNINGS: 'V029_VendorEarnings',
-  VENDOR_PROFILE: 'V030_VendorProfile',
+  VENDOR_ONLINE_CONFIRM: 'V022_VendorOnlineConfirm',
+  VENDOR_OFFLINE_CONFIRM: 'V023_VendorOfflineConfirm',
+
+  // VENDOR JOBS & EXECUTION (V024 - V032)
+  VENDOR_LIVE_REQUEST: 'V024_VendorLiveRequest',
+  VENDOR_NAVIGATION_MAP: 'V025_VendorNavigationMap',
+  VENDOR_ARRIVED: 'V026_VendorArrived',
+  VENDOR_PRE_WASH_PHOTOS: 'V027_VendorPreWashPhotos',
+  VENDOR_WASH_EXECUTION: 'V028_VendorWashExecution',
+  VENDOR_POST_WASH_PHOTOS: 'V029_VendorPostWashPhotos',
+  VENDOR_PAYMENT_COLLECTION: 'V030_VendorPaymentCollection',
+  VENDOR_EARNINGS: 'V031_VendorEarnings',
+  VENDOR_PROFILE: 'V032_VendorProfile',
 } as const;
 
 export type RouteNames = typeof Routes[keyof typeof Routes];
