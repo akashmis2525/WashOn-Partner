@@ -68,8 +68,43 @@ export const Routes = {
   VENDOR_WITHDRAWAL: 'V049_VendorWithdrawal',
   VENDOR_TRANSACTION_HISTORY: 'V050_VendorTransactionHistory',
 
-  // REMAINING VENDOR SECTIONS
-  VENDOR_PROFILE: 'V051_VendorProfile',
+  // SECTION 11: VENDOR BOOKINGS (V051 - V055)
+  VENDOR_UPCOMING_BOOKINGS: 'V051_VendorUpcomingBookings',
+  VENDOR_ACTIVE_BOOKING: 'V052_VendorActiveBooking',
+  VENDOR_BOOKING_HISTORY: 'V053_VendorBookingHistory',
+  VENDOR_BOOKING_DETAILS: 'V054_VendorBookingDetails',
+  VENDOR_REWORK_REQUEST: 'V055_VendorReworkRequest',
+
+  // SECTION 12: RATINGS & PERFORMANCE (V056 - V059)
+  VENDOR_CUSTOMER_RATINGS: 'V056_VendorCustomerRatings',
+  VENDOR_PERFORMANCE_DASHBOARD: 'V057_VendorPerformanceDashboard',
+  VENDOR_PERFORMANCE_IMPROVEMENT: 'V058_VendorPerformanceImprovement',
+  VENDOR_CUSTOMER_REVIEW_DETAILS: 'V059_VendorCustomerReviewDetails',
+
+  // SECTION 13: OFFERS, INCENTIVES & MEMBERSHIP (V060 - V062)
+  VENDOR_INCENTIVES: 'V060_VendorIncentives',
+  VENDOR_OFFERS: 'V061_VendorOffers',
+  VENDOR_SUBSCRIPTION_PLANS: 'V062_VendorSubscriptionPlans',
+
+  // SECTION 14: VENDOR PROFILE & SUPPORT (V063 - V071)
+  VENDOR_PROFILE: 'V063_VendorProfile',
+  VENDOR_EDIT_PROFILE: 'V064_VendorEditProfile',
+  VENDOR_SERVICE_AREAS: 'V065_VendorServiceAreas',
+  VENDOR_EQUIPMENT_DOCS: 'V066_VendorEquipmentDocs',
+  VENDOR_NOTIFICATIONS: 'V067_VendorNotifications',
+  VENDOR_HELP_SUPPORT: 'V068_VendorHelpSupport',
+  VENDOR_SUPPORT_CHAT: 'V069_VendorSupportChat',
+  VENDOR_TERMS_POLICIES: 'V070_VendorTermsPolicies',
+  VENDOR_SETTINGS: 'V071_VendorSettings',
+
+  // ADDITIONAL CRITICAL SCREENS (V072 - V078)
+  VENDOR_AUTO_ASSIGNMENT_STATUS: 'V072_VendorAutoAssignmentStatus',
+  VENDOR_BUSY_STATUS: 'V073_VendorBusyStatus',
+  VENDOR_CUSTOMER_NO_SHOW: 'V074_VendorCustomerNoShow',
+  VENDOR_EMERGENCY_ASSISTANCE: 'V075_VendorEmergencyAssistance',
+  VENDOR_TRAINING_GUIDELINES: 'V076_VendorTrainingGuidelines',
+  VENDOR_SERVICE_CHECKLIST: 'V077_VendorServiceChecklist',
+  VENDOR_ACCOUNT_STATUS: 'V078_VendorAccountStatus',
 } as const;
 
 export type RouteNames = typeof Routes[keyof typeof Routes];

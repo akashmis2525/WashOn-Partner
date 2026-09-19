@@ -64,6 +64,41 @@ export type RootStackParamList = {
   [Routes.VENDOR_WITHDRAWAL]: undefined;
   [Routes.VENDOR_TRANSACTION_HISTORY]: undefined;
 
-  // REMAINING VENDOR SECTIONS
+  // SECTION 11: VENDOR BOOKINGS (V051 - V055)
+  [Routes.VENDOR_UPCOMING_BOOKINGS]: undefined;
+  [Routes.VENDOR_ACTIVE_BOOKING]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_BOOKING_HISTORY]: { initialTab?: string } | undefined;
+  [Routes.VENDOR_BOOKING_DETAILS]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_REWORK_REQUEST]: { reworkId?: string } | undefined;
+
+  // SECTION 12: RATINGS & PERFORMANCE (V056 - V059)
+  [Routes.VENDOR_CUSTOMER_RATINGS]: undefined;
+  [Routes.VENDOR_PERFORMANCE_DASHBOARD]: undefined;
+  [Routes.VENDOR_PERFORMANCE_IMPROVEMENT]: undefined;
+  [Routes.VENDOR_CUSTOMER_REVIEW_DETAILS]: { reviewId?: string } | undefined;
+
+  // SECTION 13: OFFERS, INCENTIVES & MEMBERSHIP (V060 - V062)
+  [Routes.VENDOR_INCENTIVES]: undefined;
+  [Routes.VENDOR_OFFERS]: undefined;
+  [Routes.VENDOR_SUBSCRIPTION_PLANS]: undefined;
+
+  // SECTION 14: VENDOR PROFILE & SUPPORT (V063 - V071)
   [Routes.VENDOR_PROFILE]: undefined;
+  [Routes.VENDOR_EDIT_PROFILE]: undefined;
+  [Routes.VENDOR_SERVICE_AREAS]: undefined;
+  [Routes.VENDOR_EQUIPMENT_DOCS]: undefined;
+  [Routes.VENDOR_NOTIFICATIONS]: undefined;
+  [Routes.VENDOR_HELP_SUPPORT]: undefined;
+  [Routes.VENDOR_SUPPORT_CHAT]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_TERMS_POLICIES]: undefined;
+  [Routes.VENDOR_SETTINGS]: undefined;
+
+  // ADDITIONAL CRITICAL SCREENS (V072 - V078)
+  [Routes.VENDOR_AUTO_ASSIGNMENT_STATUS]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_BUSY_STATUS]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_CUSTOMER_NO_SHOW]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_EMERGENCY_ASSISTANCE]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_TRAINING_GUIDELINES]: undefined;
+  [Routes.VENDOR_SERVICE_CHECKLIST]: { bookingId?: string } | undefined;
+  [Routes.VENDOR_ACCOUNT_STATUS]: undefined;
 };

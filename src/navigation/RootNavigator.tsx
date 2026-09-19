@@ -73,6 +73,44 @@ import { VendorBankDetailsScreen } from '../screens/vendor/VendorBankDetailsScre
 import { VendorWithdrawalScreen } from '../screens/vendor/VendorWithdrawalScreen';
 import { VendorTransactionHistoryScreen } from '../screens/vendor/VendorTransactionHistoryScreen';
 
+// Section 11: Vendor Bookings
+import { VendorUpcomingBookingsScreen } from '../screens/vendor/VendorUpcomingBookingsScreen';
+import { VendorActiveBookingScreen } from '../screens/vendor/VendorActiveBookingScreen';
+import { VendorBookingHistoryScreen } from '../screens/vendor/VendorBookingHistoryScreen';
+import { VendorBookingDetailsScreen } from '../screens/vendor/VendorBookingDetailsScreen';
+import { VendorReworkRequestScreen } from '../screens/vendor/VendorReworkRequestScreen';
+
+// Section 12: Ratings & Performance
+import { VendorCustomerRatingsScreen } from '../screens/vendor/VendorCustomerRatingsScreen';
+import { VendorPerformanceDashboardScreen } from '../screens/vendor/VendorPerformanceDashboardScreen';
+import { VendorPerformanceImprovementScreen } from '../screens/vendor/VendorPerformanceImprovementScreen';
+import { VendorCustomerReviewDetailsScreen } from '../screens/vendor/VendorCustomerReviewDetailsScreen';
+
+// Section 13: Offers, Incentives & Membership
+import { VendorIncentivesScreen } from '../screens/vendor/VendorIncentivesScreen';
+import { VendorOffersScreen } from '../screens/vendor/VendorOffersScreen';
+import { VendorSubscriptionPlansScreen } from '../screens/vendor/VendorSubscriptionPlansScreen';
+
+// Section 14: Vendor Profile & Support
+import { VendorProfileScreen } from '../screens/vendor/VendorProfileScreen';
+import { VendorEditProfileScreen } from '../screens/vendor/VendorEditProfileScreen';
+import { VendorServiceAreasScreen } from '../screens/vendor/VendorServiceAreasScreen';
+import { VendorEquipmentDocsScreen } from '../screens/vendor/VendorEquipmentDocsScreen';
+import { VendorNotificationsScreen } from '../screens/vendor/VendorNotificationsScreen';
+import { VendorHelpSupportScreen } from '../screens/vendor/VendorHelpSupportScreen';
+import { VendorSupportChatScreen } from '../screens/vendor/VendorSupportChatScreen';
+import { VendorTermsPoliciesScreen } from '../screens/vendor/VendorTermsPoliciesScreen';
+import { VendorSettingsScreen } from '../screens/vendor/VendorSettingsScreen';
+
+// Additional Critical Screens
+import { VendorAutoAssignmentStatusScreen } from '../screens/vendor/VendorAutoAssignmentStatusScreen';
+import { VendorBusyStatusScreen } from '../screens/vendor/VendorBusyStatusScreen';
+import { VendorCustomerNoShowScreen } from '../screens/vendor/VendorCustomerNoShowScreen';
+import { VendorEmergencyAssistanceScreen } from '../screens/vendor/VendorEmergencyAssistanceScreen';
+import { VendorTrainingGuidelinesScreen } from '../screens/vendor/VendorTrainingGuidelinesScreen';
+import { VendorServiceChecklistScreen } from '../screens/vendor/VendorServiceChecklistScreen';
+import { VendorAccountStatusScreen } from '../screens/vendor/VendorAccountStatusScreen';
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootNavigator: React.FC = () => {
@@ -154,6 +192,44 @@ export const RootNavigator: React.FC = () => {
       <Stack.Screen name={Routes.VENDOR_BANK_DETAILS} component={VendorBankDetailsScreen} />
       <Stack.Screen name={Routes.VENDOR_WITHDRAWAL} component={VendorWithdrawalScreen} />
       <Stack.Screen name={Routes.VENDOR_TRANSACTION_HISTORY} component={VendorTransactionHistoryScreen} />
+
+      {/* Section 11: Vendor Bookings */}
+      <Stack.Screen name={Routes.VENDOR_UPCOMING_BOOKINGS} component={VendorUpcomingBookingsScreen} />
+      <Stack.Screen name={Routes.VENDOR_ACTIVE_BOOKING} component={VendorActiveBookingScreen} />
+      <Stack.Screen name={Routes.VENDOR_BOOKING_HISTORY} component={VendorBookingHistoryScreen} />
+      <Stack.Screen name={Routes.VENDOR_BOOKING_DETAILS} component={VendorBookingDetailsScreen} />
+      <Stack.Screen name={Routes.VENDOR_REWORK_REQUEST} component={VendorReworkRequestScreen} />
+
+      {/* Section 12: Ratings & Performance */}
+      <Stack.Screen name={Routes.VENDOR_CUSTOMER_RATINGS} component={VendorCustomerRatingsScreen} />
+      <Stack.Screen name={Routes.VENDOR_PERFORMANCE_DASHBOARD} component={VendorPerformanceDashboardScreen} />
+      <Stack.Screen name={Routes.VENDOR_PERFORMANCE_IMPROVEMENT} component={VendorPerformanceImprovementScreen} />
+      <Stack.Screen name={Routes.VENDOR_CUSTOMER_REVIEW_DETAILS} component={VendorCustomerReviewDetailsScreen} />
+
+      {/* Section 13: Offers, Incentives & Membership */}
+      <Stack.Screen name={Routes.VENDOR_INCENTIVES} component={VendorIncentivesScreen} />
+      <Stack.Screen name={Routes.VENDOR_OFFERS} component={VendorOffersScreen} />
+      <Stack.Screen name={Routes.VENDOR_SUBSCRIPTION_PLANS} component={VendorSubscriptionPlansScreen} />
+
+      {/* Section 14: Vendor Profile & Support */}
+      <Stack.Screen name={Routes.VENDOR_PROFILE} component={VendorProfileScreen} />
+      <Stack.Screen name={Routes.VENDOR_EDIT_PROFILE} component={VendorEditProfileScreen} />
+      <Stack.Screen name={Routes.VENDOR_SERVICE_AREAS} component={VendorServiceAreasScreen} />
+      <Stack.Screen name={Routes.VENDOR_EQUIPMENT_DOCS} component={VendorEquipmentDocsScreen} />
+      <Stack.Screen name={Routes.VENDOR_NOTIFICATIONS} component={VendorNotificationsScreen} />
+      <Stack.Screen name={Routes.VENDOR_HELP_SUPPORT} component={VendorHelpSupportScreen} />
+      <Stack.Screen name={Routes.VENDOR_SUPPORT_CHAT} component={VendorSupportChatScreen} />
+      <Stack.Screen name={Routes.VENDOR_TERMS_POLICIES} component={VendorTermsPoliciesScreen} />
+      <Stack.Screen name={Routes.VENDOR_SETTINGS} component={VendorSettingsScreen} />
+
+      {/* Additional Critical Screens */}
+      <Stack.Screen name={Routes.VENDOR_AUTO_ASSIGNMENT_STATUS} component={VendorAutoAssignmentStatusScreen} />
+      <Stack.Screen name={Routes.VENDOR_BUSY_STATUS} component={VendorBusyStatusScreen} />
+      <Stack.Screen name={Routes.VENDOR_CUSTOMER_NO_SHOW} component={VendorCustomerNoShowScreen} />
+      <Stack.Screen name={Routes.VENDOR_EMERGENCY_ASSISTANCE} component={VendorEmergencyAssistanceScreen} />
+      <Stack.Screen name={Routes.VENDOR_TRAINING_GUIDELINES} component={VendorTrainingGuidelinesScreen} />
+      <Stack.Screen name={Routes.VENDOR_SERVICE_CHECKLIST} component={VendorServiceChecklistScreen} />
+      <Stack.Screen name={Routes.VENDOR_ACCOUNT_STATUS} component={VendorAccountStatusScreen} />
     </Stack.Navigator>
   );
 };
