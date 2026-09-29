@@ -40,8 +40,8 @@ export const VendorBookingAcceptedScreen: React.FC = () => {
   const navigation = useNavigation<NavProp>();
 
   const handleStartTravel = () => {
-    // Navigate to Section 6: Screen V028 Navigate to Customer
-    navigation.navigate(Routes.VENDOR_NAVIGATE_CUSTOMER as any, {
+    // Navigate to Rapido-Style Active Work Mode Console
+    navigation.navigate(Routes.VENDOR_ACTIVE_BOOKING as any, {
       bookingId: 'WASH-JOB-9842',
     });
   };

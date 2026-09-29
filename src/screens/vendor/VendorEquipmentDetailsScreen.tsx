@@ -8,6 +8,7 @@ import {
   Dimensions,
   Image,
   Alert,
+  Text,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -23,13 +24,12 @@ import {
   Info,
   Sparkles,
   Zap,
+  RefreshCw,
 } from 'lucide-react-native';
-import { AppText } from '../../components/common/AppText';
-import { Typography } from '../../constants/typography';
 import { Routes } from '../../constants/routes';
 import { RootStackParamList } from '../../types/navigation';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 type NavProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -75,7 +75,7 @@ export const VendorEquipmentDetailsScreen: React.FC = () => {
   };
 
   const handleUploadPhoto = () => {
-    Alert.alert('Upload Equipment Photo', 'Take a photo of your washing kit & machine setup', [
+    Alert.alert('Upload Equipment Photo', 'Take a live photo of your washing machines & kit', [
       {
         text: 'Take Photo',
         onPress: () =>
@@ -88,7 +88,6 @@ export const VendorEquipmentDetailsScreen: React.FC = () => {
   };
 
   const handleContinue = () => {
-    // Check required
     const missingRequired = EQUIPMENT_LIST.filter(
       (e) => e.required && !selectedEquipments.includes(e.id)
     );
@@ -100,17 +99,13 @@ export const VendorEquipmentDetailsScreen: React.FC = () => {
       return;
     }
 
-    // Navigate to Screen V016: Equipment Verification
+    // Navigate to Screen V016: Equipment Verification Approved
     navigation.navigate(Routes.VENDOR_EQUIPMENT_VERIFY as never);
   };
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
-
-      {/* BOTTOM DECORATIVE YELLOW CURVES */}
-      <View style={styles.bottomLeftCurve} />
-      <View style={styles.bottomRightCurve} />
 
       {/* HEADER */}
       <View style={styles.header}>
@@ -122,8 +117,13 @@ export const VendorEquipmentDetailsScreen: React.FC = () => {
           <ArrowLeft size={20} color="#0F172A" />
         </TouchableOpacity>
 
+        <View style={styles.headerCenter}>
+          <Text style={styles.headerTitle}>Equipment Setup</Text>
+          <Text style={styles.headerSub}>Machine Checklist & Live Photo</Text>
+        </View>
+
         <View style={styles.stepBadge}>
-          <AppText style={styles.stepBadgeText}>SERVICE SETUP • 3/8</AppText>
+          <Text style={styles.stepBadgeText}>STEP 3/8</Text>
         </View>
       </View>
 
@@ -132,21 +132,9 @@ export const VendorEquipmentDetailsScreen: React.FC = () => {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* TITLE SECTION */}
-        <View style={styles.titleSection}>
-          <View style={styles.badgeRow}>
-            <View style={styles.miniIconBadge}>
-              <Wrench size={13} color="#0F172A" />
-            </View>
-            <AppText style={styles.badgeLabel}>HARDWARE & TOOLS</AppText>
-          </View>
-          <AppText style={styles.title}>Equipment Details</AppText>
-          <AppText style={styles.subtitle}>
-            Select the equipment and tools you own.
-          </AppText>
-        </View>
+        {/* SECTION 1: EQUIPMENT CHECKLIST */}
+        <Text style={styles.sectionHeading}>1. SELECT OWNED EQUIPMENT</Text>
 
-        {/* EQUIPMENT CHECKLIST */}
         <View style={styles.equipmentList}>
           {EQUIPMENT_LIST.map((item) => {
             const isSelected = selectedEquipments.includes(item.id);
@@ -154,89 +142,84 @@ export const VendorEquipmentDetailsScreen: React.FC = () => {
               <TouchableOpacity
                 key={item.id}
                 style={[
-                  styles.itemCard,
-                  isSelected && styles.itemCardSelected,
+                  styles.equipmentCard,
+                  isSelected && styles.equipmentCardSelected,
                 ]}
                 onPress={() => toggleEquipment(item.id)}
-                activeOpacity={0.88}
+                activeOpacity={0.8}
               >
-                <View style={styles.checkCol}>
-                  {isSelected ? (
-                    <CheckCircle2 size={20} color="#FFC80A" />
-                  ) : (
-                    <Circle size={20} color="#CBD5E1" />
-                  )}
-                </View>
+                <View style={styles.cardHeader}>
+                  <View style={styles.iconCircle}>
+                    <Wrench size={16} color={isSelected ? '#0F172A' : '#64748B'} />
+                  </View>
+                  <View style={{ flex: 1, marginLeft: 10 }}>
+                    <View style={styles.nameRow}>
+                      <Text style={[styles.equipmentName, isSelected && styles.equipmentNameSelected]}>
+                        {item.name}
+                      </Text>
+                      {item.required && (
+                        <View style={styles.requiredBadge}>
+                          <Text style={styles.requiredBadgeText}>MANDATORY</Text>
+                        </View>
+                      )}
+                    </View>
+                    <Text style={styles.specText}>{item.spec}</Text>
+                  </View>
 
-                <View style={{ flex: 1 }}>
-                  <View style={styles.titleRow}>
-                    <AppText
-                      style={[
-                        styles.itemName,
-                        isSelected && styles.itemNameSelected,
-                      ]}
-                    >
-                      {item.name}
-                    </AppText>
-                    {item.required && (
-                      <View style={styles.requiredPill}>
-                        <AppText style={styles.requiredPillText}>MANDATORY</AppText>
-                      </View>
+                  <View
+                    style={[
+                      styles.checkCircle,
+                      isSelected && styles.checkCircleSelected,
+                    ]}
+                  >
+                    {isSelected ? (
+                      <CheckCircle2 size={20} color="#0F172A" />
+                    ) : (
+                      <Circle size={20} color="#CBD5E1" />
                     )}
                   </View>
-                  <AppText style={styles.itemSpec}>{item.spec}</AppText>
                 </View>
               </TouchableOpacity>
             );
           })}
         </View>
 
-        {/* PHOTO UPLOAD CARD */}
-        <View style={styles.photoUploadSection}>
-          <AppText style={styles.photoUploadTitle}>
-            Equipment Photo Verification
-          </AppText>
-          <TouchableOpacity
-            style={styles.photoUploadBox}
-            onPress={handleUploadPhoto}
-            activeOpacity={0.85}
-          >
-            {photoUri ? (
-              <View style={styles.photoPreviewWrap}>
-                <Image source={{ uri: photoUri }} style={styles.previewImage} />
-                <View style={styles.photoOverlayBadge}>
-                  <Camera size={14} color="#FFFFFF" />
-                  <AppText style={styles.photoOverlayText}>Change Photo</AppText>
-                </View>
+        {/* SECTION 2: LIVE EQUIPMENT PHOTO AUDIT */}
+        <Text style={styles.sectionHeading}>2. EQUIPMENT LIVE PHOTO AUDIT</Text>
+        <View style={styles.photoUploadCard}>
+          {photoUri ? (
+            <View style={styles.photoPreviewWrapper}>
+              <Image source={{ uri: photoUri }} style={styles.previewImage} />
+              <View style={styles.verifiedTag}>
+                <CheckCircle2 size={13} color="#059669" />
+                <Text style={styles.verifiedTagText}>Photo Attached</Text>
               </View>
-            ) : (
-              <View style={styles.photoPlaceholder}>
-                <View style={styles.cameraCircle}>
-                  <Camera size={22} color="#0F172A" />
-                </View>
-                <AppText style={styles.photoPromptTitle}>
-                  Upload Kit Photo
-                </AppText>
-                <AppText style={styles.photoPromptSub}>
-                  Take a clear photo showing your pressure washer, vacuum, and chemicals
-                </AppText>
+              <TouchableOpacity style={styles.retakeBtn} onPress={handleUploadPhoto}>
+                <RefreshCw size={12} color="#0F172A" />
+                <Text style={styles.retakeBtnText}>Retake Photo</Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <TouchableOpacity style={styles.uploadBox} onPress={handleUploadPhoto}>
+              <View style={styles.cameraIconBg}>
+                <Camera size={22} color="#0F172A" />
               </View>
-            )}
-          </TouchableOpacity>
+              <Text style={styles.uploadBoxTitle}>Take Photo of Your Wash Kit</Text>
+              <Text style={styles.uploadBoxSub}>
+                Include pressure washer, foam gun, and vacuum cleaner in 1 clear photo.
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
-
-        {/* CONTINUE BUTTON */}
-        <TouchableOpacity
-          style={styles.continueButton}
-          onPress={handleContinue}
-          activeOpacity={0.85}
-        >
-          <AppText style={styles.continueButtonText}>
-            Save & Verify Equipment ({selectedEquipments.length} Selected)
-          </AppText>
-          <ArrowRight size={20} color="#0F172A" />
-        </TouchableOpacity>
       </ScrollView>
+
+      {/* BOTTOM ACTION */}
+      <View style={styles.bottomBar}>
+        <TouchableOpacity style={styles.submitButton} onPress={handleContinue}>
+          <Text style={styles.submitButtonText}>SAVE & VERIFY EQUIPMENT</Text>
+          <ArrowRight size={18} color="#0F172A" />
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -244,248 +227,225 @@ export const VendorEquipmentDetailsScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
-    position: 'relative',
-  },
-  bottomLeftCurve: {
-    position: 'absolute',
-    bottom: -height * 0.08,
-    left: -width * 0.2,
-    width: width * 0.55,
-    height: width * 0.55,
-    borderRadius: (width * 0.55) / 2,
-    backgroundColor: '#FFC80A',
-    opacity: 0.95,
-  },
-  bottomRightCurve: {
-    position: 'absolute',
-    bottom: -height * 0.1,
-    right: -width * 0.25,
-    width: width * 0.7,
-    height: width * 0.7,
-    borderRadius: (width * 0.7) / 2,
-    backgroundColor: '#FFC80A',
-    opacity: 0.95,
+    backgroundColor: '#F8FAFC',
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 8,
-    paddingBottom: 8,
-    zIndex: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    backgroundColor: '#FFFFFF',
+    borderBottomWidth: 1,
+    borderBottomColor: '#E2E8F0',
   },
   backButtonCircle: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: '#F8FAFC',
-    alignItems: 'center',
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    backgroundColor: '#F1F5F9',
     justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#F1F5F9',
+    alignItems: 'center',
+    marginRight: 10,
+  },
+  headerCenter: {
+    flex: 1,
+  },
+  headerTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#0F172A',
+  },
+  headerSub: {
+    fontSize: 11,
+    fontWeight: '400',
+    color: '#64748B',
   },
   stepBadge: {
-    backgroundColor: '#FEF3C7',
-    paddingHorizontal: 10,
+    backgroundColor: '#FFFBEB',
+    paddingHorizontal: 8,
     paddingVertical: 4,
-    borderRadius: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#FEF3C7',
   },
   stepBadgeText: {
-    fontSize: 10.5,
-    fontFamily: Typography.fontFamily.bold,
+    fontSize: 10,
+    fontWeight: '700',
     color: '#D97706',
-    letterSpacing: 0.5,
   },
   scrollView: {
     flex: 1,
-    zIndex: 5,
   },
   scrollContent: {
-    paddingHorizontal: 20,
-    paddingTop: 10,
-    paddingBottom: 40,
+    padding: 16,
+    paddingBottom: 28,
   },
-  titleSection: {
-    marginBottom: 16,
-  },
-  badgeRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FEF3C7',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 20,
-    alignSelf: 'flex-start',
-    marginBottom: 10,
-    gap: 6,
-  },
-  miniIconBadge: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    backgroundColor: '#FFC80A',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  badgeLabel: {
-    fontSize: 10,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#0F172A',
-    letterSpacing: 0.8,
-  },
-  title: {
-    fontSize: 24,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#0F172A',
-    marginBottom: 6,
-  },
-  subtitle: {
-    fontSize: 13,
-    fontFamily: Typography.fontFamily.regular,
+  sectionHeading: {
+    fontSize: 11,
+    fontWeight: '700',
     color: '#64748B',
-    lineHeight: 18,
+    marginBottom: 8,
+    marginTop: 10,
+    letterSpacing: 0.5,
   },
   equipmentList: {
-    gap: 10,
-    marginBottom: 20,
+    gap: 8,
+    marginBottom: 16,
   },
-  itemCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  equipmentCard: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 14,
-    padding: 13,
+    borderRadius: 12,
+    padding: 12,
     borderWidth: 1.5,
     borderColor: '#E2E8F0',
   },
-  itemCardSelected: {
+  equipmentCardSelected: {
     borderColor: '#FFC80A',
-    backgroundColor: '#FFFDF5',
+    backgroundColor: '#FFFBEB',
   },
-  checkCol: {
-    marginRight: 12,
+  cardHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  titleRow: {
+  iconCircle: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#F1F5F9',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  nameRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    marginBottom: 2,
   },
-  itemName: {
-    fontSize: 13.5,
-    fontFamily: Typography.fontFamily.semiBold,
-    color: '#334155',
-  },
-  itemNameSelected: {
-    fontFamily: Typography.fontFamily.bold,
+  equipmentName: {
+    fontSize: 13,
+    fontWeight: '700',
     color: '#0F172A',
   },
-  requiredPill: {
-    backgroundColor: '#FEF3C7',
+  equipmentNameSelected: {
+    color: '#0F172A',
+  },
+  requiredBadge: {
+    backgroundColor: '#FEE2E2',
     paddingHorizontal: 6,
-    paddingVertical: 1.5,
+    paddingVertical: 2,
     borderRadius: 4,
   },
-  requiredPillText: {
-    fontSize: 9,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#D97706',
+  requiredBadgeText: {
+    fontSize: 8,
+    fontWeight: '700',
+    color: '#DC2626',
   },
-  itemSpec: {
-    fontSize: 11.5,
-    fontFamily: Typography.fontFamily.regular,
+  specText: {
+    fontSize: 11,
+    fontWeight: '400',
     color: '#64748B',
+    marginTop: 2,
   },
-  photoUploadSection: {
-    marginBottom: 24,
+  checkCircle: {
+    marginLeft: 8,
   },
-  photoUploadTitle: {
-    fontSize: 14,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#0F172A',
-    marginBottom: 10,
-  },
-  photoUploadBox: {
-    height: 130,
-    borderRadius: 16,
+  checkCircleSelected: {},
+  photoUploadCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 14,
+    padding: 14,
     borderWidth: 1.5,
-    borderColor: '#CBD5E1',
-    borderStyle: 'dashed',
-    backgroundColor: '#F8FAFC',
-    overflow: 'hidden',
+    borderColor: '#E2E8F0',
   },
-  photoPreviewWrap: {
-    width: '100%',
-    height: '100%',
+  photoPreviewWrapper: {
+    height: 150,
+    borderRadius: 10,
+    overflow: 'hidden',
     position: 'relative',
   },
   previewImage: {
     width: '100%',
     height: '100%',
   },
-  photoOverlayBadge: {
+  verifiedTag: {
+    position: 'absolute',
+    top: 8,
+    left: 8,
+    backgroundColor: '#ECFDF5',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 6,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  verifiedTagText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: '#059669',
+  },
+  retakeBtn: {
     position: 'absolute',
     bottom: 8,
     right: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'rgba(15, 23, 42, 0.8)',
+    backgroundColor: '#FFFFFF',
     paddingHorizontal: 10,
-    paddingVertical: 4,
+    paddingVertical: 6,
     borderRadius: 8,
-    gap: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    elevation: 2,
   },
-  photoOverlayText: {
+  retakeBtnText: {
     fontSize: 11,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#FFFFFF',
-  },
-  photoPlaceholder: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 14,
-  },
-  cameraCircle: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: '#FFC80A',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 6,
-  },
-  photoPromptTitle: {
-    fontSize: 13,
-    fontFamily: Typography.fontFamily.bold,
+    fontWeight: '700',
     color: '#0F172A',
   },
-  photoPromptSub: {
-    fontSize: 11,
-    fontFamily: Typography.fontFamily.regular,
-    color: '#64748B',
-    textAlign: 'center',
-    marginTop: 2,
+  uploadBox: {
+    alignItems: 'center',
+    paddingVertical: 18,
   },
-  continueButton: {
+  cameraIconBg: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: '#FFC80A',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  uploadBoxTitle: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#0F172A',
+  },
+  uploadBoxSub: {
+    fontSize: 11,
+    fontWeight: '400',
+    color: '#64748B',
+    marginTop: 2,
+    textAlign: 'center',
+  },
+  bottomBar: {
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderTopWidth: 1,
+    borderTopColor: '#E2E8F0',
+  },
+  submitButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#FFC80A',
-    borderRadius: 16,
-    paddingVertical: 15,
+    height: 50,
+    borderRadius: 12,
     gap: 8,
-    shadowColor: '#FFC80A',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 4,
   },
-  continueButtonText: {
+  submitButtonText: {
     fontSize: 14,
-    fontFamily: Typography.fontFamily.bold,
+    fontWeight: '700',
     color: '#0F172A',
+    letterSpacing: 0.5,
   },
 });

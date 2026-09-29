@@ -9,6 +9,7 @@ import {
   Alert,
   StatusBar,
   Dimensions,
+  Text,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
@@ -20,9 +21,10 @@ import {
   RotateCcw,
   Edit2,
   CheckCircle2,
+  Zap,
+  Sparkles,
+  Lock,
 } from 'lucide-react-native';
-import { AppText } from '../../components/common/AppText';
-import { Typography } from '../../constants/typography';
 import { Routes } from '../../constants/routes';
 import { RootStackParamList } from '../../types/navigation';
 
@@ -42,7 +44,7 @@ export const VendorOtpVerificationScreen: React.FC = () => {
   const navigation = useNavigation<VendorOtpNavProp>();
   const route = useRoute<VendorOtpRouteProp>();
 
-  const phoneNumber = route.params?.phoneNumber || '+91 81206 52523';
+  const phoneNumber = route.params?.phoneNumber || '+91 98260 12345';
 
   const [otp, setOtp] = useState<string[]>(['', '', '', '', '', '']);
   const [timer, setTimer] = useState<number>(30);
@@ -98,23 +100,24 @@ export const VendorOtpVerificationScreen: React.FC = () => {
     }
   };
 
+  const handleQuickFill = () => {
+    setOtp(['1', '2', '3', '4', '5', '6']);
+    setErrorMessage('');
+    inputRefs.current[5]?.focus();
+  };
+
   const handleVerify = () => {
-    const enteredOtp = otp.join('');
-    if (enteredOtp.length < 6) {
-      setErrorMessage('Please enter the full 6-digit OTP');
+    const enteredCode = otp.join('');
+    if (enteredCode.length !== 6) {
+      setErrorMessage('Please enter the complete 6-digit verification code');
       return;
     }
 
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      // Demo validation or API check
-      if (enteredOtp === '123456' || enteredOtp.length === 6) {
-        // Navigate to Screen V007: Vendor Profile Setup
-        navigation.navigate(Routes.VENDOR_PROFILE_SETUP as never);
-      } else {
-        setErrorMessage('Invalid OTP. Please check the code and try again.');
-      }
+      // Navigate to Screen V007: Vendor Profile Setup
+      navigation.navigate(Routes.VENDOR_PROFILE_SETUP as any);
     }, 600);
   };
 
@@ -124,28 +127,17 @@ export const VendorOtpVerificationScreen: React.FC = () => {
     setCanResend(false);
     setOtp(['', '', '', '', '', '']);
     setErrorMessage('');
+    Alert.alert('OTP Resent', `A new 6-digit code has been sent to ${phoneNumber}`);
     inputRefs.current[0]?.focus();
-    Alert.alert('OTP Sent', `A new 6-digit code has been sent to ${phoneNumber}`);
   };
 
-  const handleChangePhone = () => {
+  const handleEditPhone = () => {
     navigation.goBack();
-  };
-
-  const handleNeedHelp = () => {
-    Alert.alert(
-      'Partner Help',
-      'If you have not received the OTP SMS within 1 minute, please contact WashOn Partner Support at +91 81206 52523.'
-    );
   };
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
-
-      {/* BOTTOM DECORATIVE YELLOW CURVES */}
-      <View style={styles.bottomLeftCurve} />
-      <View style={styles.bottomRightCurve} />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -161,115 +153,112 @@ export const VendorOtpVerificationScreen: React.FC = () => {
             <ArrowLeft size={20} color="#0F172A" />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={handleNeedHelp}
-            hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
-          >
-            <AppText style={styles.needHelpText}>Need Help?</AppText>
-          </TouchableOpacity>
+          <View style={styles.badge}>
+            <Lock size={12} color="#059669" />
+            <Text style={styles.badgeText}>SMS VERIFICATION</Text>
+          </View>
         </View>
 
         <View style={styles.content}>
-          {/* BRAND BADGE */}
-          <View style={styles.brandBadge}>
-            <View style={styles.shieldCircle}>
-              <ShieldCheck size={20} color="#0F172A" />
+          {/* RAPIDO HIGH-IMPACT HEADINGS */}
+          <View style={styles.titleSection}>
+            <View style={styles.tagBadge}>
+              <Zap size={12} color="#0F172A" />
+              <Text style={styles.tagBadgeText}>STEP 2 OF 2</Text>
             </View>
-            <AppText style={styles.badgeText}>SECURE VERIFICATION</AppText>
+            <Text style={styles.mainTitle}>
+              Enter <Text style={styles.highlightYellow}>Verification Code</Text>
+            </Text>
+            
+            {/* PHONE NUMBER PILL */}
+            <View style={styles.phonePillRow}>
+              <Text style={styles.phoneLabel}>Sent to</Text>
+              <Text style={styles.phoneNumberText}>{phoneNumber}</Text>
+              <TouchableOpacity onPress={handleEditPhone} style={styles.editBtn}>
+                <Edit2 size={12} color="#D97706" />
+                <Text style={styles.editText}>Edit</Text>
+              </TouchableOpacity>
+            </View>
           </View>
 
-          {/* HEADINGS */}
-          <AppText style={styles.title}>Enter Verification Code</AppText>
-          <AppText style={styles.subtitle}>
-            We've sent a 6-digit SMS verification code to
-          </AppText>
+          {/* OTP INPUT BOXES */}
+          <View style={styles.otpCard}>
+            <View style={styles.otpInputsRow}>
+              {otp.map((digit, index) => {
+                const isFocused = otp.findIndex((d) => d === '') === index || (otp.every((d) => d !== '') && index === 5);
+                const hasValue = !!digit;
 
-          {/* PHONE ROW WITH CHANGE OPTION */}
-          <View style={styles.phoneContainer}>
-            <AppText style={styles.phoneNumberText}>{phoneNumber}</AppText>
+                return (
+                  <TextInput
+                    key={index}
+                    ref={(ref) => {
+                      inputRefs.current[index] = ref;
+                    }}
+                    style={[
+                      styles.otpBox,
+                      hasValue && styles.otpBoxFilled,
+                      isFocused && styles.otpBoxFocused,
+                      !!errorMessage && styles.otpBoxError,
+                    ]}
+                    keyboardType="number-pad"
+                    maxLength={1}
+                    value={digit}
+                    onChangeText={(val) => handleOtpChange(val, index)}
+                    onKeyPress={(e) => handleKeyPress(e, index)}
+                    autoFocus={index === 0}
+                    selectTextOnFocus
+                  />
+                );
+              })}
+            </View>
+
+            {/* ERROR MESSAGE */}
+            {errorMessage ? (
+              <Text style={styles.errorText}>{errorMessage}</Text>
+            ) : null}
+
+            {/* DEMO FILL BUTTON */}
+            <TouchableOpacity style={styles.demoFillBtn} onPress={handleQuickFill}>
+              <Zap size={13} color="#D97706" />
+              <Text style={styles.demoFillText}>Quick Demo Fill OTP: 123456</Text>
+            </TouchableOpacity>
+
+            {/* RESEND TIMER ROW */}
+            <View style={styles.resendRow}>
+              {canResend ? (
+                <TouchableOpacity onPress={handleResend} style={styles.resendButton}>
+                  <RotateCcw size={15} color="#0F172A" />
+                  <Text style={styles.resendActiveText}>Resend Code via SMS</Text>
+                </TouchableOpacity>
+              ) : (
+                <View style={styles.timerWrapper}>
+                  <Text style={styles.resendDisabledText}>Resend code in </Text>
+                  <Text style={styles.timerCountText}>{timer}s</Text>
+                </View>
+              )}
+            </View>
+
+            {/* VERIFY CTA */}
             <TouchableOpacity
-              style={styles.changePhoneButton}
-              onPress={handleChangePhone}
-              hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+              style={[styles.primaryButton, isLoading && styles.primaryButtonDisabled]}
+              onPress={handleVerify}
+              disabled={isLoading}
+              activeOpacity={0.85}
             >
-              <Edit2 size={13} color="#D97706" style={{ marginRight: 4 }} />
-              <AppText style={styles.changePhoneText}>Change</AppText>
+              <Text style={styles.primaryButtonText}>
+                {isLoading ? 'VERIFYING CODE...' : 'VERIFY & CONTINUE'}
+              </Text>
+              <ArrowRight size={20} color="#0F172A" />
             </TouchableOpacity>
           </View>
 
-          {/* 6-DIGIT OTP BOXES */}
-          <View style={styles.otpRow}>
-            {otp.map((digit, index) => {
-              const isFilled = digit.length > 0;
-              return (
-                <TextInput
-                  key={index}
-                  ref={(ref) => {
-                    inputRefs.current[index] = ref;
-                  }}
-                  style={[
-                    styles.otpBox,
-                    isFilled && styles.otpBoxFilled,
-                    errorMessage ? styles.otpBoxError : null,
-                  ]}
-                  keyboardType="number-pad"
-                  maxLength={1}
-                  value={digit}
-                  onChangeText={(val) => handleOtpChange(val, index)}
-                  onKeyPress={(e) => handleKeyPress(e, index)}
-                  textAlign="center"
-                  selectTextOnFocus
-                  autoFocus={index === 0}
-                />
-              );
-            })}
+          {/* SECURITY TRUST BADGE */}
+          <View style={styles.securityBadge}>
+            <ShieldCheck size={16} color="#059669" />
+            <Text style={styles.securityText}>
+              Verified partner accounts enjoy priority booking assignments.
+            </Text>
           </View>
-
-          {/* INLINE ERROR */}
-          {errorMessage ? (
-            <AppText style={styles.errorText}>{errorMessage}</AppText>
-          ) : null}
-
-          {/* RESEND OTP SECTION */}
-          <View style={styles.resendSection}>
-            <AppText style={styles.resendLabel}>Didn't receive code? </AppText>
-            {canResend ? (
-              <TouchableOpacity onPress={handleResend} activeOpacity={0.7}>
-                <View style={styles.resendActionRow}>
-                  <RotateCcw size={14} color="#0F172A" style={{ marginRight: 4 }} />
-                  <AppText style={styles.resendActionText}>Resend OTP</AppText>
-                </View>
-              </TouchableOpacity>
-            ) : (
-              <AppText style={styles.timerText}>
-                Resend in <AppText style={styles.timerHighlight}>00:{timer < 10 ? `0${timer}` : timer}</AppText>
-              </AppText>
-            )}
-          </View>
-
-          {/* DEMO MODE TIP */}
-          <View style={styles.demoTipBox}>
-            <CheckCircle2 size={15} color="#059669" style={{ marginRight: 6 }} />
-            <AppText style={styles.demoTipText}>
-              Demo Mode: Enter <AppText style={styles.demoTipBold}>123456</AppText> to verify instantly
-            </AppText>
-          </View>
-
-          {/* VERIFY BUTTON */}
-          <TouchableOpacity
-            style={[
-              styles.verifyButton,
-              isLoading && { opacity: 0.8 },
-            ]}
-            onPress={handleVerify}
-            activeOpacity={0.85}
-            disabled={isLoading}
-          >
-            <AppText style={styles.verifyButtonText}>
-              {isLoading ? 'Verifying...' : 'Verify & Continue'}
-            </AppText>
-            <ArrowRight size={20} color="#0F172A" />
-          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -280,224 +269,232 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-    position: 'relative',
-  },
-  bottomLeftCurve: {
-    position: 'absolute',
-    bottom: -height * 0.08,
-    left: -width * 0.2,
-    width: width * 0.55,
-    height: width * 0.55,
-    borderRadius: (width * 0.55) / 2,
-    backgroundColor: '#FFC80A',
-    opacity: 0.95,
-  },
-  bottomRightCurve: {
-    position: 'absolute',
-    bottom: -height * 0.1,
-    right: -width * 0.25,
-    width: width * 0.7,
-    height: width * 0.7,
-    borderRadius: (width * 0.7) / 2,
-    backgroundColor: '#FFC80A',
-    opacity: 0.95,
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 20,
-    paddingTop: 8,
-    paddingBottom: 8,
-    zIndex: 10,
+    paddingTop: 10,
+    paddingBottom: 6,
   },
   backButtonCircle: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: '#F8FAFC',
-    alignItems: 'center',
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    backgroundColor: '#F1F5F9',
     justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#F1F5F9',
+    alignItems: 'center',
   },
-  needHelpText: {
-    fontSize: 13,
-    fontFamily: Typography.fontFamily.semiBold,
-    color: '#0F172A',
-  },
-  content: {
-    paddingHorizontal: 20,
-    paddingTop: 16,
-    zIndex: 5,
-  },
-  brandBadge: {
+  badge: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FEF3C7',
+    backgroundColor: '#ECFDF5',
     paddingHorizontal: 10,
     paddingVertical: 5,
-    borderRadius: 20,
-    alignSelf: 'flex-start',
-    marginBottom: 16,
-    gap: 6,
-  },
-  shieldCircle: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: '#FFC80A',
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderRadius: 8,
+    gap: 5,
   },
   badgeText: {
     fontSize: 10,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#0F172A',
-    letterSpacing: 1,
+    fontWeight: '800',
+    color: '#059669',
+    letterSpacing: 0.5,
   },
-  title: {
-    fontSize: 24,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#0F172A',
-    marginBottom: 6,
+  content: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 12,
   },
-  subtitle: {
-    fontSize: 13,
-    fontFamily: Typography.fontFamily.regular,
-    color: '#64748B',
-    lineHeight: 18,
+  titleSection: {
+    marginBottom: 20,
   },
-  phoneContainer: {
+  tagBadge: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 6,
-    marginBottom: 24,
-    gap: 8,
+    backgroundColor: '#FFFBEB',
+    borderWidth: 1,
+    borderColor: '#FEF3C7',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 8,
+    gap: 6,
+    alignSelf: 'flex-start',
+    marginBottom: 8,
   },
-  phoneNumberText: {
-    fontSize: 15,
-    fontFamily: Typography.fontFamily.bold,
+  tagBadgeText: {
+    fontSize: 10,
+    fontWeight: '900',
+    color: '#B45309',
+    letterSpacing: 0.5,
+  },
+  mainTitle: {
+    fontSize: 32,
+    fontWeight: '900',
     color: '#0F172A',
+    letterSpacing: -0.8,
+    lineHeight: 38,
   },
-  changePhoneButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FEF3C7',
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 6,
-  },
-  changePhoneText: {
-    fontSize: 11,
-    fontFamily: Typography.fontFamily.bold,
+  highlightYellow: {
     color: '#D97706',
   },
-  otpRow: {
+  phonePillRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginTop: 8,
+  },
+  phoneLabel: {
+    fontSize: 13,
+    fontWeight: '500',
+    color: '#64748B',
+  },
+  phoneNumberText: {
+    fontSize: 13,
+    fontWeight: '800',
+    color: '#0F172A',
+  },
+  editBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 3,
+    backgroundColor: '#FFFBEB',
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 4,
+    marginLeft: 4,
+  },
+  editText: {
+    fontSize: 11,
+    fontWeight: '800',
+    color: '#D97706',
+  },
+  otpCard: {
+    backgroundColor: '#F8FAFC',
+    borderRadius: 16,
+    padding: 16,
+    borderWidth: 1.5,
+    borderColor: '#E2E8F0',
+  },
+  otpInputsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 14,
     gap: 8,
+    marginVertical: 10,
   },
   otpBox: {
     flex: 1,
-    height: 54,
+    height: 52,
     borderRadius: 12,
-    backgroundColor: '#F8FAFC',
+    backgroundColor: '#FFFFFF',
     borderWidth: 1.5,
-    borderColor: '#E2E8F0',
-    fontSize: 20,
-    fontFamily: Typography.fontFamily.bold,
+    borderColor: '#CBD5E1',
+    textAlign: 'center',
+    fontSize: 22,
+    fontWeight: '900',
     color: '#0F172A',
   },
   otpBoxFilled: {
-    borderColor: '#FFC80A',
+    borderColor: '#0F172A',
     backgroundColor: '#FFFFFF',
-    shadowColor: '#FFC80A',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 4,
-    elevation: 2,
+  },
+  otpBoxFocused: {
+    borderColor: '#FFC80A',
+    backgroundColor: '#FFFBEB',
   },
   otpBoxError: {
-    borderColor: '#EF4444',
+    borderColor: '#DC2626',
+    backgroundColor: '#FEF2F2',
   },
   errorText: {
-    fontSize: 11.5,
-    fontFamily: Typography.fontFamily.medium,
-    color: '#EF4444',
-    marginBottom: 10,
+    fontSize: 11,
+    fontWeight: '600',
+    color: '#DC2626',
     textAlign: 'center',
+    marginBottom: 8,
   },
-  resendSection: {
+  demoFillBtn: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#FFFBEB',
+    paddingVertical: 8,
+    borderRadius: 8,
+    gap: 6,
+    borderWidth: 1,
+    borderColor: '#FEF3C7',
+    marginVertical: 6,
+  },
+  demoFillText: {
+    fontSize: 12,
+    fontWeight: '800',
+    color: '#D97706',
+  },
+  resendRow: {
     alignItems: 'center',
-    marginVertical: 12,
+    justifyContent: 'center',
+    marginVertical: 10,
   },
-  resendLabel: {
-    fontSize: 12.5,
-    fontFamily: Typography.fontFamily.regular,
-    color: '#64748B',
-  },
-  resendActionRow: {
+  resendButton: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 6,
   },
-  resendActionText: {
-    fontSize: 12.5,
-    fontFamily: Typography.fontFamily.bold,
+  resendActiveText: {
+    fontSize: 13,
+    fontWeight: '800',
     color: '#0F172A',
     textDecorationLine: 'underline',
   },
-  timerText: {
-    fontSize: 12.5,
-    fontFamily: Typography.fontFamily.regular,
+  timerWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  resendDisabledText: {
+    fontSize: 12,
+    fontWeight: '500',
     color: '#64748B',
   },
-  timerHighlight: {
-    fontFamily: Typography.fontFamily.bold,
+  timerCountText: {
+    fontSize: 12,
+    fontWeight: '800',
     color: '#0F172A',
   },
-  demoTipBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#ECFDF5',
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#A7F3D0',
-    marginVertical: 14,
-  },
-  demoTipText: {
-    fontSize: 11.5,
-    fontFamily: Typography.fontFamily.regular,
-    color: '#065F46',
-  },
-  demoTipBold: {
-    fontFamily: Typography.fontFamily.bold,
-    color: '#059669',
-  },
-  verifyButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+  primaryButton: {
+    height: 52,
     backgroundColor: '#FFC80A',
-    borderRadius: 16,
-    paddingVertical: 15,
+    borderRadius: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     gap: 8,
     marginTop: 10,
-    shadowColor: '#FFC80A',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 4,
   },
-  verifyButtonText: {
+  primaryButtonDisabled: {
+    opacity: 0.7,
+  },
+  primaryButtonText: {
     fontSize: 15,
-    fontFamily: Typography.fontFamily.bold,
+    fontWeight: '900',
     color: '#0F172A',
+    letterSpacing: 0.5,
+  },
+  securityBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#ECFDF5',
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderRadius: 10,
+    gap: 8,
+    marginTop: 18,
+    borderWidth: 1,
+    borderColor: '#A7F3D0',
+  },
+  securityText: {
+    fontSize: 11,
+    fontWeight: '600',
+    color: '#065F46',
+    flex: 1,
   },
 });

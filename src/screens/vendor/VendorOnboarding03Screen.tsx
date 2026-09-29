@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   StatusBar,
+  Text,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -16,9 +17,10 @@ import {
   IndianRupee,
   TrendingUp,
   ArrowRight,
+  ShieldCheck,
+  Award,
+  Sparkles,
 } from 'lucide-react-native';
-import { AppText } from '../../components/common/AppText';
-import { Typography } from '../../constants/typography';
 import { Routes } from '../../constants/routes';
 import { RootStackParamList } from '../../types/navigation';
 
@@ -44,30 +46,21 @@ export const VendorOnboarding03Screen: React.FC = () => {
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
 
-      {/* BOTTOM DECORATIVE YELLOW CURVES */}
-      <View style={styles.bottomLeftCurve} />
-      <View style={styles.bottomRightCurve} />
-
       {/* TOP HEADER */}
       <View style={styles.header}>
-        {/* LOGO */}
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <View style={styles.brandRow}>
           <Image
             source={require('../../assets/images/logo.jpg')}
-            style={{ width: 120, height: 38 }}
+            style={styles.logoImg}
             resizeMode="contain"
           />
-          <View style={{ backgroundColor: '#FFC80A', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4, marginLeft: 6 }}>
-            <AppText style={{ fontSize: 10, fontWeight: '800', color: '#0F172A' }}>PARTNER</AppText>
+          <View style={styles.partnerPill}>
+            <Text style={styles.partnerPillText}>PARTNER</Text>
           </View>
         </View>
 
-        {/* SKIP BUTTON */}
-        <TouchableOpacity
-          onPress={handleSkip}
-          hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
-        >
-          <AppText style={styles.skipText}>Skip</AppText>
+        <TouchableOpacity onPress={handleSkip} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}>
+          <Text style={styles.skipText}>Skip</Text>
         </TouchableOpacity>
       </View>
 
@@ -76,94 +69,76 @@ export const VendorOnboarding03Screen: React.FC = () => {
         contentContainerStyle={styles.scrollContent}
         bounces={false}
       >
-        {/* MAIN HEADINGS */}
+        {/* RAPIDO HIGH-IMPACT HERO HEADINGS */}
         <View style={styles.headingSection}>
-          <AppText style={[styles.headingBlack, { fontSize: 32, letterSpacing: -0.5 }]}>
-            Work. Earn. <AppText style={[styles.headingYellow, { fontSize: 32 }]}>Grow.</AppText>
-          </AppText>
+          <View style={styles.tagBadge}>
+            <Award size={13} color="#0F172A" />
+            <Text style={styles.tagBadgeText}>BE YOUR OWN BOSS</Text>
+          </View>
+          <Text style={styles.headingBlack}>
+            Work. Earn. <Text style={styles.headingYellow}>Grow.</Text>
+          </Text>
+          <Text style={styles.description}>
+            Flexible working hours, weekly bonus incentives, and guaranteed digital payments.
+          </Text>
         </View>
 
-        {/* HERO ILLUSTRATION CONTAINER */}
-        <View style={styles.heroContainer}>
-          {/* BACKGROUND WITH CAR & CLEANING BUCKET */}
-          <View style={styles.drivewayBackground}>
-            <Image
-              source={{
-                uri: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=600&auto=format&fit=crop&q=80',
-              }}
-              style={styles.drivewayCarImg}
-              resizeMode="cover"
-            />
-          </View>
-
-          {/* LEFT SLOGAN NOTE */}
-          <View style={styles.leftSloganBadge}>
-            <AppText style={styles.sloganLine1}>Same</AppText>
-            <AppText style={styles.sloganLine2}>Skill</AppText>
-            <AppText style={styles.sloganLine3}>Bigger</AppText>
-            <AppText style={styles.sloganLine4}>Future!</AppText>
-          </View>
-
-          {/* RIGHT SLOGAN NOTE */}
-          <View style={styles.rightSloganBadge}>
-            <AppText style={styles.rightSloganText}>Clean Vehicles</AppText>
-            <AppText style={styles.rightSloganSub}>Happy Customers ☺</AppText>
-          </View>
-
-          {/* WASHERMAN CUTOUT WITH SMARTPHONE & EARNINGS */}
-          <View style={styles.washermanCutoutContainer}>
-            <Image
-              source={require('../../../assets/vendor_onboarding_3_cutout.png')}
-              style={styles.washermanCutoutImg}
-              resizeMode="contain"
-            />
-          </View>
-        </View>
-
-        {/* 3 BENEFIT BADGES ROW */}
-        <View style={styles.benefitsRow}>
-          {/* 1. FLEXIBLE SCHEDULE */}
-          <View style={styles.benefitItem}>
-            <View style={styles.benefitIconCircle}>
-              <Calendar size={18} color="#0F172A" />
+        {/* 3 VALUE CARDS */}
+        <View style={styles.cardsGrid}>
+          {/* Card 1: Flexible Hours */}
+          <View style={styles.benefitCard}>
+            <View style={styles.cardIconCircle}>
+              <Calendar size={20} color="#0F172A" />
             </View>
-            <AppText style={styles.benefitTitle}>Flexible Schedule</AppText>
+            <View style={{ flex: 1, marginLeft: 12 }}>
+              <Text style={styles.cardTitle}>Flexible Working Hours</Text>
+              <Text style={styles.cardSub}>Work full-time or part-time. Turn duty ON/OFF anytime.</Text>
+            </View>
           </View>
 
-          {/* 2. TRANSPARENT PAYMENT */}
-          <View style={styles.benefitItem}>
-            <View style={styles.benefitIconCircle}>
-              <IndianRupee size={18} color="#0F172A" />
+          {/* Card 2: Instant Payouts */}
+          <View style={styles.benefitCard}>
+            <View style={styles.cardIconCircle}>
+              <IndianRupee size={20} color="#0F172A" />
             </View>
-            <AppText style={styles.benefitTitle}>Transparent Payment</AppText>
+            <View style={{ flex: 1, marginLeft: 12 }}>
+              <Text style={styles.cardTitle}>Instant & Safe Payouts</Text>
+              <Text style={styles.cardSub}>Direct bank transfers twice a week with zero commission cut.</Text>
+            </View>
           </View>
 
-          {/* 3. GROW YOUR BUSINESS */}
-          <View style={styles.benefitItem}>
-            <View style={styles.benefitIconCircle}>
-              <TrendingUp size={18} color="#0F172A" />
+          {/* Card 3: Incentives & Rewards */}
+          <View style={styles.benefitCard}>
+            <View style={styles.cardIconCircle}>
+              <TrendingUp size={20} color="#0F172A" />
             </View>
-            <AppText style={styles.benefitTitle}>Grow Your Business</AppText>
+            <View style={{ flex: 1, marginLeft: 12 }}>
+              <Text style={styles.cardTitle}>Weekly Incentives & Badges</Text>
+              <Text style={styles.cardSub}>Complete daily milestones to unlock cash bonuses and tips.</Text>
+            </View>
           </View>
         </View>
 
-        {/* PAGINATION DOTS (3RD ACTIVE) */}
+        {/* TRUST BADGE */}
+        <View style={styles.trustBanner}>
+          <ShieldCheck size={18} color="#059669" />
+          <Text style={styles.trustText}>Joined by 2,500+ verified wash partners across Indore</Text>
+        </View>
+      </ScrollView>
+
+      {/* BOTTOM PAGINATION & CTA */}
+      <View style={styles.bottomContainer}>
         <View style={styles.paginationRow}>
           <View style={styles.dot} />
           <View style={styles.dot} />
-          <View style={[styles.dot, styles.dotActive]} />
+          <View style={[styles.dot, styles.activeDot]} />
         </View>
 
-        {/* GET STARTED BUTTON */}
-        <TouchableOpacity
-          style={styles.getStartedButton}
-          onPress={handleGetStarted}
-          activeOpacity={0.85}
-        >
-          <AppText style={styles.getStartedButtonText}>Get Started</AppText>
+        <TouchableOpacity style={styles.ctaButton} onPress={handleGetStarted} activeOpacity={0.85}>
+          <Text style={styles.ctaText}>GET STARTED NOW</Text>
           <ArrowRight size={20} color="#0F172A" />
         </TouchableOpacity>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
@@ -172,269 +147,175 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-    position: 'relative',
-  },
-  bottomLeftCurve: {
-    position: 'absolute',
-    bottom: -height * 0.08,
-    left: -width * 0.2,
-    width: width * 0.55,
-    height: width * 0.55,
-    borderRadius: (width * 0.55) / 2,
-    backgroundColor: '#FFC80A',
-    opacity: 0.95,
-  },
-  bottomRightCurve: {
-    position: 'absolute',
-    bottom: -height * 0.1,
-    right: -width * 0.25,
-    width: width * 0.7,
-    height: width * 0.7,
-    borderRadius: (width * 0.7) / 2,
-    backgroundColor: '#FFC80A',
-    opacity: 0.95,
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 20,
-    paddingTop: 8,
-    paddingBottom: 4,
-    zIndex: 10,
+    paddingTop: 10,
+    paddingBottom: 6,
   },
-  logoBox: {
+  brandRow: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  carMiniIcon: {
-    width: 28,
-    height: 14,
-    backgroundColor: '#0F172A',
-    borderRadius: 5,
-    position: 'relative',
+  logoImg: {
+    width: 120,
+    height: 38,
   },
-  carMiniRoof: {
-    position: 'absolute',
-    top: -6,
-    left: 5,
-    width: 16,
-    height: 8,
-    backgroundColor: '#0F172A',
-    borderTopLeftRadius: 4,
-    borderTopRightRadius: 4,
-  },
-  carMiniDrop: {
-    position: 'absolute',
-    bottom: -2,
-    right: 2,
-    width: 8,
-    height: 10,
+  partnerPill: {
     backgroundColor: '#FFC80A',
+    paddingHorizontal: 6,
+    paddingVertical: 2,
     borderRadius: 4,
+    marginLeft: 6,
   },
-  logoTitle: {
-    fontSize: 16,
-    fontFamily: Typography.fontFamily.bold,
+  partnerPillText: {
+    fontSize: 10,
+    fontWeight: '900',
     color: '#0F172A',
-  },
-  logoTitleYellow: {
-    color: '#FFC80A',
-  },
-  logoSubtitle: {
-    fontSize: 7.5,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#0F172A',
-    letterSpacing: 1.5,
-    marginTop: -1,
+    letterSpacing: 0.5,
   },
   skipText: {
     fontSize: 14,
-    fontFamily: Typography.fontFamily.medium,
+    fontWeight: '700',
     color: '#64748B',
   },
   scrollContent: {
     paddingHorizontal: 20,
-    paddingTop: 8,
-    paddingBottom: 24,
+    paddingTop: 10,
+    paddingBottom: 20,
   },
   headingSection: {
-    marginTop: 4,
+    marginBottom: 14,
+  },
+  tagBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFFBEB',
+    borderWidth: 1,
+    borderColor: '#FEF3C7',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 8,
+    gap: 6,
+    alignSelf: 'flex-start',
     marginBottom: 8,
   },
+  tagBadgeText: {
+    fontSize: 11,
+    fontWeight: '900',
+    color: '#B45309',
+    letterSpacing: 0.5,
+  },
   headingBlack: {
-    fontSize: 28,
-    fontFamily: Typography.fontFamily.bold,
+    fontSize: 34,
+    fontWeight: '900',
     color: '#0F172A',
-    lineHeight: 32,
+    letterSpacing: -0.8,
+    lineHeight: 40,
   },
   headingYellow: {
-    color: '#FFC80A',
+    color: '#D97706',
   },
   description: {
-    fontSize: 12.5,
-    fontFamily: Typography.fontFamily.regular,
-    color: '#475569',
+    fontSize: 13,
+    fontWeight: '500',
+    color: '#64748B',
     marginTop: 6,
     lineHeight: 18,
   },
-  heroContainer: {
-    width: '100%',
-    height: height * 0.44,
-    borderRadius: 22,
-    overflow: 'hidden',
-    position: 'relative',
+  cardsGrid: {
+    gap: 10,
     marginVertical: 10,
-    backgroundColor: '#F8FAFC',
-    borderWidth: 1,
-    borderColor: '#E2E8F0',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  drivewayBackground: {
-    ...StyleSheet.absoluteFill,
-    opacity: 0.15,
-  },
-  drivewayCarImg: {
-    width: '100%',
-    height: '100%',
-  },
-  leftSloganBadge: {
-    position: 'absolute',
-    top: 24,
-    left: 14,
-    zIndex: 5,
-  },
-  sloganLine1: {
-    fontSize: 12,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#1E293B',
-    transform: [{ rotate: '-8deg' }],
-  },
-  sloganLine2: {
-    fontSize: 12,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#1E293B',
-    transform: [{ rotate: '-8deg' }],
-  },
-  sloganLine3: {
-    fontSize: 12,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#D97706',
-    transform: [{ rotate: '-8deg' }],
-  },
-  sloganLine4: {
-    fontSize: 12,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#D97706',
-    transform: [{ rotate: '-8deg' }],
-  },
-  rightSloganBadge: {
-    position: 'absolute',
-    top: 24,
-    right: 14,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 10,
-    paddingHorizontal: 8,
-    paddingVertical: 6,
-    borderWidth: 1,
-    borderColor: '#E2E8F0',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
-    elevation: 2,
-    zIndex: 5,
-  },
-  rightSloganText: {
-    fontSize: 10,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#0F172A',
-  },
-  rightSloganSub: {
-    fontSize: 9,
-    fontFamily: Typography.fontFamily.regular,
-    color: '#64748B',
-  },
-  washermanCutoutContainer: {
-    width: '95%',
-    height: '92%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 4,
-  },
-  washermanCutoutImg: {
-    width: '100%',
-    height: '100%',
-  },
-  benefitsRow: {
+  benefitCard: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginVertical: 10,
-    gap: 6,
-  },
-  benefitItem: {
-    flex: 1,
     alignItems: 'center',
-    textAlign: 'center',
+    backgroundColor: '#F8FAFC',
+    borderRadius: 14,
+    padding: 14,
+    borderWidth: 1.5,
+    borderColor: '#E2E8F0',
   },
-  benefitIconCircle: {
+  cardIconCircle: {
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: '#FEF3C7',
-    alignItems: 'center',
+    backgroundColor: '#FFFBEB',
+    borderWidth: 1,
+    borderColor: '#FEF3C7',
     justifyContent: 'center',
-    marginBottom: 6,
+    alignItems: 'center',
   },
-  benefitTitle: {
-    fontSize: 10.5,
-    fontFamily: Typography.fontFamily.bold,
+  cardTitle: {
+    fontSize: 14,
+    fontWeight: '800',
     color: '#0F172A',
-    textAlign: 'center',
-    marginBottom: 2,
   },
-  benefitSub: {
-    fontSize: 9,
-    fontFamily: Typography.fontFamily.regular,
+  cardSub: {
+    fontSize: 11,
+    fontWeight: '400',
     color: '#64748B',
-    textAlign: 'center',
-    lineHeight: 12.5,
+    marginTop: 2,
+    lineHeight: 16,
+  },
+  trustBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#ECFDF5',
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderRadius: 10,
+    gap: 8,
+    marginTop: 10,
+    borderWidth: 1,
+    borderColor: '#A7F3D0',
+  },
+  trustText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#065F46',
+    flex: 1,
+  },
+  bottomContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderTopWidth: 1,
+    borderTopColor: '#F1F5F9',
+    backgroundColor: '#FFFFFF',
   },
   paginationRow: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 12,
     gap: 6,
+    marginBottom: 10,
   },
   dot: {
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: '#E2E8F0',
+    backgroundColor: '#CBD5E1',
   },
-  dotActive: {
-    width: 18,
+  activeDot: {
+    width: 22,
     backgroundColor: '#FFC80A',
   },
-  getStartedButton: {
+  ctaButton: {
+    height: 52,
+    backgroundColor: '#FFC80A',
+    borderRadius: 14,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FFC80A',
-    borderRadius: 16,
-    paddingVertical: 15,
     gap: 8,
-    shadowColor: '#FFC80A',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 4,
   },
-  getStartedButtonText: {
+  ctaText: {
     fontSize: 15,
-    fontFamily: Typography.fontFamily.bold,
+    fontWeight: '900',
     color: '#0F172A',
+    letterSpacing: 0.5,
   },
 });

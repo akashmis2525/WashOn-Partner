@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   StatusBar,
+  Text,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -16,9 +17,10 @@ import {
   IndianRupee,
   MapPin,
   ArrowRight,
+  Sparkles,
+  ShieldCheck,
+  Zap,
 } from 'lucide-react-native';
-import { AppText } from '../../components/common/AppText';
-import { Typography } from '../../constants/typography';
 import { Routes } from '../../constants/routes';
 import { RootStackParamList } from '../../types/navigation';
 
@@ -37,7 +39,6 @@ export const VendorOnboarding01Screen: React.FC = () => {
   };
 
   const handleSkip = () => {
-    // Skip to vendor login
     navigation.navigate(Routes.VENDOR_LOGIN as never);
   };
 
@@ -45,30 +46,21 @@ export const VendorOnboarding01Screen: React.FC = () => {
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
 
-      {/* BOTTOM DECORATIVE YELLOW CURVES */}
-      <View style={styles.bottomLeftCurve} />
-      <View style={styles.bottomRightCurve} />
-
-      {/* TOP HEADER */}
+      {/* TOP HEADER WITH LOGO & SKIP */}
       <View style={styles.header}>
-        {/* LOGO */}
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <View style={styles.brandRow}>
           <Image
             source={require('../../assets/images/logo.jpg')}
-            style={{ width: 120, height: 38 }}
+            style={styles.logoImg}
             resizeMode="contain"
           />
-          <View style={{ backgroundColor: '#FFC80A', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4, marginLeft: 6 }}>
-            <AppText style={{ fontSize: 10, fontWeight: '800', color: '#0F172A' }}>PARTNER</AppText>
+          <View style={styles.partnerPill}>
+            <Text style={styles.partnerPillText}>PARTNER</Text>
           </View>
         </View>
 
-        {/* SKIP BUTTON */}
-        <TouchableOpacity
-          onPress={handleSkip}
-          hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
-        >
-          <AppText style={styles.skipText}>Skip</AppText>
+        <TouchableOpacity onPress={handleSkip} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}>
+          <Text style={styles.skipText}>Skip</Text>
         </TouchableOpacity>
       </View>
 
@@ -77,13 +69,18 @@ export const VendorOnboarding01Screen: React.FC = () => {
         contentContainerStyle={styles.scrollContent}
         bounces={false}
       >
-        {/* MAIN HEADINGS */}
+        {/* RAPIDO HIGH-IMPACT HERO HEADINGS */}
         <View style={styles.headingSection}>
-          <AppText style={styles.headingBlack}>Get Nearby</AppText>
-          <AppText style={styles.headingYellow}>Wash Bookings</AppText>
-          <AppText style={styles.description}>
-            Join WashOn and provide vehicle washing services at doorstep.
-          </AppText>
+          <View style={styles.tagBadge}>
+            <Sparkles size={13} color="#0F172A" />
+            <Text style={styles.tagBadgeText}>EARN ₹30,000+ MONTHLY</Text>
+          </View>
+          <Text style={styles.headingBlack}>
+            Get Nearby <Text style={styles.headingYellow}>Wash Bookings</Text>
+          </Text>
+          <Text style={styles.description}>
+            Doorstep vehicle washing orders directly sent to your mobile radar.
+          </Text>
         </View>
 
         {/* HERO ILLUSTRATION */}
@@ -94,63 +91,71 @@ export const VendorOnboarding01Screen: React.FC = () => {
             resizeMode="contain"
           />
 
-          {/* OVERLAY BADGES MATCHING MOCKUP */}
+          {/* OVERLAY BADGES */}
           <View style={styles.leftSkillBadge}>
-            <AppText style={styles.badgeBold}>Your Skill</AppText>
-            <AppText style={styles.badgeItalic}>Our Platform</AppText>
-            <AppText style={styles.badgeHighlight}>Bigger Opportunities</AppText>
+            <Text style={styles.badgeBold}>Your Skill</Text>
+            <Text style={styles.badgeItalic}>Our Platform</Text>
           </View>
 
-          <View style={styles.rightTagBadge}>
-            <AppText style={styles.rightTagText}>Clean Vehicles</AppText>
-            <AppText style={styles.rightTagSub}>Happier People ☺</AppText>
+          <View style={styles.bottomBookingsCard}>
+            <View style={styles.cardHeaderSmall}>
+              <View style={styles.pulseGreenDot} />
+              <Text style={styles.cardHeaderSmallText}>NEARBY DEMAND ACTIVE</Text>
+            </View>
+
+            <View style={styles.orderRow}>
+              <View style={styles.carMiniIcon}>
+                <Zap size={14} color="#0F172A" />
+              </View>
+              <View style={{ flex: 1, marginLeft: 8 }}>
+                <Text style={styles.orderLoc}>Vijay Nagar (1.2 km away)</Text>
+                <Text style={styles.orderType}>Foam Bike Wash • ₹249 Payout</Text>
+              </View>
+            </View>
           </View>
         </View>
 
-        {/* 3 BENEFIT BADGES ROW */}
-        <View style={styles.benefitsRow}>
-          {/* 1. REAL TIME REQUESTS */}
-          <View style={styles.benefitItem}>
-            <View style={styles.benefitIconCircle}>
-              <Calendar size={18} color="#0F172A" />
-            </View>
-            <AppText style={styles.benefitTitle}>Real Time Requests</AppText>
-          </View>
-
-          {/* 2. NEARBY CUSTOMERS */}
-          <View style={styles.benefitItem}>
-            <View style={styles.benefitIconCircle}>
+        {/* 3 HIGHLIGHT FEATURE CARDS */}
+        <View style={styles.featuresRow}>
+          <View style={styles.featureItem}>
+            <View style={styles.featureIconCircle}>
               <MapPin size={18} color="#0F172A" />
             </View>
-            <AppText style={styles.benefitTitle}>Nearby Customers</AppText>
+            <Text style={styles.featureTitle}>Nearby Rides</Text>
+            <Text style={styles.featureSub}>Under 3 km radius</Text>
           </View>
 
-          {/* 3. MORE EARNINGS */}
-          <View style={styles.benefitItem}>
-            <View style={styles.benefitIconCircle}>
+          <View style={styles.featureItem}>
+            <View style={styles.featureIconCircle}>
               <IndianRupee size={18} color="#0F172A" />
             </View>
-            <AppText style={styles.benefitTitle}>More Earnings</AppText>
+            <Text style={styles.featureTitle}>Daily Cashout</Text>
+            <Text style={styles.featureSub}>Instant bank transfer</Text>
+          </View>
+
+          <View style={styles.featureItem}>
+            <View style={styles.featureIconCircle}>
+              <ShieldCheck size={18} color="#0F172A" />
+            </View>
+            <Text style={styles.featureTitle}>Zero Loss</Text>
+            <Text style={styles.featureSub}>100% genuine clients</Text>
           </View>
         </View>
+      </ScrollView>
 
-        {/* PAGINATION DOTS */}
+      {/* BOTTOM PAGINATION & CTA */}
+      <View style={styles.bottomContainer}>
         <View style={styles.paginationRow}>
-          <View style={[styles.dot, styles.dotActive]} />
+          <View style={[styles.dot, styles.activeDot]} />
           <View style={styles.dot} />
           <View style={styles.dot} />
         </View>
 
-        {/* NEXT BUTTON */}
-        <TouchableOpacity
-          style={styles.nextButton}
-          onPress={handleNext}
-          activeOpacity={0.85}
-        >
-          <AppText style={styles.nextButtonText}>Next</AppText>
+        <TouchableOpacity style={styles.ctaButton} onPress={handleNext} activeOpacity={0.85}>
+          <Text style={styles.ctaText}>NEXT</Text>
           <ArrowRight size={20} color="#0F172A" />
         </TouchableOpacity>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
@@ -159,112 +164,82 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-    position: 'relative',
-  },
-  bottomLeftCurve: {
-    position: 'absolute',
-    bottom: -height * 0.08,
-    left: -width * 0.2,
-    width: width * 0.55,
-    height: width * 0.55,
-    borderRadius: (width * 0.55) / 2,
-    backgroundColor: '#FFC80A',
-    opacity: 0.95,
-  },
-  bottomRightCurve: {
-    position: 'absolute',
-    bottom: -height * 0.1,
-    right: -width * 0.25,
-    width: width * 0.7,
-    height: width * 0.7,
-    borderRadius: (width * 0.7) / 2,
-    backgroundColor: '#FFC80A',
-    opacity: 0.95,
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 20,
-    paddingTop: 8,
-    paddingBottom: 4,
-    zIndex: 10,
+    paddingTop: 10,
+    paddingBottom: 6,
   },
-  logoBox: {
+  brandRow: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  carMiniIcon: {
-    width: 28,
-    height: 14,
-    backgroundColor: '#0F172A',
-    borderRadius: 5,
-    position: 'relative',
+  logoImg: {
+    width: 120,
+    height: 38,
   },
-  carMiniRoof: {
-    position: 'absolute',
-    top: -6,
-    left: 5,
-    width: 16,
-    height: 8,
-    backgroundColor: '#0F172A',
-    borderTopLeftRadius: 4,
-    borderTopRightRadius: 4,
-  },
-  carMiniDrop: {
-    position: 'absolute',
-    bottom: -2,
-    right: 2,
-    width: 8,
-    height: 10,
+  partnerPill: {
     backgroundColor: '#FFC80A',
+    paddingHorizontal: 6,
+    paddingVertical: 2,
     borderRadius: 4,
+    marginLeft: 6,
   },
-  logoTitle: {
-    fontSize: 16,
-    fontFamily: Typography.fontFamily.bold,
+  partnerPillText: {
+    fontSize: 10,
+    fontWeight: '900',
     color: '#0F172A',
-  },
-  logoTitleYellow: {
-    color: '#FFC80A',
-  },
-  logoSubtitle: {
-    fontSize: 7.5,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#0F172A',
-    letterSpacing: 1.5,
-    marginTop: -1,
+    letterSpacing: 0.5,
   },
   skipText: {
     fontSize: 14,
-    fontFamily: Typography.fontFamily.medium,
+    fontWeight: '700',
     color: '#64748B',
   },
   scrollContent: {
     paddingHorizontal: 20,
     paddingTop: 10,
-    paddingBottom: 24,
+    paddingBottom: 20,
   },
   headingSection: {
-    marginTop: 6,
-    marginBottom: 10,
+    marginBottom: 12,
+  },
+  tagBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFFBEB',
+    borderWidth: 1,
+    borderColor: '#FEF3C7',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 8,
+    gap: 6,
+    alignSelf: 'flex-start',
+    marginBottom: 8,
+  },
+  tagBadgeText: {
+    fontSize: 11,
+    fontWeight: '900',
+    color: '#B45309',
+    letterSpacing: 0.5,
   },
   headingBlack: {
-    fontSize: 28,
-    fontFamily: Typography.fontFamily.bold,
+    fontSize: 32,
+    fontWeight: '900',
     color: '#0F172A',
-    lineHeight: 34,
+    letterSpacing: -0.8,
+    lineHeight: 38,
   },
   headingYellow: {
-    fontSize: 28,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#FFC80A',
-    lineHeight: 34,
+    color: '#D97706',
   },
   description: {
-    fontSize: 12.5,
-    fontFamily: Typography.fontFamily.regular,
-    color: '#475569',
+    fontSize: 13,
+    fontWeight: '500',
+    color: '#64748B',
     marginTop: 6,
     lineHeight: 18,
   },
@@ -272,14 +247,14 @@ const styles = StyleSheet.create({
     width: '100%',
     height: height * 0.38,
     borderRadius: 20,
-    overflow: 'hidden',
+    backgroundColor: '#FFFBEB',
+    borderWidth: 1.5,
+    borderColor: '#FEF3C7',
     position: 'relative',
-    marginVertical: 10,
-    backgroundColor: '#F8FAFC',
-    borderWidth: 1,
-    borderColor: '#E2E8F0',
-    alignItems: 'center',
+    overflow: 'hidden',
     justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 10,
   },
   heroImage: {
     width: '90%',
@@ -287,127 +262,148 @@ const styles = StyleSheet.create({
   },
   leftSkillBadge: {
     position: 'absolute',
-    top: 20,
-    left: 12,
-    backgroundColor: '#FFC80A',
-    borderRadius: 14,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.12,
-    shadowRadius: 4,
-    elevation: 3,
+    top: 14,
+    left: 14,
+    backgroundColor: 'rgba(15, 23, 42, 0.85)',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 8,
   },
   badgeBold: {
     fontSize: 11,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#0F172A',
+    fontWeight: '800',
+    color: '#FFFFFF',
   },
   badgeItalic: {
     fontSize: 10,
-    fontFamily: Typography.fontFamily.medium,
-    color: '#0F172A',
+    fontWeight: '700',
+    color: '#FFC80A',
   },
-  badgeHighlight: {
-    fontSize: 10,
-    fontFamily: Typography.fontFamily.semiBold,
-    color: '#0F172A',
-  },
-  rightTagBadge: {
+  bottomBookingsCard: {
     position: 'absolute',
-    top: 40,
+    bottom: 12,
+    left: 12,
     right: 12,
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
+    padding: 10,
+    elevation: 3,
     borderWidth: 1,
     borderColor: '#E2E8F0',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
-    elevation: 2,
   },
-  rightTagText: {
-    fontSize: 10,
-    fontFamily: Typography.fontFamily.bold,
+  cardHeaderSmall: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginBottom: 4,
+  },
+  pulseGreenDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: '#10B981',
+  },
+  cardHeaderSmallText: {
+    fontSize: 9,
+    fontWeight: '800',
+    color: '#059669',
+    letterSpacing: 0.5,
+  },
+  orderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  carMiniIcon: {
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    backgroundColor: '#FFC80A',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  orderLoc: {
+    fontSize: 12,
+    fontWeight: '700',
     color: '#0F172A',
   },
-  rightTagSub: {
-    fontSize: 9,
-    fontFamily: Typography.fontFamily.regular,
+  orderType: {
+    fontSize: 10,
+    fontWeight: '500',
     color: '#64748B',
   },
-  benefitsRow: {
+  featuresRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginVertical: 12,
     gap: 8,
+    marginTop: 6,
   },
-  benefitItem: {
+  featureItem: {
     flex: 1,
+    backgroundColor: '#F8FAFC',
+    borderRadius: 12,
+    padding: 10,
     alignItems: 'center',
-    textAlign: 'center',
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
   },
-  benefitIconCircle: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: '#FEF3C7',
-    alignItems: 'center',
+  featureIconCircle: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#FFFBEB',
     justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 6,
   },
-  benefitTitle: {
+  featureTitle: {
     fontSize: 11,
-    fontFamily: Typography.fontFamily.bold,
+    fontWeight: '800',
     color: '#0F172A',
     textAlign: 'center',
-    marginBottom: 2,
   },
-  benefitSub: {
-    fontSize: 9.5,
-    fontFamily: Typography.fontFamily.regular,
+  featureSub: {
+    fontSize: 9,
+    fontWeight: '500',
     color: '#64748B',
     textAlign: 'center',
-    lineHeight: 13,
+    marginTop: 2,
+  },
+  bottomContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderTopWidth: 1,
+    borderTopColor: '#F1F5F9',
+    backgroundColor: '#FFFFFF',
   },
   paginationRow: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 14,
     gap: 6,
+    marginBottom: 10,
   },
   dot: {
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: '#E2E8F0',
+    backgroundColor: '#CBD5E1',
   },
-  dotActive: {
-    width: 18,
+  activeDot: {
+    width: 22,
     backgroundColor: '#FFC80A',
   },
-  nextButton: {
+  ctaButton: {
+    height: 52,
+    backgroundColor: '#FFC80A',
+    borderRadius: 14,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FFC80A',
-    borderRadius: 16,
-    paddingVertical: 15,
     gap: 8,
-    shadowColor: '#FFC80A',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 4,
   },
-  nextButtonText: {
+  ctaText: {
     fontSize: 15,
-    fontFamily: Typography.fontFamily.bold,
+    fontWeight: '900',
     color: '#0F172A',
+    letterSpacing: 0.5,
   },
 });

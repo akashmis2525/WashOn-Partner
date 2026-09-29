@@ -5,9 +5,9 @@ import {
   TouchableOpacity,
   ScrollView,
   StatusBar,
-  Dimensions,
   Alert,
   ActivityIndicator,
+  Text,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -18,18 +18,14 @@ import {
   Hourglass,
   FileText,
   Headphones,
-  ArrowRight,
   ShieldCheck,
-  PhoneCall,
-  MessageSquare,
   Sparkles,
+  Zap,
+  ArrowLeft,
+  ChevronRight,
 } from 'lucide-react-native';
-import { AppText } from '../../components/common/AppText';
-import { Typography } from '../../constants/typography';
 import { Routes } from '../../constants/routes';
 import { RootStackParamList } from '../../types/navigation';
-
-const { width, height } = Dimensions.get('window');
 
 type NavProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -65,40 +61,54 @@ export const VendorVerificationPendingScreen: React.FC = () => {
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
 
-      {/* BOTTOM DECORATIVE YELLOW CURVES */}
-      <View style={styles.bottomLeftCurve} />
-      <View style={styles.bottomRightCurve} />
+      {/* TOP HEADER */}
+      <View style={styles.header}>
+        <TouchableOpacity
+          style={styles.backButtonCircle}
+          onPress={() => navigation.goBack()}
+          hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+        >
+          <ArrowLeft size={20} color="#0F172A" />
+        </TouchableOpacity>
+
+        <View style={styles.headerCenter}>
+          <Text style={styles.headerTitle}>Verification Status</Text>
+          <Text style={styles.headerSubtitle}>Step 3 of 3</Text>
+        </View>
+
+        <View style={{ width: 38 }} />
+      </View>
 
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* HERO ICON ANIMATION */}
+        {/* RAPIDO HIGH-IMPACT HERO */}
         <View style={styles.heroSection}>
           <View style={styles.iconCircleOuter}>
             <View style={styles.iconCircleInner}>
-              <Hourglass size={38} color="#0F172A" />
+              <Hourglass size={36} color="#0F172A" />
             </View>
             <View style={styles.badgePulse}>
               <Clock size={15} color="#D97706" />
             </View>
           </View>
 
-          <AppText style={styles.title}>Application Under Review</AppText>
-          <AppText style={styles.subtitle}>
-            Your Document is Under Process
-          </AppText>
+          <Text style={styles.mainTitle}>
+            Application Under <Text style={styles.highlightYellow}>Review</Text>
+          </Text>
+          <Text style={styles.subTitle}>
+            Your documents & vendor profile are being verified by our onboarding team.
+          </Text>
         </View>
 
-        {/* VERIFICATION PROGRESS TIMELINE FIRST */}
-        <View style={styles.timelineSection}>
-          <AppText style={styles.timelineSectionTitle}>
-            Verification Steps
-          </AppText>
+        {/* VERIFICATION PROGRESS TIMELINE */}
+        <View style={styles.timelineCard}>
+          <Text style={styles.sectionHeaderTitle}>VERIFICATION STAGES</Text>
 
           {/* STEP 1: COMPLETED */}
-          <View style={styles.timelineItem}>
+          <View style={styles.timelineRow}>
             <View style={styles.timelineLeft}>
               <View style={[styles.timelineDot, styles.timelineDotDone]}>
                 <CheckCircle2 size={16} color="#FFFFFF" />
@@ -106,12 +116,13 @@ export const VendorVerificationPendingScreen: React.FC = () => {
               <View style={[styles.timelineLine, styles.timelineLineDone]} />
             </View>
             <View style={styles.timelineContent}>
-              <AppText style={styles.stepTitle}>Details Submitted</AppText>
+              <Text style={styles.stepTitleDone}>Details & Documents Submitted</Text>
+              <Text style={styles.stepSubDone}>Aadhaar, PAN & live selfie uploaded</Text>
             </View>
           </View>
 
           {/* STEP 2: IN PROGRESS */}
-          <View style={styles.timelineItem}>
+          <View style={styles.timelineRow}>
             <View style={styles.timelineLeft}>
               <View style={[styles.timelineDot, styles.timelineDotActive]}>
                 <Hourglass size={14} color="#0F172A" />
@@ -119,96 +130,100 @@ export const VendorVerificationPendingScreen: React.FC = () => {
               <View style={styles.timelineLine} />
             </View>
             <View style={styles.timelineContent}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                <AppText style={styles.stepTitleActive}>Document Review</AppText>
+              <View style={styles.stepHeaderRow}>
+                <Text style={styles.stepTitleActive}>Compliance & Document Review</Text>
                 <View style={styles.inReviewBadge}>
-                  <AppText style={styles.inReviewBadgeText}>IN PROGRESS</AppText>
+                  <Text style={styles.inReviewBadgeText}>IN PROGRESS</Text>
                 </View>
               </View>
+              <Text style={styles.stepSubActive}>Verification underway by compliance team</Text>
             </View>
           </View>
 
           {/* STEP 3: PENDING */}
-          <View style={styles.timelineItem}>
+          <View style={styles.timelineRow}>
             <View style={styles.timelineLeft}>
               <View style={styles.timelineDot}>
-                <ShieldCheck size={14} color="#94A3B8" />
+                <ShieldCheck size={15} color="#94A3B8" />
               </View>
             </View>
             <View style={styles.timelineContent}>
-              <AppText style={styles.stepTitlePending}>Account Activation</AppText>
+              <Text style={styles.stepTitlePending}>Account Activation & Duty Live</Text>
+              <Text style={styles.stepSubPending}>Ready to start receiving wash requests</Text>
             </View>
           </View>
         </View>
 
-        {/* APPLICATION STATUS SUMMARY CARD SECOND */}
+        {/* APPLICATION SUMMARY CARD */}
         <View style={styles.statusCard}>
           <View style={styles.statusCardHeader}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
               <FileText size={16} color="#0F172A" />
-              <AppText style={styles.statusCardTitle}>Application Summary</AppText>
+              <Text style={styles.statusCardTitle}>Application Summary</Text>
             </View>
             <View style={styles.refBadge}>
-              <AppText style={styles.refBadgeText}>#WASH-88219</AppText>
+              <Text style={styles.refBadgeText}>#WASH-88219</Text>
             </View>
           </View>
 
           <View style={styles.summaryRow}>
-            <AppText style={styles.summaryLabel}>Submitted On</AppText>
-            <AppText style={styles.summaryValue}>Today, 10:45 AM</AppText>
+            <Text style={styles.summaryLabel}>Submitted On</Text>
+            <Text style={styles.summaryValue}>Today, 10:45 AM</Text>
           </View>
           <View style={styles.summaryRow}>
-            <AppText style={styles.summaryLabel}>Document Type</AppText>
-            <AppText style={styles.summaryValue}>Aadhaar Card + Selfie</AppText>
+            <Text style={styles.summaryLabel}>Documents</Text>
+            <Text style={styles.summaryValue}>Aadhaar + PAN + Selfie</Text>
           </View>
           <View style={styles.summaryRow}>
-            <AppText style={styles.summaryLabel}>Operating City</AppText>
-            <AppText style={styles.summaryValue}>Indore (Madhya Pradesh)</AppText>
+            <Text style={styles.summaryLabel}>Operating City</Text>
+            <Text style={styles.summaryValue}>Indore (Madhya Pradesh)</Text>
+          </View>
+          <View style={styles.summaryRow}>
+            <Text style={styles.summaryLabel}>Expected Time</Text>
+            <Text style={[styles.summaryValue, { color: '#D97706' }]}>2 to 4 Hours</Text>
           </View>
         </View>
 
         {/* EXPECTED TIME NOTICE */}
         <View style={styles.reviewTimeNotice}>
-          <Clock size={16} color="#D97706" style={{ marginTop: 2, marginRight: 8 }} />
-          <AppText style={styles.reviewTimeText}>
-            Expected review time: <AppText style={styles.boldTime}>2 to 4 hours</AppText>. You will receive an SMS confirmation once activated.
-          </AppText>
-        </View>
-
-        {/* ACTION BUTTONS */}
-        <View style={styles.actionsBlock}>
-          {/* CHECK STATUS / DEMO APPROVE */}
-          <TouchableOpacity
-            style={styles.checkStatusBtn}
-            onPress={handleCheckStatus}
-            activeOpacity={0.85}
-            disabled={isChecking}
-          >
-            {isChecking ? (
-              <ActivityIndicator color="#0F172A" size="small" />
-            ) : (
-              <>
-                <Sparkles size={18} color="#0F172A" />
-                <AppText style={styles.checkStatusBtnText}>
-                  Check Status (Simulate Approval)
-                </AppText>
-              </>
-            )}
-          </TouchableOpacity>
-
-          {/* CONTACT SUPPORT */}
-          <TouchableOpacity
-            style={styles.supportBtn}
-            onPress={handleContactSupport}
-            activeOpacity={0.8}
-          >
-            <Headphones size={18} color="#64748B" />
-            <AppText style={styles.supportBtnText}>
-              Need Help? Contact Partner Support
-            </AppText>
-          </TouchableOpacity>
+          <Clock size={18} color="#D97706" style={{ marginTop: 2, marginRight: 10 }} />
+          <Text style={styles.reviewTimeText}>
+            Average approval time is <Text style={styles.boldTime}>45 minutes</Text>. You will receive an SMS confirmation once activated.
+          </Text>
         </View>
       </ScrollView>
+
+      {/* BOTTOM ACTION */}
+      <View style={styles.bottomBar}>
+        <TouchableOpacity
+          style={styles.checkStatusBtn}
+          onPress={handleCheckStatus}
+          activeOpacity={0.85}
+          disabled={isChecking}
+        >
+          {isChecking ? (
+            <ActivityIndicator color="#0F172A" size="small" />
+          ) : (
+            <>
+              <Sparkles size={18} color="#0F172A" />
+              <Text style={styles.checkStatusBtnText}>
+                CHECK LIVE STATUS (SIMULATE APPROVAL)
+              </Text>
+            </>
+          )}
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.supportBtn}
+          onPress={handleContactSupport}
+          activeOpacity={0.8}
+        >
+          <Headphones size={16} color="#64748B" />
+          <Text style={styles.supportBtnText}>
+            Need Help? Contact Partner Support
+          </Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -217,170 +232,128 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-    position: 'relative',
   },
-  bottomLeftCurve: {
-    position: 'absolute',
-    bottom: -height * 0.08,
-    left: -width * 0.2,
-    width: width * 0.55,
-    height: width * 0.55,
-    borderRadius: (width * 0.55) / 2,
-    backgroundColor: '#FFC80A',
-    opacity: 0.95,
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingTop: 10,
+    paddingBottom: 6,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F1F5F9',
   },
-  bottomRightCurve: {
-    position: 'absolute',
-    bottom: -height * 0.1,
-    right: -width * 0.25,
-    width: width * 0.7,
-    height: width * 0.7,
-    borderRadius: (width * 0.7) / 2,
-    backgroundColor: '#FFC80A',
-    opacity: 0.95,
+  backButtonCircle: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    backgroundColor: '#F1F5F9',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerCenter: {
+    alignItems: 'center',
+  },
+  headerTitle: {
+    fontSize: 15,
+    fontWeight: '800',
+    color: '#0F172A',
+  },
+  headerSubtitle: {
+    fontSize: 11,
+    fontWeight: '500',
+    color: '#64748B',
   },
   scrollView: {
     flex: 1,
-    zIndex: 5,
   },
   scrollContent: {
-    paddingHorizontal: 20,
-    paddingTop: 24,
-    paddingBottom: 40,
+    paddingHorizontal: 16,
+    paddingTop: 14,
+    paddingBottom: 20,
   },
   heroSection: {
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 16,
   },
   iconCircleOuter: {
-    width: 90,
-    height: 90,
-    borderRadius: 45,
+    width: 76,
+    height: 76,
+    borderRadius: 38,
     backgroundColor: '#FEF3C7',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 16,
+    marginBottom: 12,
     position: 'relative',
   },
   iconCircleInner: {
-    width: 68,
-    height: 68,
-    borderRadius: 34,
+    width: 58,
+    height: 58,
+    borderRadius: 29,
     backgroundColor: '#FFC80A',
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#FFC80A',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.35,
-    shadowRadius: 8,
-    elevation: 4,
   },
   badgePulse: {
     position: 'absolute',
-    top: 0,
-    right: 0,
+    top: -2,
+    right: -2,
     backgroundColor: '#FFFFFF',
-    borderRadius: 14,
-    padding: 5,
+    borderRadius: 12,
+    padding: 4,
     borderWidth: 1.5,
     borderColor: '#FEF3C7',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    elevation: 3,
   },
-  title: {
-    fontSize: 22,
-    fontFamily: Typography.fontFamily.bold,
+  mainTitle: {
+    fontSize: 26,
+    fontWeight: '900',
     color: '#0F172A',
-    marginBottom: 6,
+    letterSpacing: -0.6,
+    lineHeight: 32,
     textAlign: 'center',
   },
-  subtitle: {
-    fontSize: 13,
-    fontFamily: Typography.fontFamily.regular,
-    color: '#64748B',
-    textAlign: 'center',
-    lineHeight: 18,
-    paddingHorizontal: 12,
-  },
-  statusCard: {
-    backgroundColor: '#F8FAFC',
-    borderRadius: 16,
-    borderWidth: 1.5,
-    borderColor: '#E2E8F0',
-    padding: 16,
-    marginBottom: 20,
-  },
-  statusCardHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#F1F5F9',
-    paddingBottom: 10,
-    marginBottom: 10,
-  },
-  statusCardTitle: {
-    fontSize: 13.5,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#0F172A',
-  },
-  refBadge: {
-    backgroundColor: '#FEF3C7',
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 6,
-  },
-  refBadgeText: {
-    fontSize: 11,
-    fontFamily: Typography.fontFamily.bold,
+  highlightYellow: {
     color: '#D97706',
   },
-  summaryRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 4,
-  },
-  summaryLabel: {
+  subTitle: {
     fontSize: 12.5,
-    fontFamily: Typography.fontFamily.regular,
+    fontWeight: '500',
     color: '#64748B',
+    textAlign: 'center',
+    marginTop: 6,
+    lineHeight: 17,
+    paddingHorizontal: 8,
   },
-  summaryValue: {
-    fontSize: 12.5,
-    fontFamily: Typography.fontFamily.semiBold,
-    color: '#0F172A',
-  },
-  timelineSection: {
-    backgroundColor: '#FFFFFF',
+  timelineCard: {
+    backgroundColor: '#F8FAFC',
     borderRadius: 16,
+    padding: 14,
     borderWidth: 1.5,
-    borderColor: '#F1F5F9',
-    padding: 16,
-    marginBottom: 16,
+    borderColor: '#E2E8F0',
+    marginBottom: 12,
   },
-  timelineSectionTitle: {
-    fontSize: 14,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#0F172A',
-    marginBottom: 14,
+  sectionHeaderTitle: {
+    fontSize: 11,
+    fontWeight: '900',
+    color: '#475569',
+    letterSpacing: 0.5,
+    marginBottom: 12,
   },
-  timelineItem: {
+  timelineRow: {
     flexDirection: 'row',
-    minHeight: 52,
+    minHeight: 46,
   },
   timelineLeft: {
     alignItems: 'center',
-    width: 28,
+    width: 26,
     marginRight: 10,
   },
   timelineDot: {
-    width: 26,
-    height: 26,
-    borderRadius: 13,
-    backgroundColor: '#F1F5F9',
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    backgroundColor: '#E2E8F0',
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 2,
@@ -402,97 +375,174 @@ const styles = StyleSheet.create({
   },
   timelineContent: {
     flex: 1,
-    paddingBottom: 14,
+    paddingBottom: 10,
   },
-  stepTitle: {
+  stepTitleDone: {
     fontSize: 13,
-    fontFamily: Typography.fontFamily.bold,
+    fontWeight: '800',
     color: '#059669',
+    flexShrink: 1,
+  },
+  stepSubDone: {
+    fontSize: 11,
+    color: '#64748B',
+    marginTop: 2,
+  },
+  stepHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 6,
   },
   stepTitleActive: {
     fontSize: 13,
-    fontFamily: Typography.fontFamily.bold,
+    fontWeight: '800',
     color: '#0F172A',
+    flexShrink: 1,
   },
-  stepTitlePending: {
-    fontSize: 13,
-    fontFamily: Typography.fontFamily.semiBold,
-    color: '#94A3B8',
+  stepSubActive: {
+    fontSize: 11,
+    color: '#64748B',
+    marginTop: 2,
   },
   inReviewBadge: {
-    backgroundColor: '#FEF3C7',
+    backgroundColor: '#FFFBEB',
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#FEF3C7',
   },
   inReviewBadgeText: {
-    fontSize: 9,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#D97706',
+    fontSize: 8.5,
+    fontWeight: '900',
+    color: '#B45309',
   },
-  stepDesc: {
-    fontSize: 11.5,
-    fontFamily: Typography.fontFamily.regular,
-    color: '#64748B',
+  stepTitlePending: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#94A3B8',
+    flexShrink: 1,
+  },
+  stepSubPending: {
+    fontSize: 11,
+    color: '#94A3B8',
     marginTop: 2,
+  },
+  statusCard: {
+    backgroundColor: '#F8FAFC',
+    borderRadius: 16,
+    padding: 14,
+    borderWidth: 1.5,
+    borderColor: '#E2E8F0',
+    marginBottom: 12,
+  },
+  statusCardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#E2E8F0',
+    paddingBottom: 8,
+    marginBottom: 8,
+  },
+  statusCardTitle: {
+    fontSize: 12.5,
+    fontWeight: '800',
+    color: '#0F172A',
+  },
+  refBadge: {
+    backgroundColor: '#FFFBEB',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: '#FEF3C7',
+  },
+  refBadgeText: {
+    fontSize: 10.5,
+    fontWeight: '800',
+    color: '#B45309',
+  },
+  summaryRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 3,
+    gap: 8,
+  },
+  summaryLabel: {
+    fontSize: 12,
+    color: '#64748B',
+    fontWeight: '500',
+  },
+  summaryValue: {
+    fontSize: 12,
+    fontWeight: '800',
+    color: '#0F172A',
+    flexShrink: 1,
+    textAlign: 'right',
   },
   reviewTimeNotice: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    backgroundColor: '#FFFDF5',
+    backgroundColor: '#FFFBEB',
     borderWidth: 1,
-    borderColor: '#FDE68A',
-    padding: 12,
+    borderColor: '#FEF3C7',
+    padding: 10,
     borderRadius: 12,
-    marginBottom: 20,
+    marginBottom: 6,
   },
   reviewTimeText: {
     flex: 1,
-    fontSize: 12,
-    fontFamily: Typography.fontFamily.regular,
-    color: '#78350F',
+    fontSize: 11.5,
+    color: '#92400E',
     lineHeight: 16,
+    fontWeight: '500',
   },
   boldTime: {
-    fontFamily: Typography.fontFamily.bold,
+    fontWeight: '800',
     color: '#0F172A',
   },
-  actionsBlock: {
-    gap: 10,
+  bottomBar: {
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderTopWidth: 1,
+    borderTopColor: '#F1F5F9',
+    gap: 8,
   },
   checkStatusBtn: {
+    height: 50,
+    backgroundColor: '#FFC80A',
+    borderRadius: 14,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FFC80A',
-    borderRadius: 16,
-    paddingVertical: 15,
     gap: 8,
-    shadowColor: '#FFC80A',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 4,
+    paddingHorizontal: 12,
   },
   checkStatusBtnText: {
-    fontSize: 14.5,
-    fontFamily: Typography.fontFamily.bold,
+    fontSize: 13.5,
+    fontWeight: '900',
     color: '#0F172A',
+    letterSpacing: 0.5,
+    flexShrink: 1,
   },
   supportBtn: {
+    height: 42,
+    backgroundColor: '#F8FAFC',
+    borderRadius: 12,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F8FAFC',
-    borderRadius: 14,
-    paddingVertical: 13,
+    gap: 6,
     borderWidth: 1,
     borderColor: '#E2E8F0',
-    gap: 8,
   },
   supportBtnText: {
-    fontSize: 13,
-    fontFamily: Typography.fontFamily.semiBold,
-    color: '#475569',
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#64748B',
   },
 });

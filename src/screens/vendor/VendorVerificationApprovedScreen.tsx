@@ -5,13 +5,12 @@ import {
   TouchableOpacity,
   ScrollView,
   StatusBar,
-  Dimensions,
+  Text,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
-  ShieldCheck,
   CheckCircle2,
   Sparkles,
   ArrowRight,
@@ -21,13 +20,10 @@ import {
   Wallet,
   Star,
   Award,
+  Zap,
 } from 'lucide-react-native';
-import { AppText } from '../../components/common/AppText';
-import { Typography } from '../../constants/typography';
 import { Routes } from '../../constants/routes';
 import { RootStackParamList } from '../../types/navigation';
-
-const { width, height } = Dimensions.get('window');
 
 type NavProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -38,25 +34,25 @@ const GUIDELINES = [
   {
     id: '1',
     title: 'Punctual Doorstep Arrival',
-    desc: 'Reach the customer vehicle location within 10 minutes of the booked time slot.',
+    desc: 'Reach customer vehicle within 10 minutes of the booked time slot.',
     icon: Clock,
   },
   {
     id: '2',
     title: 'Quality Wash Chemicals',
-    desc: 'Always use scratch-safe microfibers & approved pH-neutral foam shampoo.',
+    desc: 'Always use scratch-safe microfibers & approved pH-neutral foam.',
     icon: Droplets,
   },
   {
     id: '3',
     title: 'Pre & Post Wash Photos',
-    desc: 'Take 4 quick condition photos before starting and after completing the wash.',
+    desc: 'Take 2-4 condition photos before starting and after wash completion.',
     icon: Camera,
   },
   {
     id: '4',
     title: 'Direct Bank Payouts',
-    desc: 'Zero payment collection hassles. Earnings are transferred every Tuesday & Friday.',
+    desc: 'Zero cash collection hassles. Automatic bank payouts every Tuesday.',
     icon: Wallet,
   },
 ];
@@ -65,7 +61,7 @@ export const VendorVerificationApprovedScreen: React.FC = () => {
   const navigation = useNavigation<NavProp>();
 
   const handleStartSetup = () => {
-    // Navigate to Section 3: Vendor Service Setup (Screen V013)
+    // Navigate to next onboarding step: Service Area Setup
     navigation.navigate(Routes.VENDOR_SERVICE_AREA as never);
   };
 
@@ -73,47 +69,45 @@ export const VendorVerificationApprovedScreen: React.FC = () => {
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
 
-      {/* BOTTOM DECORATIVE YELLOW CURVES */}
-      <View style={styles.bottomLeftCurve} />
-      <View style={styles.bottomRightCurve} />
-
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* CELEBRATION HEADER */}
+        {/* CELEBRATION HERO */}
         <View style={styles.heroSection}>
           <View style={styles.iconCircleOuter}>
             <View style={styles.iconCircleInner}>
-              <Award size={44} color="#0F172A" />
+              <Award size={40} color="#0F172A" />
             </View>
             <View style={styles.badgeCheck}>
-              <CheckCircle2 size={20} color="#059669" />
+              <CheckCircle2 size={18} color="#059669" />
             </View>
           </View>
 
           <View style={styles.verifiedTag}>
             <Sparkles size={13} color="#0F172A" />
-            <AppText style={styles.verifiedTagText}>KYC VERIFIED PARTNER</AppText>
+            <Text style={styles.verifiedTagText}>KYC VERIFIED PARTNER</Text>
           </View>
 
-          <AppText style={styles.title}>You're Approved!</AppText>
-          <AppText style={styles.subtitle}>
-            Your partner account is active and verified.
-          </AppText>
+          <Text style={styles.mainTitle}>
+            You're <Text style={styles.highlightYellow}>Approved!</Text>
+          </Text>
+          <Text style={styles.subTitle}>
+            Your partner account is active and verified. You are now ready to start earning with WashOn.
+          </Text>
         </View>
 
         {/* ACTIVATED PARTNER ID CARD */}
         <View style={styles.partnerCard}>
           <View style={styles.partnerCardHeader}>
-            <View>
-              <AppText style={styles.partnerName}>Ramesh Sharma</AppText>
-              <AppText style={styles.partnerId}>ID: WASH-PTR-49102</AppText>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.partnerName}>Ramesh Sharma</Text>
+              <Text style={styles.partnerId}>ID: WASH-PTR-49102</Text>
             </View>
             <View style={styles.activeStatusPill}>
               <View style={styles.greenPulseDot} />
-              <AppText style={styles.activeStatusText}>ACTIVE</AppText>
+              <Text style={styles.activeStatusText}>ACTIVE</Text>
             </View>
           </View>
 
@@ -121,28 +115,26 @@ export const VendorVerificationApprovedScreen: React.FC = () => {
 
           <View style={styles.partnerCardStats}>
             <View style={styles.statCol}>
-              <AppText style={styles.statLabel}>Partner Tier</AppText>
-              <AppText style={styles.statVal}>Gold Partner</AppText>
+              <Text style={styles.statLabel}>Partner Tier</Text>
+              <Text style={styles.statVal}>Gold Partner</Text>
             </View>
             <View style={styles.statCol}>
-              <AppText style={styles.statLabel}>Rating</AppText>
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
+              <Text style={styles.statLabel}>Rating</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3, marginTop: 2 }}>
                 <Star size={13} color="#FFC80A" fill="#FFC80A" />
-                <AppText style={styles.statVal}>5.0</AppText>
+                <Text style={styles.statVal}>5.0</Text>
               </View>
             </View>
             <View style={styles.statCol}>
-              <AppText style={styles.statLabel}>Operating Hub</AppText>
-              <AppText style={styles.statVal}>Indore Central</AppText>
+              <Text style={styles.statLabel}>Operating Hub</Text>
+              <Text style={styles.statVal}>Indore Central</Text>
             </View>
           </View>
         </View>
 
         {/* IMPORTANT SERVICE GUIDELINES */}
         <View style={styles.guidelinesSection}>
-          <AppText style={styles.guidelinesTitle}>
-            Service Guidelines
-          </AppText>
+          <Text style={styles.guidelinesTitle}>IMPORTANT SERVICE GUIDELINES</Text>
 
           <View style={styles.guidelinesList}>
             {GUIDELINES.map((item) => {
@@ -150,29 +142,30 @@ export const VendorVerificationApprovedScreen: React.FC = () => {
               return (
                 <View key={item.id} style={styles.guidelineCard}>
                   <View style={styles.guidelineIconCircle}>
-                    <IconComp size={20} color="#0F172A" />
+                    <IconComp size={18} color="#0F172A" />
                   </View>
-                  <View style={{ flex: 1, justifyContent: 'center' }}>
-                    <AppText style={styles.guidelineHeading}>{item.title}</AppText>
+                  <View style={styles.guidelineContent}>
+                    <Text style={styles.guidelineHeading}>{item.title}</Text>
+                    <Text style={styles.guidelineDesc}>{item.desc}</Text>
                   </View>
                 </View>
               );
             })}
           </View>
         </View>
+      </ScrollView>
 
-        {/* START SETUP BUTTON */}
+      {/* BOTTOM CTA BUTTON */}
+      <View style={styles.bottomBar}>
         <TouchableOpacity
           style={styles.startButton}
           onPress={handleStartSetup}
           activeOpacity={0.85}
         >
-          <AppText style={styles.startButtonText}>
-            Go to Partner Dashboard
-          </AppText>
-          <ArrowRight size={20} color="#0F172A" />
+          <Text style={styles.startButtonText}>CONTINUE TO SERVICE AREA</Text>
+          <ArrowRight size={18} color="#0F172A" />
         </TouchableOpacity>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
@@ -181,55 +174,33 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-    position: 'relative',
-  },
-  bottomLeftCurve: {
-    position: 'absolute',
-    bottom: -height * 0.08,
-    left: -width * 0.2,
-    width: width * 0.55,
-    height: width * 0.55,
-    borderRadius: (width * 0.55) / 2,
-    backgroundColor: '#FFC80A',
-    opacity: 0.95,
-  },
-  bottomRightCurve: {
-    position: 'absolute',
-    bottom: -height * 0.1,
-    right: -width * 0.25,
-    width: width * 0.7,
-    height: width * 0.7,
-    borderRadius: (width * 0.7) / 2,
-    backgroundColor: '#FFC80A',
-    opacity: 0.95,
   },
   scrollView: {
     flex: 1,
-    zIndex: 5,
   },
   scrollContent: {
-    paddingHorizontal: 20,
-    paddingTop: 20,
-    paddingBottom: 40,
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 20,
   },
   heroSection: {
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 16,
   },
   iconCircleOuter: {
-    width: 96,
-    height: 96,
-    borderRadius: 48,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
     backgroundColor: '#FEF3C7',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 14,
+    marginBottom: 12,
     position: 'relative',
   },
   iconCircleInner: {
-    width: 74,
-    height: 74,
-    borderRadius: 37,
+    width: 62,
+    height: 62,
+    borderRadius: 31,
     backgroundColor: '#FFC80A',
     alignItems: 'center',
     justifyContent: 'center',
@@ -241,13 +212,14 @@ const styles = StyleSheet.create({
   },
   badgeCheck: {
     position: 'absolute',
-    top: 0,
-    right: 0,
+    top: -2,
+    right: -2,
     backgroundColor: '#FFFFFF',
-    borderRadius: 14,
+    borderRadius: 12,
     padding: 3,
-    borderWidth: 2,
+    borderWidth: 1.5,
     borderColor: '#FEF3C7',
+    elevation: 3,
   },
   verifiedTag: {
     flexDirection: 'row',
@@ -261,49 +233,58 @@ const styles = StyleSheet.create({
   },
   verifiedTagText: {
     fontSize: 10.5,
-    fontFamily: Typography.fontFamily.bold,
+    fontWeight: '900',
     color: '#0F172A',
     letterSpacing: 0.8,
   },
-  title: {
-    fontSize: 24,
-    fontFamily: Typography.fontFamily.bold,
+  mainTitle: {
+    fontSize: 28,
+    fontWeight: '900',
     color: '#0F172A',
-    marginBottom: 6,
+    letterSpacing: -0.6,
+    lineHeight: 34,
     textAlign: 'center',
+    marginBottom: 6,
   },
-  subtitle: {
+  highlightYellow: {
+    color: '#D97706',
+  },
+  subTitle: {
     fontSize: 13,
-    fontFamily: Typography.fontFamily.regular,
+    fontWeight: '500',
     color: '#64748B',
     textAlign: 'center',
     lineHeight: 18,
-    paddingHorizontal: 12,
+    paddingHorizontal: 10,
   },
   partnerCard: {
     backgroundColor: '#0F172A',
-    borderRadius: 18,
-    padding: 18,
-    marginBottom: 20,
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 16,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
     shadowRadius: 10,
     elevation: 4,
+    borderWidth: 1,
+    borderColor: '#1E293B',
   },
   partnerCardHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    gap: 8,
   },
   partnerName: {
-    fontSize: 16,
-    fontFamily: Typography.fontFamily.bold,
+    fontSize: 17,
+    fontWeight: '900',
     color: '#FFFFFF',
+    letterSpacing: -0.3,
   },
   partnerId: {
     fontSize: 11.5,
-    fontFamily: Typography.fontFamily.medium,
+    fontWeight: '600',
     color: '#94A3B8',
     marginTop: 2,
   },
@@ -314,7 +295,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 12,
-    gap: 6,
+    gap: 5,
     borderWidth: 1,
     borderColor: 'rgba(5, 150, 105, 0.4)',
   },
@@ -326,39 +307,42 @@ const styles = StyleSheet.create({
   },
   activeStatusText: {
     fontSize: 10,
-    fontFamily: Typography.fontFamily.bold,
+    fontWeight: '900',
     color: '#10B981',
     letterSpacing: 0.5,
   },
   partnerCardDivider: {
     height: 1,
     backgroundColor: '#1E293B',
-    marginVertical: 14,
+    marginVertical: 12,
   },
   partnerCardStats: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  statCol: {},
+  statCol: {
+    flexShrink: 1,
+  },
   statLabel: {
     fontSize: 10.5,
-    fontFamily: Typography.fontFamily.medium,
+    fontWeight: '600',
     color: '#64748B',
   },
   statVal: {
     fontSize: 12.5,
-    fontFamily: Typography.fontFamily.bold,
+    fontWeight: '800',
     color: '#F8FAFC',
     marginTop: 2,
   },
   guidelinesSection: {
-    marginBottom: 20,
+    marginBottom: 8,
   },
   guidelinesTitle: {
-    fontSize: 14,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#0F172A',
-    marginBottom: 12,
+    fontSize: 11,
+    fontWeight: '900',
+    color: '#475569',
+    letterSpacing: 0.8,
+    marginBottom: 10,
   },
   guidelinesList: {
     gap: 10,
@@ -368,39 +352,50 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F8FAFC',
     borderRadius: 14,
-    padding: 14,
-    borderWidth: 1,
+    padding: 12,
+    borderWidth: 1.5,
     borderColor: '#E2E8F0',
     gap: 12,
   },
   guidelineIconCircle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 38,
+    height: 38,
+    borderRadius: 19,
     backgroundColor: '#FEF3C7',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  guidelineContent: {
+    flex: 1,
+  },
   guidelineHeading: {
     fontSize: 13,
-    fontFamily: Typography.fontFamily.bold,
+    fontWeight: '800',
     color: '#0F172A',
     marginBottom: 2,
   },
   guidelineDesc: {
     fontSize: 11.5,
-    fontFamily: Typography.fontFamily.regular,
+    fontWeight: '500',
     color: '#64748B',
     lineHeight: 16,
   },
+  bottomBar: {
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderTopWidth: 1,
+    borderTopColor: '#F1F5F9',
+  },
   startButton: {
+    height: 50,
+    backgroundColor: '#FFC80A',
+    borderRadius: 14,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FFC80A',
-    borderRadius: 16,
-    paddingVertical: 15,
     gap: 8,
+    paddingHorizontal: 16,
     shadowColor: '#FFC80A',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
@@ -408,8 +403,10 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   startButtonText: {
-    fontSize: 15,
-    fontFamily: Typography.fontFamily.bold,
+    fontSize: 13.5,
+    fontWeight: '900',
     color: '#0F172A',
+    letterSpacing: 0.5,
   },
 });
+

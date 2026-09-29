@@ -7,6 +7,7 @@ import {
   StatusBar,
   Dimensions,
   Alert,
+  Text,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -19,15 +20,12 @@ import {
   CheckCircle2,
   Circle,
   Navigation,
-  Layers,
   Sparkles,
 } from 'lucide-react-native';
-import { AppText } from '../../components/common/AppText';
-import { Typography } from '../../constants/typography';
 import { Routes } from '../../constants/routes';
 import { RootStackParamList } from '../../types/navigation';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 type NavProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -80,26 +78,14 @@ export const VendorServiceAreaScreen: React.FC = () => {
     }
   };
 
-  const handleSelectAll = () => {
-    if (selectedAreas.length === OPERATING_AREAS.length) {
-      setSelectedAreas(['1']);
-    } else {
-      setSelectedAreas(OPERATING_AREAS.map((a) => a.id));
-    }
-  };
-
-  const handleSave = () => {
-    // Navigate to Screen V014: Vehicle Types Selection
+  const handleContinue = () => {
+    // Navigate to Screen V014: Vehicle Types
     navigation.navigate(Routes.VENDOR_VEHICLE_TYPES as never);
   };
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
-
-      {/* BOTTOM DECORATIVE YELLOW CURVES */}
-      <View style={styles.bottomLeftCurve} />
-      <View style={styles.bottomRightCurve} />
 
       {/* HEADER */}
       <View style={styles.header}>
@@ -111,8 +97,13 @@ export const VendorServiceAreaScreen: React.FC = () => {
           <ArrowLeft size={20} color="#0F172A" />
         </TouchableOpacity>
 
+        <View style={styles.headerCenter}>
+          <Text style={styles.headerTitle}>Service Area Setup</Text>
+          <Text style={styles.headerSub}>Operating Radius & Preferred Zones</Text>
+        </View>
+
         <View style={styles.stepBadge}>
-          <AppText style={styles.stepBadgeText}>SERVICE SETUP • 1/8</AppText>
+          <Text style={styles.stepBadgeText}>STEP 1/8</Text>
         </View>
       </View>
 
@@ -121,154 +112,106 @@ export const VendorServiceAreaScreen: React.FC = () => {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* TITLE SECTION */}
-        <View style={styles.titleSection}>
-          <View style={styles.badgeRow}>
-            <View style={styles.miniIconBadge}>
-              <Navigation size={13} color="#0F172A" />
+        {/* RADIUS SELECTOR CARD */}
+        <Text style={styles.sectionHeading}>1. MAXIMUM TRAVEL RADIUS</Text>
+        <View style={styles.radiusCard}>
+          <View style={styles.radiusHeader}>
+            <Compass size={18} color="#0F172A" />
+            <Text style={styles.radiusTitle}>Choose Operating Distance</Text>
+            <View style={styles.selectedRadiusPill}>
+              <Text style={styles.selectedRadiusPillText}>{selectedRadius} KM</Text>
             </View>
-            <AppText style={styles.badgeLabel}>DOORSTEP COVERAGE</AppText>
-          </View>
-          <AppText style={styles.title}>Service Area Setup</AppText>
-          <AppText style={styles.subtitle}>
-            Set your base location and service radius.
-          </AppText>
-        </View>
-
-        {/* CURRENT LOCATION PIN CARD */}
-        <View style={styles.baseLocationCard}>
-          <View style={styles.baseLocationIconCircle}>
-            <MapPin size={22} color="#0F172A" />
-          </View>
-          <View style={{ flex: 1, marginLeft: 12 }}>
-            <AppText style={styles.baseLocationTag}>CURRENT BASE HUB</AppText>
-            <AppText style={styles.baseLocationTitle}>Vijay Nagar, Indore</AppText>
-            <AppText style={styles.baseLocationCoords}>22.7533° N, 75.8937° E • Madhya Pradesh</AppText>
-          </View>
-        </View>
-
-        {/* SERVICE RADIUS SELECTOR */}
-        <View style={styles.radiusSection}>
-          <View style={styles.sectionHeaderRow}>
-            <AppText style={styles.sectionTitle}>Max Travel Radius</AppText>
-            <AppText style={styles.radiusHighlight}>{selectedRadius} km</AppText>
           </View>
 
           <View style={styles.radiusOptionsRow}>
             {RADIUS_OPTIONS.map((rad) => {
-              const isSelected = selectedRadius === rad;
+              const isActive = selectedRadius === rad;
               return (
                 <TouchableOpacity
                   key={rad}
-                  style={[
-                    styles.radiusTab,
-                    isSelected && styles.radiusTabSelected,
-                  ]}
+                  style={[styles.radiusBtn, isActive && styles.radiusBtnActive]}
                   onPress={() => setSelectedRadius(rad)}
-                  activeOpacity={0.8}
                 >
-                  <AppText
-                    style={[
-                      styles.radiusTabText,
-                      isSelected && styles.radiusTabTextSelected,
-                    ]}
-                  >
+                  <Text style={[styles.radiusBtnText, isActive && styles.radiusBtnTextActive]}>
                     {rad} km
-                  </AppText>
+                  </Text>
                 </TouchableOpacity>
               );
             })}
           </View>
         </View>
 
-        {/* OPERATING AREAS CHECKLIST */}
-        <View style={styles.areasSection}>
-          <View style={styles.sectionHeaderRow}>
-            <AppText style={styles.sectionTitle}>Select Operating Areas</AppText>
-            <TouchableOpacity onPress={handleSelectAll}>
-              <AppText style={styles.selectAllText}>
-                {selectedAreas.length === OPERATING_AREAS.length
-                  ? 'Deselect All'
-                  : 'Select All'}
-              </AppText>
-            </TouchableOpacity>
-          </View>
+        {/* OPERATING LOCALITIES LIST */}
+        <View style={styles.localitiesHeadingRow}>
+          <Text style={styles.sectionHeading}>2. SELECT OPERATING LOCALITIES</Text>
+          <Text style={styles.selectedCountText}>
+            {selectedAreas.length}/{OPERATING_AREAS.length} Selected
+          </Text>
+        </View>
 
-          <View style={styles.areasList}>
-            {OPERATING_AREAS.map((area) => {
-              const isSelected = selectedAreas.includes(area.id);
-              return (
-                <TouchableOpacity
-                  key={area.id}
-                  style={[
-                    styles.areaCard,
-                    isSelected && styles.areaCardSelected,
-                  ]}
-                  onPress={() => toggleArea(area.id)}
-                  activeOpacity={0.85}
-                >
-                  <View style={styles.areaLeft}>
-                    <View
-                      style={[
-                        styles.areaCheckCircle,
-                        isSelected && styles.areaCheckCircleSelected,
-                      ]}
-                    >
-                      {isSelected ? (
-                        <CheckCircle2 size={18} color="#0F172A" />
-                      ) : (
-                        <Circle size={18} color="#CBD5E1" />
-                      )}
-                    </View>
-                    <View>
-                      <AppText
-                        style={[
-                          styles.areaName,
-                          isSelected && styles.areaNameSelected,
-                        ]}
-                      >
-                        {area.name}
-                      </AppText>
-                      <AppText style={styles.areaSub}>
-                        PIN {area.pincode} • ~{area.distance} away
-                      </AppText>
-                    </View>
+        <View style={styles.areasGrid}>
+          {OPERATING_AREAS.map((area) => {
+            const isSelected = selectedAreas.includes(area.id);
+            return (
+              <TouchableOpacity
+                key={area.id}
+                style={[styles.areaCard, isSelected && styles.areaCardSelected]}
+                onPress={() => toggleArea(area.id)}
+                activeOpacity={0.8}
+              >
+                <View style={styles.areaTopRow}>
+                  <View style={styles.areaPinWrap}>
+                    <MapPin size={15} color={isSelected ? '#0F172A' : '#64748B'} />
                   </View>
+                  <View style={{ flex: 1, marginLeft: 8 }}>
+                    <Text style={[styles.areaName, isSelected && styles.areaNameSelected]}>
+                      {area.name}
+                    </Text>
+                    <Text style={styles.areaSub}>PIN: {area.pincode} • {area.distance}</Text>
+                  </View>
+                  <View style={styles.checkCircle}>
+                    {isSelected ? (
+                      <CheckCircle2 size={18} color="#0F172A" />
+                    ) : (
+                      <Circle size={18} color="#CBD5E1" />
+                    )}
+                  </View>
+                </View>
 
+                <View style={styles.areaFooter}>
                   <View
                     style={[
-                      styles.demandBadge,
-                      area.demand === 'Very High' && styles.demandVeryHigh,
-                      area.demand === 'High' && styles.demandHigh,
+                      styles.demandPill,
+                      area.demand === 'Very High' && { backgroundColor: '#FEE2E2' },
+                      area.demand === 'High' && { backgroundColor: '#FEF3C7' },
+                      area.demand === 'Medium' && { backgroundColor: '#EFF6FF' },
                     ]}
                   >
-                    <AppText
+                    <Text
                       style={[
-                        styles.demandText,
-                        area.demand === 'Very High' && styles.demandTextVeryHigh,
+                        styles.demandPillText,
+                        area.demand === 'Very High' && { color: '#DC2626' },
+                        area.demand === 'High' && { color: '#D97706' },
+                        area.demand === 'Medium' && { color: '#2563EB' },
                       ]}
                     >
                       {area.demand} Demand
-                    </AppText>
+                    </Text>
                   </View>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
         </View>
-
-        {/* SAVE BUTTON */}
-        <TouchableOpacity
-          style={styles.saveButton}
-          onPress={handleSave}
-          activeOpacity={0.85}
-        >
-          <AppText style={styles.saveButtonText}>
-            Save & Choose Vehicle Types ({selectedAreas.length} Areas)
-          </AppText>
-          <ArrowRight size={20} color="#0F172A" />
-        </TouchableOpacity>
       </ScrollView>
+
+      {/* BOTTOM ACTION */}
+      <View style={styles.bottomBar}>
+        <TouchableOpacity style={styles.submitButton} onPress={handleContinue}>
+          <Text style={styles.submitButtonText}>SAVE & CONTINUE TO VEHICLES</Text>
+          <ArrowRight size={18} color="#0F172A" />
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -276,279 +219,211 @@ export const VendorServiceAreaScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
-    position: 'relative',
-  },
-  bottomLeftCurve: {
-    position: 'absolute',
-    bottom: -height * 0.08,
-    left: -width * 0.2,
-    width: width * 0.55,
-    height: width * 0.55,
-    borderRadius: (width * 0.55) / 2,
-    backgroundColor: '#FFC80A',
-    opacity: 0.95,
-  },
-  bottomRightCurve: {
-    position: 'absolute',
-    bottom: -height * 0.1,
-    right: -width * 0.25,
-    width: width * 0.7,
-    height: width * 0.7,
-    borderRadius: (width * 0.7) / 2,
-    backgroundColor: '#FFC80A',
-    opacity: 0.95,
+    backgroundColor: '#F8FAFC',
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 8,
-    paddingBottom: 8,
-    zIndex: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    backgroundColor: '#FFFFFF',
+    borderBottomWidth: 1,
+    borderBottomColor: '#E2E8F0',
   },
   backButtonCircle: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: '#F8FAFC',
-    alignItems: 'center',
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    backgroundColor: '#F1F5F9',
     justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#F1F5F9',
+    alignItems: 'center',
+    marginRight: 10,
+  },
+  headerCenter: {
+    flex: 1,
+  },
+  headerTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#0F172A',
+  },
+  headerSub: {
+    fontSize: 11,
+    fontWeight: '400',
+    color: '#64748B',
   },
   stepBadge: {
-    backgroundColor: '#FEF3C7',
-    paddingHorizontal: 10,
+    backgroundColor: '#FFFBEB',
+    paddingHorizontal: 8,
     paddingVertical: 4,
-    borderRadius: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#FEF3C7',
   },
   stepBadgeText: {
-    fontSize: 10.5,
-    fontFamily: Typography.fontFamily.bold,
+    fontSize: 10,
+    fontWeight: '700',
     color: '#D97706',
-    letterSpacing: 0.5,
   },
   scrollView: {
     flex: 1,
-    zIndex: 5,
   },
   scrollContent: {
-    paddingHorizontal: 20,
-    paddingTop: 10,
-    paddingBottom: 40,
+    padding: 16,
+    paddingBottom: 28,
   },
-  titleSection: {
-    marginBottom: 16,
-  },
-  badgeRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FEF3C7',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 20,
-    alignSelf: 'flex-start',
-    marginBottom: 10,
-    gap: 6,
-  },
-  miniIconBadge: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    backgroundColor: '#FFC80A',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  badgeLabel: {
-    fontSize: 10,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#0F172A',
-    letterSpacing: 0.8,
-  },
-  title: {
-    fontSize: 24,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#0F172A',
-    marginBottom: 6,
-  },
-  subtitle: {
-    fontSize: 13,
-    fontFamily: Typography.fontFamily.regular,
+  sectionHeading: {
+    fontSize: 11,
+    fontWeight: '700',
     color: '#64748B',
-    lineHeight: 18,
+    letterSpacing: 0.5,
   },
-  baseLocationCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#F8FAFC',
-    borderRadius: 16,
+  radiusCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 14,
     padding: 14,
     borderWidth: 1.5,
     borderColor: '#E2E8F0',
-    marginBottom: 18,
+    marginTop: 8,
+    marginBottom: 16,
   },
-  baseLocationIconCircle: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: '#FFC80A',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  baseLocationTag: {
-    fontSize: 9.5,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#D97706',
-    letterSpacing: 0.5,
-  },
-  baseLocationTitle: {
-    fontSize: 14.5,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#0F172A',
-    marginTop: 2,
-  },
-  baseLocationCoords: {
-    fontSize: 11,
-    fontFamily: Typography.fontFamily.regular,
-    color: '#64748B',
-    marginTop: 2,
-  },
-  radiusSection: {
-    marginBottom: 18,
-  },
-  sectionHeaderRow: {
+  radiusHeader: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 12,
   },
-  sectionTitle: {
-    fontSize: 14,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#0F172A',
-  },
-  radiusHighlight: {
+  radiusTitle: {
     fontSize: 13,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#D97706',
+    fontWeight: '700',
+    color: '#0F172A',
+    marginLeft: 8,
+    flex: 1,
+  },
+  selectedRadiusPill: {
+    backgroundColor: '#FFC80A',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 6,
+  },
+  selectedRadiusPillText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#0F172A',
   },
   radiusOptionsRow: {
     flexDirection: 'row',
     gap: 8,
   },
-  radiusTab: {
+  radiusBtn: {
     flex: 1,
     paddingVertical: 10,
-    backgroundColor: '#F1F5F9',
-    borderRadius: 12,
+    borderRadius: 10,
+    backgroundColor: '#F8FAFC',
+    borderWidth: 1.5,
+    borderColor: '#E2E8F0',
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#E2E8F0',
   },
-  radiusTabSelected: {
-    backgroundColor: '#FFC80A',
+  radiusBtnActive: {
+    backgroundColor: '#FFFBEB',
     borderColor: '#FFC80A',
   },
-  radiusTabText: {
+  radiusBtnText: {
     fontSize: 13,
-    fontFamily: Typography.fontFamily.semiBold,
-    color: '#475569',
+    fontWeight: '600',
+    color: '#64748B',
   },
-  radiusTabTextSelected: {
-    fontFamily: Typography.fontFamily.bold,
+  radiusBtnTextActive: {
     color: '#0F172A',
+    fontWeight: '700',
   },
-  areasSection: {
-    marginBottom: 20,
-  },
-  selectAllText: {
-    fontSize: 12,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#0F172A',
-    textDecorationLine: 'underline',
-  },
-  areasList: {
-    gap: 8,
-  },
-  areaCard: {
+  localitiesHeadingRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: 8,
+  },
+  selectedCountText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#059669',
+  },
+  areasGrid: {
+    gap: 8,
+  },
+  areaCard: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 14,
+    borderRadius: 12,
     padding: 12,
     borderWidth: 1.5,
     borderColor: '#E2E8F0',
   },
   areaCardSelected: {
     borderColor: '#FFC80A',
-    backgroundColor: '#FFFDF5',
+    backgroundColor: '#FFFBEB',
   },
-  areaLeft: {
+  areaTopRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
   },
-  areaCheckCircle: {
-    alignItems: 'center',
+  areaPinWrap: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: '#F1F5F9',
     justifyContent: 'center',
+    alignItems: 'center',
   },
-  areaCheckCircleSelected: {},
   areaName: {
-    fontSize: 13.5,
-    fontFamily: Typography.fontFamily.semiBold,
-    color: '#334155',
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#0F172A',
   },
   areaNameSelected: {
-    fontFamily: Typography.fontFamily.bold,
     color: '#0F172A',
   },
   areaSub: {
     fontSize: 11,
-    fontFamily: Typography.fontFamily.regular,
+    fontWeight: '400',
     color: '#64748B',
     marginTop: 2,
   },
-  demandBadge: {
-    backgroundColor: '#F1F5F9',
+  checkCircle: {
+    marginLeft: 6,
+  },
+  areaFooter: {
+    marginTop: 8,
+    flexDirection: 'row',
+  },
+  demandPill: {
     paddingHorizontal: 8,
-    paddingVertical: 3,
+    paddingVertical: 2,
     borderRadius: 6,
   },
-  demandHigh: {
-    backgroundColor: '#FEF3C7',
-  },
-  demandVeryHigh: {
-    backgroundColor: '#FEE2E2',
-  },
-  demandText: {
+  demandPillText: {
     fontSize: 10,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#64748B',
+    fontWeight: '700',
   },
-  demandTextVeryHigh: {
-    color: '#DC2626',
+  bottomBar: {
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderTopWidth: 1,
+    borderTopColor: '#E2E8F0',
   },
-  saveButton: {
+  submitButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#FFC80A',
-    borderRadius: 16,
-    paddingVertical: 15,
+    height: 50,
+    borderRadius: 12,
     gap: 8,
-    shadowColor: '#FFC80A',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 4,
   },
-  saveButtonText: {
+  submitButtonText: {
     fontSize: 14,
-    fontFamily: Typography.fontFamily.bold,
+    fontWeight: '700',
     color: '#0F172A',
+    letterSpacing: 0.5,
   },
 });

@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   StatusBar,
-  Dimensions,
+  Text,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -19,14 +19,11 @@ import {
   Building2,
   CheckCircle2,
   Circle,
-  Briefcase,
+  Zap,
+  ShieldCheck,
 } from 'lucide-react-native';
-import { AppText } from '../../components/common/AppText';
-import { Typography } from '../../constants/typography';
 import { Routes } from '../../constants/routes';
 import { RootStackParamList } from '../../types/navigation';
-
-const { width, height } = Dimensions.get('window');
 
 type NavProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -36,39 +33,54 @@ type NavProp = NativeStackNavigationProp<
 interface VendorTypeOption {
   id: string;
   title: string;
-  subtitle: string;
-  tag: string;
+  badge: string;
+  badgeBg: string;
+  badgeColor: string;
   icon: any;
+  iconBg: string;
+  iconColor: string;
 }
 
 const VENDOR_TYPES: VendorTypeOption[] = [
   {
     id: 'individual',
     title: 'Individual Washerman',
-    subtitle: 'Solo washer delivering doorstep wash & dry clean on bike/scooter',
-    tag: 'Most Popular',
+    badge: 'SOLO PARTNER',
+    badgeBg: '#FFFBEB',
+    badgeColor: '#B45309',
     icon: UserCheck,
+    iconBg: '#FEF3C7',
+    iconColor: '#B45309',
   },
   {
     id: 'detailer',
     title: 'Professional Detailer',
-    subtitle: 'Expert in deep interior cleaning, machine polish & ceramic coating',
-    tag: 'High Earnings',
+    badge: 'CERTIFIED EXPERT',
+    badgeBg: '#ECFDF5',
+    badgeColor: '#047857',
     icon: Sparkles,
+    iconBg: '#D1FAE5',
+    iconColor: '#059669',
   },
   {
     id: 'team',
-    title: 'Small Service Team',
-    subtitle: 'Crew of 2-5 washers handling multi-car society & fleet bookings',
-    tag: 'Team Setup',
+    title: 'Service Crew / Team',
+    badge: 'MULTI-WASHER CREW',
+    badgeBg: '#EFF6FF',
+    badgeColor: '#1D4ED8',
     icon: Users,
+    iconBg: '#DBEAFE',
+    iconColor: '#2563EB',
   },
   {
     id: 'business',
-    title: 'Existing Car Wash Business',
-    subtitle: 'Established garage or wash studio expanding doorstep services',
-    tag: 'Business',
+    title: 'Car Wash Studio & Garage',
+    badge: 'ESTABLISHED STUDIO',
+    badgeBg: '#FAF5FF',
+    badgeColor: '#7E22CE',
     icon: Building2,
+    iconBg: '#F3E8FF',
+    iconColor: '#9333EA',
   },
 ];
 
@@ -85,10 +97,6 @@ export const VendorTypeSelectionScreen: React.FC = () => {
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
 
-      {/* BOTTOM DECORATIVE YELLOW CURVES */}
-      <View style={styles.bottomLeftCurve} />
-      <View style={styles.bottomRightCurve} />
-
       {/* TOP HEADER */}
       <View style={styles.header}>
         <TouchableOpacity
@@ -99,9 +107,12 @@ export const VendorTypeSelectionScreen: React.FC = () => {
           <ArrowLeft size={20} color="#0F172A" />
         </TouchableOpacity>
 
-        <View style={styles.stepBadge}>
-          <AppText style={styles.stepBadgeText}>STEP 2 OF 3</AppText>
+        <View style={styles.headerCenter}>
+          <Text style={styles.headerTitle}>Partner Setup</Text>
+          <Text style={styles.headerSubtitle}>Step 2 of 3</Text>
         </View>
+
+        <View style={{ width: 38 }} />
       </View>
 
       <ScrollView
@@ -109,21 +120,17 @@ export const VendorTypeSelectionScreen: React.FC = () => {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* TITLE & INTRO */}
+        {/* RAPIDO HIGH-IMPACT HEADINGS */}
         <View style={styles.titleSection}>
-          <View style={styles.badgeRow}>
-            <View style={styles.miniIconBadge}>
-              <Briefcase size={13} color="#0F172A" />
-            </View>
-            <AppText style={styles.badgeLabel}>PARTNER CATEGORY</AppText>
-          </View>
-          <AppText style={styles.title}>Select Your Vendor Type</AppText>
-          <AppText style={styles.subtitle}>
-            Select your service category setup.
-          </AppText>
+          <Text style={styles.mainTitle}>
+            Select Your <Text style={styles.highlightYellow}>Vendor Type</Text>
+          </Text>
+          <Text style={styles.subTitle}>
+            Choose your operating category on WashOn network.
+          </Text>
         </View>
 
-        {/* OPTIONS LIST */}
+        {/* CLEAN PROFESSIONAL OPTIONS LIST */}
         <View style={styles.optionsList}>
           {VENDOR_TYPES.map((item) => {
             const isSelected = selectedType === item.id;
@@ -139,54 +146,47 @@ export const VendorTypeSelectionScreen: React.FC = () => {
                 onPress={() => setSelectedType(item.id)}
                 activeOpacity={0.88}
               >
-                {/* ICON BADGE */}
+                {/* LEFT ICON */}
                 <View
                   style={[
                     styles.iconCircle,
-                    isSelected && styles.iconCircleSelected,
+                    { backgroundColor: item.iconBg },
                   ]}
                 >
-                  <IconComponent
-                    size={24}
-                    color={isSelected ? '#0F172A' : '#64748B'}
-                  />
+                  <IconComponent size={24} color={item.iconColor} />
                 </View>
 
-                {/* TEXT CONTENT */}
-                <View style={styles.cardContent}>
-                  <View style={styles.cardHeaderRow}>
-                    <AppText
+                {/* CENTER TITLE & BADGE */}
+                <View style={styles.cardHeaderInfo}>
+                  <Text
+                    style={[
+                      styles.optionTitle,
+                      isSelected && styles.optionTitleSelected,
+                    ]}
+                  >
+                    {item.title}
+                  </Text>
+                  <View
+                    style={[
+                      styles.categoryTag,
+                      { backgroundColor: item.badgeBg },
+                    ]}
+                  >
+                    <Text
                       style={[
-                        styles.optionTitle,
-                        isSelected && styles.optionTitleSelected,
+                        styles.categoryTagText,
+                        { color: item.badgeColor },
                       ]}
                     >
-                      {item.title}
-                    </AppText>
-                    {item.tag ? (
-                      <View
-                        style={[
-                          styles.tagBadge,
-                          isSelected && styles.tagBadgeSelected,
-                        ]}
-                      >
-                        <AppText
-                          style={[
-                            styles.tagText,
-                            isSelected && styles.tagTextSelected,
-                          ]}
-                        >
-                          {item.tag}
-                        </AppText>
-                      </View>
-                    ) : null}
+                      {item.badge}
+                    </Text>
                   </View>
                 </View>
 
-                {/* SELECTION RADIO */}
+                {/* RIGHT RADIO CHECK */}
                 <View style={styles.radioContainer}>
                   {isSelected ? (
-                    <CheckCircle2 size={22} color="#FFC80A" />
+                    <CheckCircle2 size={24} color="#D97706" />
                   ) : (
                     <Circle size={22} color="#CBD5E1" />
                   )}
@@ -196,16 +196,26 @@ export const VendorTypeSelectionScreen: React.FC = () => {
           })}
         </View>
 
-        {/* CONTINUE BUTTON */}
+        {/* TRUST BANNER */}
+        <View style={styles.trustBanner}>
+          <ShieldCheck size={16} color="#059669" />
+          <Text style={styles.trustText}>
+            100% Flexible Duty Hours
+          </Text>
+        </View>
+      </ScrollView>
+
+      {/* BOTTOM ACTION */}
+      <View style={styles.bottomBar}>
         <TouchableOpacity
           style={styles.continueButton}
           onPress={handleContinue}
           activeOpacity={0.85}
         >
-          <AppText style={styles.continueButtonText}>Continue</AppText>
+          <Text style={styles.continueButtonText}>CONTINUE TO KYC VERIFICATION</Text>
           <ArrowRight size={20} color="#0F172A" />
         </TouchableOpacity>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
@@ -214,125 +224,93 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-    position: 'relative',
-  },
-  bottomLeftCurve: {
-    position: 'absolute',
-    bottom: -height * 0.08,
-    left: -width * 0.2,
-    width: width * 0.55,
-    height: width * 0.55,
-    borderRadius: (width * 0.55) / 2,
-    backgroundColor: '#FFC80A',
-    opacity: 0.95,
-  },
-  bottomRightCurve: {
-    position: 'absolute',
-    bottom: -height * 0.1,
-    right: -width * 0.25,
-    width: width * 0.7,
-    height: width * 0.7,
-    borderRadius: (width * 0.7) / 2,
-    backgroundColor: '#FFC80A',
-    opacity: 0.95,
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 20,
-    paddingTop: 8,
-    paddingBottom: 8,
-    zIndex: 10,
+    paddingTop: 10,
+    paddingBottom: 6,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F1F5F9',
   },
   backButtonCircle: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: '#F8FAFC',
-    alignItems: 'center',
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    backgroundColor: '#F1F5F9',
     justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#F1F5F9',
+    alignItems: 'center',
   },
-  stepBadge: {
-    backgroundColor: '#FEF3C7',
-    paddingHorizontal: 10,
+  headerCenter: {
+    alignItems: 'center',
+  },
+  headerTitle: {
+    fontSize: 15,
+    fontWeight: '800',
+    color: '#0F172A',
+  },
+  headerSubtitle: {
+    fontSize: 11,
+    fontWeight: '500',
+    color: '#64748B',
+  },
+  badge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#ECFDF5',
+    paddingHorizontal: 8,
     paddingVertical: 4,
-    borderRadius: 12,
+    borderRadius: 6,
+    gap: 4,
   },
-  stepBadgeText: {
-    fontSize: 10.5,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#D97706',
-    letterSpacing: 0.5,
+  badgeText: {
+    fontSize: 10,
+    fontWeight: '800',
+    color: '#059669',
   },
   scrollView: {
     flex: 1,
-    zIndex: 5,
   },
   scrollContent: {
-    paddingHorizontal: 20,
-    paddingTop: 12,
-    paddingBottom: 40,
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 24,
   },
   titleSection: {
-    marginBottom: 20,
+    marginBottom: 18,
   },
-  badgeRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FEF3C7',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 20,
-    alignSelf: 'flex-start',
-    marginBottom: 10,
-    gap: 6,
-  },
-  miniIconBadge: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    backgroundColor: '#FFC80A',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  badgeLabel: {
-    fontSize: 10,
-    fontFamily: Typography.fontFamily.bold,
+  mainTitle: {
+    fontSize: 28,
+    fontWeight: '900',
     color: '#0F172A',
-    letterSpacing: 0.8,
+    letterSpacing: -0.8,
+    lineHeight: 34,
   },
-  title: {
-    fontSize: 24,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#0F172A',
-    marginBottom: 6,
+  highlightYellow: {
+    color: '#D97706',
   },
-  subtitle: {
+  subTitle: {
     fontSize: 13,
-    fontFamily: Typography.fontFamily.regular,
+    fontWeight: '500',
     color: '#64748B',
+    marginTop: 6,
     lineHeight: 18,
   },
   optionsList: {
     gap: 12,
-    marginBottom: 24,
+    marginBottom: 16,
   },
   optionCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F8FAFC',
     borderRadius: 16,
-    padding: 16,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
     borderWidth: 1.5,
     borderColor: '#E2E8F0',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.04,
-    shadowRadius: 6,
-    elevation: 2,
   },
   optionCardSelected: {
     borderColor: '#FFC80A',
@@ -344,80 +322,82 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   iconCircle: {
-    width: 46,
-    height: 46,
-    borderRadius: 23,
-    backgroundColor: '#F1F5F9',
+    width: 44,
+    height: 44,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 14,
+    marginRight: 12,
   },
-  iconCircleSelected: {
-    backgroundColor: '#FEF3C7',
-  },
-  cardContent: {
+  cardHeaderInfo: {
     flex: 1,
-    marginRight: 10,
-  },
-  cardHeaderRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    gap: 6,
-    marginBottom: 4,
+    justifyContent: 'center',
   },
   optionTitle: {
-    fontSize: 15,
-    fontFamily: Typography.fontFamily.bold,
+    fontSize: 14.5,
+    fontWeight: '800',
     color: '#334155',
+    marginBottom: 3,
+    flexShrink: 1,
   },
   optionTitleSelected: {
     color: '#0F172A',
   },
-  tagBadge: {
-    backgroundColor: '#F1F5F9',
+  categoryTag: {
+    alignSelf: 'flex-start',
     paddingHorizontal: 7,
     paddingVertical: 2,
     borderRadius: 6,
   },
-  tagBadgeSelected: {
-    backgroundColor: '#FEF3C7',
-  },
-  tagText: {
-    fontSize: 9.5,
-    fontFamily: Typography.fontFamily.bold,
-    color: '#64748B',
-  },
-  tagTextSelected: {
-    color: '#D97706',
-  },
-  optionSubtitle: {
-    fontSize: 12,
-    fontFamily: Typography.fontFamily.regular,
-    color: '#64748B',
-    lineHeight: 16,
+  categoryTagText: {
+    fontSize: 9,
+    fontWeight: '900',
+    letterSpacing: 0.3,
   },
   radioContainer: {
+    marginLeft: 6,
+  },
+  trustBanner: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#ECFDF5',
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    borderRadius: 12,
+    gap: 10,
+    borderWidth: 1,
+    borderColor: '#A7F3D0',
+    marginTop: 4,
+  },
+  trustText: {
+    fontSize: 11.5,
+    fontWeight: '600',
+    color: '#065F46',
+    flex: 1,
+    lineHeight: 16,
+  },
+  bottomBar: {
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderTopWidth: 1,
+    borderTopColor: '#F1F5F9',
   },
   continueButton: {
+    height: 52,
+    backgroundColor: '#FFC80A',
+    borderRadius: 14,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FFC80A',
-    borderRadius: 16,
-    paddingVertical: 15,
     gap: 8,
-    shadowColor: '#FFC80A',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 4,
+    paddingHorizontal: 12,
   },
   continueButtonText: {
-    fontSize: 15,
-    fontFamily: Typography.fontFamily.bold,
+    fontSize: 13.5,
+    fontWeight: '900',
     color: '#0F172A',
+    letterSpacing: 0.3,
+    flexShrink: 1,
   },
 });
