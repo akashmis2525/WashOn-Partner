@@ -21,7 +21,7 @@ export type RootStackParamList = {
   [Routes.VENDOR_PRICING_SETUP]: undefined;
   [Routes.VENDOR_WORKING_HOURS]: undefined;
   [Routes.VENDOR_AVAILABILITY_SETUP]: undefined;
-  [Routes.VENDOR_DASHBOARD]: { initialOnline?: boolean } | undefined;
+  [Routes.VENDOR_DASHBOARD]: { initialOnline?: boolean; hasActiveBooking?: boolean } | undefined;
   [Routes.VENDOR_ONLINE_CONFIRM]: undefined;
   [Routes.VENDOR_OFFLINE_CONFIRM]: { hasActiveBooking?: boolean } | undefined;
 

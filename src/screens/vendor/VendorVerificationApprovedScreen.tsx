@@ -33,26 +33,22 @@ type NavProp = NativeStackNavigationProp<
 const GUIDELINES = [
   {
     id: '1',
-    title: 'Punctual Doorstep Arrival',
-    desc: 'Reach customer vehicle within 10 minutes of the booked time slot.',
+    title: 'On Door Customer within 10 min .',
     icon: Clock,
   },
   {
     id: '2',
-    title: 'Quality Wash Chemicals',
-    desc: 'Always use scratch-safe microfibers & approved pH-neutral foam.',
+    title: 'Always scratch-safe microfibers foam for Quality Wash .',
     icon: Droplets,
   },
   {
     id: '3',
     title: 'Pre & Post Wash Photos',
-    desc: 'Take 2-4 condition photos before starting and after wash completion.',
     icon: Camera,
   },
   {
     id: '4',
-    title: 'Direct Bank Payouts',
-    desc: 'Zero cash collection hassles. Automatic bank payouts every Tuesday.',
+    title: 'Digital Payment Support',
     icon: Wallet,
   },
 ];
@@ -61,8 +57,8 @@ export const VendorVerificationApprovedScreen: React.FC = () => {
   const navigation = useNavigation<NavProp>();
 
   const handleStartSetup = () => {
-    // Navigate to next onboarding step: Service Area Setup
-    navigation.navigate(Routes.VENDOR_SERVICE_AREA as never);
+    // Navigate directly to next step: Vehicle Types Selection
+    navigation.navigate(Routes.VENDOR_VEHICLE_TYPES as never);
   };
 
   return (
@@ -94,7 +90,7 @@ export const VendorVerificationApprovedScreen: React.FC = () => {
             You're <Text style={styles.highlightYellow}>Approved!</Text>
           </Text>
           <Text style={styles.subTitle}>
-            Your partner account is active and verified. You are now ready to start earning with WashOn.
+            Your partner account is active.
           </Text>
         </View>
 
@@ -134,7 +130,7 @@ export const VendorVerificationApprovedScreen: React.FC = () => {
 
         {/* IMPORTANT SERVICE GUIDELINES */}
         <View style={styles.guidelinesSection}>
-          <Text style={styles.guidelinesTitle}>IMPORTANT SERVICE GUIDELINES</Text>
+          <Text style={styles.guidelinesTitle}>Guidelines</Text>
 
           <View style={styles.guidelinesList}>
             {GUIDELINES.map((item) => {
@@ -146,7 +142,6 @@ export const VendorVerificationApprovedScreen: React.FC = () => {
                   </View>
                   <View style={styles.guidelineContent}>
                     <Text style={styles.guidelineHeading}>{item.title}</Text>
-                    <Text style={styles.guidelineDesc}>{item.desc}</Text>
                   </View>
                 </View>
               );
@@ -162,7 +157,7 @@ export const VendorVerificationApprovedScreen: React.FC = () => {
           onPress={handleStartSetup}
           activeOpacity={0.85}
         >
-          <Text style={styles.startButtonText}>CONTINUE TO SERVICE AREA</Text>
+          <Text style={styles.startButtonText}>CONTINUE</Text>
           <ArrowRight size={18} color="#0F172A" />
         </TouchableOpacity>
       </View>

@@ -33,9 +33,6 @@ type NavProp = NativeStackNavigationProp<
 interface VendorTypeOption {
   id: string;
   title: string;
-  badge: string;
-  badgeBg: string;
-  badgeColor: string;
   icon: any;
   iconBg: string;
   iconColor: string;
@@ -44,43 +41,17 @@ interface VendorTypeOption {
 const VENDOR_TYPES: VendorTypeOption[] = [
   {
     id: 'individual',
-    title: 'Individual Washerman',
-    badge: 'SOLO PARTNER',
-    badgeBg: '#FFFBEB',
-    badgeColor: '#B45309',
+    title: 'SOLO Partner',
     icon: UserCheck,
     iconBg: '#FEF3C7',
     iconColor: '#B45309',
   },
   {
-    id: 'detailer',
-    title: 'Professional Detailer',
-    badge: 'CERTIFIED EXPERT',
-    badgeBg: '#ECFDF5',
-    badgeColor: '#047857',
-    icon: Sparkles,
-    iconBg: '#D1FAE5',
-    iconColor: '#059669',
-  },
-  {
     id: 'team',
-    title: 'Service Crew / Team',
-    badge: 'MULTI-WASHER CREW',
-    badgeBg: '#EFF6FF',
-    badgeColor: '#1D4ED8',
+    title: 'Team Partner',
     icon: Users,
     iconBg: '#DBEAFE',
     iconColor: '#2563EB',
-  },
-  {
-    id: 'business',
-    title: 'Car Wash Studio & Garage',
-    badge: 'ESTABLISHED STUDIO',
-    badgeBg: '#FAF5FF',
-    badgeColor: '#7E22CE',
-    icon: Building2,
-    iconBg: '#F3E8FF',
-    iconColor: '#9333EA',
   },
 ];
 
@@ -123,10 +94,10 @@ export const VendorTypeSelectionScreen: React.FC = () => {
         {/* RAPIDO HIGH-IMPACT HEADINGS */}
         <View style={styles.titleSection}>
           <Text style={styles.mainTitle}>
-            Select Your <Text style={styles.highlightYellow}>Vendor Type</Text>
+            Select <Text style={styles.highlightYellow}>Washing Type</Text>
           </Text>
           <Text style={styles.subTitle}>
-            Choose your operating category on WashOn network.
+            Choose your type
           </Text>
         </View>
 
@@ -156,7 +127,7 @@ export const VendorTypeSelectionScreen: React.FC = () => {
                   <IconComponent size={24} color={item.iconColor} />
                 </View>
 
-                {/* CENTER TITLE & BADGE */}
+                {/* CENTER TITLE */}
                 <View style={styles.cardHeaderInfo}>
                   <Text
                     style={[
@@ -166,21 +137,6 @@ export const VendorTypeSelectionScreen: React.FC = () => {
                   >
                     {item.title}
                   </Text>
-                  <View
-                    style={[
-                      styles.categoryTag,
-                      { backgroundColor: item.badgeBg },
-                    ]}
-                  >
-                    <Text
-                      style={[
-                        styles.categoryTagText,
-                        { color: item.badgeColor },
-                      ]}
-                    >
-                      {item.badge}
-                    </Text>
-                  </View>
                 </View>
 
                 {/* RIGHT RADIO CHECK */}
@@ -195,14 +151,6 @@ export const VendorTypeSelectionScreen: React.FC = () => {
             );
           })}
         </View>
-
-        {/* TRUST BANNER */}
-        <View style={styles.trustBanner}>
-          <ShieldCheck size={16} color="#059669" />
-          <Text style={styles.trustText}>
-            100% Flexible Duty Hours
-          </Text>
-        </View>
       </ScrollView>
 
       {/* BOTTOM ACTION */}
@@ -212,7 +160,7 @@ export const VendorTypeSelectionScreen: React.FC = () => {
           onPress={handleContinue}
           activeOpacity={0.85}
         >
-          <Text style={styles.continueButtonText}>CONTINUE TO KYC VERIFICATION</Text>
+          <Text style={styles.continueButtonText}>KYC</Text>
           <ArrowRight size={20} color="#0F172A" />
         </TouchableOpacity>
       </View>

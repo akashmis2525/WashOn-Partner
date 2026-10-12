@@ -138,42 +138,6 @@ const DEFAULT_PACKAGES: PricingPackage[] = [
     enabled: true,
     subOptions: ['Cabin Deep Vacuuming', 'Dashboard & Console Wipe', 'Footmat Cleaning', 'AC Vent Dusting'],
   },
-  {
-    id: 'pkg_4',
-    name: 'Both In and Out wash Basic',
-    badge: 'COMBO BASIC',
-    defaultPrice: 449,
-    userPrice: 449,
-    enabled: true,
-    subOptions: ['Exterior Snow Foam Wash', 'Full Interior Vacuum', 'Dashboard Clean', 'Tyre & Trim Polish'],
-  },
-  {
-    id: 'pkg_5',
-    name: 'Premium Wash Inner / Outside wash',
-    badge: 'FULL PREMIUM',
-    defaultPrice: 699,
-    userPrice: 699,
-    enabled: true,
-    subOptions: ['Underbody Jet Spray', 'Clay Mitt Foam Bath', 'Interior Deep Shampoo', 'Leather/Fabric Condition', 'Ceramic Spray Wax', 'Car Perfume'],
-  },
-  {
-    id: 'pkg_6',
-    name: 'Premium Wash Inner Only',
-    badge: 'PREMIUM INTERIOR',
-    defaultPrice: 399,
-    userPrice: 399,
-    enabled: true,
-    subOptions: ['Seat Fabric Stain Removal', 'Roof Lining Dry Clean', 'Deep Carpet Extraction', 'Dashboard UV Shield', 'Air Sanitization'],
-  },
-  {
-    id: 'pkg_7',
-    name: 'Premium Wash OutSide Wash',
-    badge: 'PREMIUM EXTERIOR',
-    defaultPrice: 499,
-    userPrice: 499,
-    enabled: true,
-    subOptions: ['Two-Stage Snow Foam', 'Underbody Chassis Flush', 'Alloy Wheel Iron Decon', 'Hydrophobic Ceramic Top-Coat', 'Trim Restoration'],
-  },
 ];
 
 const WEEK_DAYS = [
@@ -311,20 +275,12 @@ export const VendorVehicleTypesScreen: React.FC = () => {
     }
   };
 
-  // 5. COMPLETION & DIRECT DASHBOARD NAVIGATION
+  // COMPLETION & DIRECT DASHBOARD NAVIGATION (RAPIDO CAPTAIN REAL FLOW)
   const handleCompleteSetup = () => {
-    Alert.alert(
-      'Setup Completed!',
-      'Your vehicles, equipment, pricing, and working hours have been saved. Your partner console is now live!',
-      [
-        {
-          text: 'Go to Partner Dashboard',
-          onPress: () => {
-            navigation.navigate(Routes.VENDOR_DASHBOARD as never);
-          },
-        },
-      ]
-    );
+    navigation.reset({
+      index: 0,
+      routes: [{ name: Routes.VENDOR_DASHBOARD as any, params: { initialOnline: true } }],
+    });
   };
 
   return (
@@ -343,7 +299,7 @@ export const VendorVehicleTypesScreen: React.FC = () => {
 
         <View style={styles.headerCenter}>
           <Text style={styles.headerTitle}>Services & Pricing Setup</Text>
-          <Text style={styles.headerSub}>Vehicles, Equipment, Pricing & Hours</Text>
+          <Text style={styles.headerSub}>Vehicles & Pricing</Text>
         </View>
 
         <View style={styles.stepBadge}>
@@ -356,17 +312,13 @@ export const VendorVehicleTypesScreen: React.FC = () => {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* SECTION 1: VEHICLE CATEGORY SELECTION */}
+        {/* VEHICLE CATEGORY SELECTION */}
         <View style={styles.sectionHeaderRow}>
-          <Text style={styles.sectionHeading}>1. SELECT VEHICLE CATEGORIES</Text>
-          <View style={styles.autoBadge}>
-            <Zap size={11} color="#D97706" />
-            <Text style={styles.autoBadgeText}>AUTO-EQUIPMENT</Text>
-          </View>
+          <Text style={styles.sectionHeading}>Vehicle Categories</Text>
         </View>
 
         <View style={styles.vehicleModesRow}>
-          {/* BIKE ONLY */}
+          {/* BIKE */}
           <TouchableOpacity
             style={[styles.modeCard, vehicleMode === 'bike' && styles.modeCardActive]}
             onPress={() => handleSelectVehicleMode('bike')}
@@ -376,9 +328,8 @@ export const VendorVehicleTypesScreen: React.FC = () => {
               <Bike size={22} color={vehicleMode === 'bike' ? '#0F172A' : '#64748B'} />
             </View>
             <Text style={[styles.modeTitle, vehicleMode === 'bike' && styles.modeTitleActive]}>
-              Bike Wash Only
+              Bike Wash
             </Text>
-            <Text style={styles.modeSub}>Bikes & Scooters</Text>
             <View style={styles.modeCheck}>
               {vehicleMode === 'bike' ? (
                 <CheckCircle2 size={16} color="#0F172A" />
@@ -388,7 +339,7 @@ export const VendorVehicleTypesScreen: React.FC = () => {
             </View>
           </TouchableOpacity>
 
-          {/* CARS ONLY */}
+          {/* CARS */}
           <TouchableOpacity
             style={[styles.modeCard, vehicleMode === 'car' && styles.modeCardActive]}
             onPress={() => handleSelectVehicleMode('car')}
@@ -398,9 +349,8 @@ export const VendorVehicleTypesScreen: React.FC = () => {
               <Car size={22} color={vehicleMode === 'car' ? '#0F172A' : '#64748B'} />
             </View>
             <Text style={[styles.modeTitle, vehicleMode === 'car' && styles.modeTitleActive]}>
-              Car Wash Only
+              Car Wash
             </Text>
-            <Text style={styles.modeSub}>Sedan, SUV & Hatch</Text>
             <View style={styles.modeCheck}>
               {vehicleMode === 'car' ? (
                 <CheckCircle2 size={16} color="#0F172A" />
@@ -410,7 +360,7 @@ export const VendorVehicleTypesScreen: React.FC = () => {
             </View>
           </TouchableOpacity>
 
-          {/* COMBO (ALL VEHICLES) */}
+          {/* BOTH VEHICLES */}
           <TouchableOpacity
             style={[styles.modeCard, vehicleMode === 'combo' && styles.modeCardActive]}
             onPress={() => handleSelectVehicleMode('combo')}
@@ -420,9 +370,8 @@ export const VendorVehicleTypesScreen: React.FC = () => {
               <Sparkles size={22} color={vehicleMode === 'combo' ? '#0F172A' : '#64748B'} />
             </View>
             <Text style={[styles.modeTitle, vehicleMode === 'combo' && styles.modeTitleActive]}>
-              Combo (All)
+              Both Vehicles
             </Text>
-            <Text style={styles.modeSub}>Bikes + All Cars</Text>
             <View style={styles.modeCheck}>
               {vehicleMode === 'combo' ? (
                 <CheckCircle2 size={16} color="#0F172A" />
@@ -433,60 +382,9 @@ export const VendorVehicleTypesScreen: React.FC = () => {
           </TouchableOpacity>
         </View>
 
-        {/* SECTION 2: REQUIRED EQUIPMENT (AUTOMATED SELECTION) */}
+        {/* PRICING & PACKAGE */}
         <View style={styles.sectionHeaderRow}>
-          <Text style={styles.sectionHeading}>2. EQUIPMENT & TOOLS (AUTOMATED)</Text>
-          <Text style={styles.countText}>
-            {selectedEquipments.length}/{ALL_EQUIPMENTS.length} Included
-          </Text>
-        </View>
-
-        <View style={styles.equipmentCard}>
-          <View style={styles.equipmentBanner}>
-            <Wrench size={15} color="#D97706" />
-            <Text style={styles.equipmentBannerText}>
-              Equipment pre-selected for {vehicleMode === 'bike' ? 'Bike Wash' : vehicleMode === 'car' ? 'Car Wash' : 'All Vehicles'}. Tap to customize.
-            </Text>
-          </View>
-
-          <View style={styles.equipmentList}>
-            {ALL_EQUIPMENTS.map((item) => {
-              const isSelected = selectedEquipments.includes(item.id);
-              return (
-                <TouchableOpacity
-                  key={item.id}
-                  style={[styles.equipRow, isSelected && styles.equipRowSelected]}
-                  onPress={() => toggleEquipment(item.id)}
-                  activeOpacity={0.75}
-                >
-                  <View style={styles.equipLeft}>
-                    <View style={[styles.equipCheck, isSelected && styles.equipCheckSelected]}>
-                      {isSelected ? (
-                        <Check size={14} color="#0F172A" />
-                      ) : (
-                        <Circle size={14} color="#CBD5E1" />
-                      )}
-                    </View>
-                    <View style={{ flex: 1, marginLeft: 10 }}>
-                      <Text style={[styles.equipName, isSelected && styles.equipNameSelected]}>
-                        {item.name}
-                      </Text>
-                      <Text style={styles.equipDesc}>{item.desc}</Text>
-                    </View>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-        </View>
-
-        {/* SECTION 3: PRICING SETUP & TOGGLEABLE SUB-OPTIONS */}
-        <View style={styles.sectionHeaderRow}>
-          <Text style={styles.sectionHeading}>3. PRICING & PACKAGE CUSTOMIZATION</Text>
-          <View style={styles.autoBadge}>
-            <Sliders size={11} color="#D97706" />
-            <Text style={styles.autoBadgeText}>TAP TO EDIT</Text>
-          </View>
+          <Text style={styles.sectionHeading}>Pricing & Package</Text>
         </View>
 
         <View style={styles.pricingContainer}>
@@ -596,97 +494,6 @@ export const VendorVehicleTypesScreen: React.FC = () => {
             );
           })}
         </View>
-
-        {/* SECTION 4: WORKING HOURS & 24x7 SELECTION */}
-        <View style={styles.sectionHeaderRow}>
-          <Text style={styles.sectionHeading}>4. WORKING HOURS & DUTY DAYS</Text>
-          <View style={styles.autoBadge}>
-            <Clock size={11} color="#D97706" />
-            <Text style={styles.autoBadgeText}>SCHEDULE</Text>
-          </View>
-        </View>
-
-        <View style={styles.workingHoursCard}>
-          {/* 24x7 FULL WEEK QUICK TOGGLE */}
-          <TouchableOpacity
-            style={[styles.fullWeek24Btn, is24x7 && styles.fullWeek24BtnActive]}
-            onPress={handleToggle24x7}
-            activeOpacity={0.8}
-          >
-            <View style={styles.fullWeekLeft}>
-              <View style={[styles.badge24, is24x7 && styles.badge24Active]}>
-                <Text style={[styles.badge24Text, is24x7 && styles.badge24TextActive]}>24x7</Text>
-              </View>
-              <View style={{ marginLeft: 10 }}>
-                <Text style={[styles.fullWeekTitle, is24x7 && styles.fullWeekTitleActive]}>
-                  24x7 All-Week Duty
-                </Text>
-                <Text style={styles.fullWeekSub}>
-                  Available anytime 24 hours a day, 7 days a week for instant requests
-                </Text>
-              </View>
-            </View>
-            <View style={styles.fullWeekCheck}>
-              {is24x7 ? (
-                <CheckCircle2 size={22} color="#0F172A" />
-              ) : (
-                <Circle size={22} color="#CBD5E1" />
-              )}
-            </View>
-          </TouchableOpacity>
-
-          <View style={styles.divider} />
-
-          {/* DAY OF WEEK SELECTOR */}
-          <Text style={styles.customScheduleTitle}>Select Operating Days:</Text>
-          <View style={styles.daysRow}>
-            {WEEK_DAYS.map((day) => {
-              const isDaySelected = selectedDays.includes(day.id);
-              return (
-                <TouchableOpacity
-                  key={day.id}
-                  style={[styles.dayChip, isDaySelected && styles.dayChipActive]}
-                  onPress={() => toggleDay(day.id)}
-                >
-                  <Text style={[styles.dayChipText, isDaySelected && styles.dayChipTextActive]}>
-                    {day.label}
-                  </Text>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-
-          {/* SHIFT TIMING SELECTOR */}
-          <Text style={[styles.customScheduleTitle, { marginTop: 14 }]}>
-            Operating Shift Timings:
-          </Text>
-          <View style={styles.shiftsGrid}>
-            {[
-              { id: 'FULL_DAY', title: 'Full Day (6 AM - 10 PM)' },
-              { id: 'MORNING', title: 'Morning (6 AM - 2 PM)' },
-              { id: 'EVENING', title: 'Evening (2 PM - 10 PM)' },
-              { id: '24_HOURS', title: '24 Hours Open' },
-            ].map((shift) => {
-              const isShiftActive = selectedShift === shift.id;
-              return (
-                <TouchableOpacity
-                  key={shift.id}
-                  style={[styles.shiftBtn, isShiftActive && styles.shiftBtnActive]}
-                  onPress={() => {
-                    setSelectedShift(shift.id);
-                    if (shift.id === '24_HOURS' && selectedDays.length === 7) {
-                      setIs24x7(true);
-                    }
-                  }}
-                >
-                  <Text style={[styles.shiftBtnText, isShiftActive && styles.shiftBtnTextActive]}>
-                    {shift.title}
-                  </Text>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-        </View>
       </ScrollView>
 
       {/* BOTTOM ACTION BUTTON */}
@@ -696,7 +503,7 @@ export const VendorVehicleTypesScreen: React.FC = () => {
           onPress={handleCompleteSetup}
           activeOpacity={0.85}
         >
-          <Text style={styles.submitButtonText}>SAVE & GO TO PARTNER DASHBOARD</Text>
+          <Text style={styles.submitButtonText}>CONTINUE</Text>
           <ArrowRight size={18} color="#0F172A" />
         </TouchableOpacity>
       </View>

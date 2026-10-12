@@ -98,9 +98,6 @@ export const VendorVerificationPendingScreen: React.FC = () => {
           <Text style={styles.mainTitle}>
             Application Under <Text style={styles.highlightYellow}>Review</Text>
           </Text>
-          <Text style={styles.subTitle}>
-            Your documents & vendor profile are being verified by our onboarding team.
-          </Text>
         </View>
 
         {/* VERIFICATION PROGRESS TIMELINE */}
@@ -136,7 +133,6 @@ export const VendorVerificationPendingScreen: React.FC = () => {
                   <Text style={styles.inReviewBadgeText}>IN PROGRESS</Text>
                 </View>
               </View>
-              <Text style={styles.stepSubActive}>Verification underway by compliance team</Text>
             </View>
           </View>
 
@@ -148,36 +144,14 @@ export const VendorVerificationPendingScreen: React.FC = () => {
               </View>
             </View>
             <View style={styles.timelineContent}>
-              <Text style={styles.stepTitlePending}>Account Activation & Duty Live</Text>
+              <Text style={styles.stepTitlePending}>Account Activation</Text>
               <Text style={styles.stepSubPending}>Ready to start receiving wash requests</Text>
             </View>
           </View>
         </View>
 
-        {/* APPLICATION SUMMARY CARD */}
+        {/* EXPECTED TIME ROW */}
         <View style={styles.statusCard}>
-          <View style={styles.statusCardHeader}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-              <FileText size={16} color="#0F172A" />
-              <Text style={styles.statusCardTitle}>Application Summary</Text>
-            </View>
-            <View style={styles.refBadge}>
-              <Text style={styles.refBadgeText}>#WASH-88219</Text>
-            </View>
-          </View>
-
-          <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>Submitted On</Text>
-            <Text style={styles.summaryValue}>Today, 10:45 AM</Text>
-          </View>
-          <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>Documents</Text>
-            <Text style={styles.summaryValue}>Aadhaar + PAN + Selfie</Text>
-          </View>
-          <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>Operating City</Text>
-            <Text style={styles.summaryValue}>Indore (Madhya Pradesh)</Text>
-          </View>
           <View style={styles.summaryRow}>
             <Text style={styles.summaryLabel}>Expected Time</Text>
             <Text style={[styles.summaryValue, { color: '#D97706' }]}>2 to 4 Hours</Text>
@@ -188,7 +162,7 @@ export const VendorVerificationPendingScreen: React.FC = () => {
         <View style={styles.reviewTimeNotice}>
           <Clock size={18} color="#D97706" style={{ marginTop: 2, marginRight: 10 }} />
           <Text style={styles.reviewTimeText}>
-            Average approval time is <Text style={styles.boldTime}>45 minutes</Text>. You will receive an SMS confirmation once activated.
+            You will receive an SMS confirmation once activated.
           </Text>
         </View>
       </ScrollView>
@@ -207,7 +181,7 @@ export const VendorVerificationPendingScreen: React.FC = () => {
             <>
               <Sparkles size={18} color="#0F172A" />
               <Text style={styles.checkStatusBtnText}>
-                CHECK LIVE STATUS (SIMULATE APPROVAL)
+                CHECK STATUS
               </Text>
             </>
           )}
@@ -220,7 +194,7 @@ export const VendorVerificationPendingScreen: React.FC = () => {
         >
           <Headphones size={16} color="#64748B" />
           <Text style={styles.supportBtnText}>
-            Need Help? Contact Partner Support
+            Contact Support?
           </Text>
         </TouchableOpacity>
       </View>

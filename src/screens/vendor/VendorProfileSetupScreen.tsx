@@ -324,23 +324,6 @@ export const VendorProfileSetupScreen: React.FC = () => {
               </TouchableOpacity>
             </View>
 
-            {/* Experience Chips */}
-            <View style={styles.fieldGroup}>
-              <Text style={styles.fieldLabel}>WASHING EXPERIENCE</Text>
-              <View style={styles.expChipsRow}>
-                {['Fresher', '1-2 Years', '2+ Years', '5+ Years (Expert)'].map((exp) => (
-                  <TouchableOpacity
-                    key={exp}
-                    style={[styles.expChip, experience === exp && styles.expChipActive]}
-                    onPress={() => setExperience(exp)}
-                  >
-                    <Text style={[styles.expChipText, experience === exp && styles.expChipTextActive]}>
-                      {exp}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            </View>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -352,7 +335,7 @@ export const VendorProfileSetupScreen: React.FC = () => {
           onPress={handleContinue}
           activeOpacity={0.85}
         >
-          <Text style={styles.submitButtonText}>CONTINUE TO VENDOR TYPE</Text>
+          <Text style={styles.submitButtonText}>CONTINUE</Text>
           <ArrowRight size={20} color="#0F172A" />
         </TouchableOpacity>
       </View>

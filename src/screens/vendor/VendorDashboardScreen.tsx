@@ -69,7 +69,12 @@ export const VendorDashboardScreen: React.FC = () => {
   const [isOnline, setIsOnline] = useState<boolean>(
     route.params?.initialOnline !== undefined ? route.params.initialOnline : true
   );
-  const [selectedRadius, setSelectedRadius] = useState<number>(5);
+  const [hasActiveBooking, setHasActiveBooking] = useState<boolean>(
+    route.params?.hasActiveBooking !== undefined ? route.params.hasActiveBooking : true
+  );
+  const [selectedRadius, setSelectedRadius] = useState<number>(2);
+  const waveSize = selectedRadius === 1 ? 85 : selectedRadius === 2 ? 115 : selectedRadius === 3 ? 145 : 180;
+  const innerWaveSize = Math.round(waveSize * 0.55);
   const [autoAssign, setAutoAssign] = useState<boolean>(true);
 
   // Side Drawer State
@@ -136,28 +141,20 @@ export const VendorDashboardScreen: React.FC = () => {
           <Menu size={22} color="#0F172A" />
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.profileRow}
-          onPress={() => setDrawerVisible(true)}
-          activeOpacity={0.8}
-        >
-          <Image
-            source={{
-              uri: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80',
-            }}
-            style={styles.avatar}
+        {/* ON DUTY / OFF DUTY IN TOP HEADER */}
+        <View style={styles.topDutyBar}>
+          <View style={[styles.dutyDot, isOnline ? styles.dutyDotOnline : styles.dutyDotOffline]} />
+          <Text style={[styles.dutyText, isOnline ? styles.dutyTextOnline : styles.dutyTextOffline]}>
+            {isOnline ? 'ON DUTY' : 'OFF DUTY'}
+          </Text>
+          <Switch
+            value={isOnline}
+            onValueChange={handleToggleOnline}
+            trackColor={{ false: '#CBD5E1', true: '#FFC80A' }}
+            thumbColor={isOnline ? '#0F172A' : '#FFFFFF'}
+            style={{ transform: [{ scaleX: 0.85 }, { scaleY: 0.85 }] }}
           />
-          <View style={{ marginLeft: 10 }}>
-            <Text style={styles.greetingText}>Good morning,</Text>
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-              <Text style={styles.partnerName}>Ramesh Sharma</Text>
-              <View style={styles.ratingBadge}>
-                <Star size={10} color="#FFC80A" fill="#FFC80A" />
-                <Text style={styles.ratingText}>4.9</Text>
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
+        </View>
 
         <TouchableOpacity
           style={styles.notifButton}
@@ -175,7 +172,7 @@ export const VendorDashboardScreen: React.FC = () => {
         showsVerticalScrollIndicator={false}
       >
         {/* ============================================================ */}
-        {/* RAPIDO MAP RADAR WITH EMBEDDED LIVE DUTY SWITCH */}
+        {/* RAPIDO MAP RADAR */}
         {/* ============================================================ */}
         <View style={styles.radarCard}>
           <View style={styles.radarCanvas}>
@@ -185,10 +182,28 @@ export const VendorDashboardScreen: React.FC = () => {
             <View style={styles.roadLineH} />
             <View style={styles.roadLineV} />
 
-            {/* Radar Waves if Online */}
+            {/* Radar Waves if Online (Dynamically Sized to Radius) */}
             {isOnline && (
-              <View style={styles.radarWaveOuter}>
-                <View style={styles.radarWaveInner} />
+              <View
+                style={[
+                  styles.radarWaveOuter,
+                  {
+                    width: waveSize,
+                    height: waveSize,
+                    borderRadius: waveSize / 2,
+                  },
+                ]}
+              >
+                <View
+                  style={[
+                    styles.radarWaveInner,
+                    {
+                      width: innerWaveSize,
+                      height: innerWaveSize,
+                      borderRadius: innerWaveSize / 2,
+                    },
+                  ]}
+                />
               </View>
             )}
 
@@ -197,113 +212,99 @@ export const VendorDashboardScreen: React.FC = () => {
               <Bike size={16} color="#0F172A" />
             </View>
 
-            {/* FLOATING TOP DUTY SWITCH ON MAP */}
-            <View style={styles.floatingDutyBar}>
-              <View style={styles.dutyLeft}>
-                <View style={[styles.dutyDot, isOnline ? styles.dutyDotOnline : styles.dutyDotOffline]} />
-                <Text style={styles.dutyText}>{isOnline ? 'YOU ARE ONLINE' : 'OFFLINE'}</Text>
-              </View>
-              <Switch
-                value={isOnline}
-                onValueChange={handleToggleOnline}
-                trackColor={{ false: '#94A3B8', true: '#FFC80A' }}
-                thumbColor={isOnline ? '#0F172A' : '#FFFFFF'}
-              />
-            </View>
-
             {/* FLOATING BOTTOM RADIUS & AUTO-ASSIGN BAR */}
             <View style={styles.floatingRadiusBar}>
               <View style={styles.radiusChipsRow}>
                 <Compass size={13} color="#0F172A" />
-                {[3, 5, 8, 12].map((r) => (
+                {[1, 2, 3, 5].map((r) => (
                   <TouchableOpacity
                     key={r}
                     style={[styles.radiusChip, selectedRadius === r && styles.radiusChipActive]}
                     onPress={() => setSelectedRadius(r)}
                   >
                     <Text style={[styles.radiusChipText, selectedRadius === r && styles.radiusChipTextActive]}>
-                      {r}km
+                      {r} km
                     </Text>
                   </TouchableOpacity>
                 ))}
               </View>
 
               <TouchableOpacity
-                style={[styles.autoAssignChip, autoAssign && styles.autoAssignChipActive]}
+                style={[styles.autoAssignIconBtn, autoAssign && styles.autoAssignIconBtnActive]}
                 onPress={() => setAutoAssign(!autoAssign)}
+                activeOpacity={0.8}
               >
-                <Zap size={11} color={autoAssign ? '#059669' : '#64748B'} />
-                <Text style={[styles.autoAssignText, autoAssign && styles.autoAssignTextActive]}>
-                  {autoAssign ? 'Auto-Accept ON' : 'Manual'}
-                </Text>
+                <Zap
+                  size={15}
+                  color={autoAssign ? '#0F172A' : '#94A3B8'}
+                  fill={autoAssign ? '#FFC80A' : 'transparent'}
+                />
               </TouchableOpacity>
             </View>
           </View>
         </View>
 
-        {/* TODAY'S EARNINGS SUMMARY */}
-        <View style={styles.earningsCard}>
-          <View style={styles.earningsHeader}>
-            <View>
-              <Text style={styles.earningsLabel}>TODAY'S NET EARNINGS</Text>
-              <Text style={styles.earningsAmount}>₹1,840.00</Text>
-            </View>
-            <TouchableOpacity
-              style={styles.viewEarningsBtn}
-              onPress={() => navigation.navigate(Routes.VENDOR_EARNINGS_DASHBOARD as any)}
-            >
-              <Text style={styles.viewEarningsText}>Passbook</Text>
-              <ChevronRight size={14} color="#0F172A" />
-            </TouchableOpacity>
-          </View>
 
-          <View style={styles.divider} />
 
-          <View style={styles.statsRow}>
-            <View style={styles.statCol}>
-              <Text style={styles.statVal}>6</Text>
-              <Text style={styles.statKey}>Completed</Text>
-            </View>
-            <View style={styles.statCol}>
-              <Text style={styles.statVal}>1</Text>
-              <Text style={styles.statKey}>Active</Text>
-            </View>
-            <View style={styles.statCol}>
-              <Text style={styles.statVal}>98%</Text>
-              <Text style={styles.statKey}>Accept Rate</Text>
-            </View>
-          </View>
-        </View>
-
-        {/* ACTIVE BOOKING CARD (1-TAP RESUME WORK CONSOLE) */}
-        <View style={styles.activeJobCard}>
-          <View style={styles.activeJobHeader}>
-            <View style={styles.activePill}>
-              <View style={styles.activeDot} />
-              <Text style={styles.activePillText}>CURRENT ACTIVE BOOKING</Text>
-            </View>
-            <Text style={styles.jobIdText}>#WASH-JOB-8941</Text>
-          </View>
-
-          <View style={styles.customerRow}>
-            <View style={styles.custAvatar}>
-              <Text style={styles.custAvatarText}>VM</Text>
-            </View>
+        {/* ACTIVE BOOKING / SEARCHING RADAR CARD (REAL RAPIDO CAPTAIN FLOW) */}
+        {!isOnline ? (
+          <View style={styles.offDutyNoticeCard}>
+            <View style={styles.offDutyDot} />
             <View style={{ flex: 1, marginLeft: 10 }}>
-              <Text style={styles.custName}>Vikram Malhotra</Text>
-              <Text style={styles.custCar}>Hyundai Creta • (MP-09-WA-7721)</Text>
-              <Text style={styles.custService}>Full Foam Wash + Interior Vacuum</Text>
+              <Text style={styles.offDutyNoticeTitle}>YOU ARE CURRENTLY OFF DUTY</Text>
+              <Text style={styles.offDutyNoticeSub}>
+                Switch ON DUTY above to start receiving customer wash bookings in your area.
+              </Text>
             </View>
-            <TouchableOpacity style={styles.callBtn} onPress={handleCallCustomer}>
-              <Phone size={16} color="#059669" />
+          </View>
+        ) : hasActiveBooking ? (
+          <View style={styles.activeJobCard}>
+            <View style={styles.activeJobHeader}>
+              <View style={styles.activePill}>
+                <View style={styles.activeDot} />
+                <Text style={styles.activePillText}>CURRENT ACTIVE BOOKING</Text>
+              </View>
+              <Text style={styles.jobIdText}>#WASH-JOB-8941</Text>
+            </View>
+
+            <View style={styles.customerRow}>
+              <View style={styles.custAvatar}>
+                <Text style={styles.custAvatarText}>VM</Text>
+              </View>
+              <View style={{ flex: 1, marginLeft: 10 }}>
+                <Text style={styles.custName}>Vikram Malhotra</Text>
+                <Text style={styles.custCar}>Hyundai Creta • (MP-09-WA-7721)</Text>
+                <Text style={styles.custService}>Full Foam Wash + Interior Vacuum</Text>
+              </View>
+              <TouchableOpacity style={styles.callBtn} onPress={handleCallCustomer}>
+                <Phone size={16} color="#059669" />
+              </TouchableOpacity>
+            </View>
+
+            <TouchableOpacity style={styles.resumeWorkBtn} onPress={handleStartCurrentJob}>
+              <Text style={styles.resumeWorkText}>OPEN WORK CONSOLE</Text>
+              <ArrowRight size={16} color="#0F172A" />
             </TouchableOpacity>
           </View>
-
-          <TouchableOpacity style={styles.resumeWorkBtn} onPress={handleStartCurrentJob}>
-            <Text style={styles.resumeWorkText}>OPEN RAPIDO WORK CONSOLE</Text>
-            <ArrowRight size={16} color="#0F172A" />
-          </TouchableOpacity>
-        </View>
+        ) : (
+          <View style={styles.waitingCard}>
+            <View style={styles.waitingHeader}>
+              <View style={styles.waitingPulseDot} />
+              <Text style={styles.waitingTitle}>SEARCHING FOR REQUESTS</Text>
+            </View>
+            <Text style={styles.waitingSub}>
+              You are On Duty within {selectedRadius} km radius. Incoming wash bookings will appear automatically.
+            </Text>
+            <TouchableOpacity
+              style={styles.simulateRequestBtn}
+              onPress={() => navigation.navigate(Routes.VENDOR_NEW_REQUEST as any)}
+              activeOpacity={0.85}
+            >
+              <Sparkles size={16} color="#0F172A" />
+              <Text style={styles.simulateRequestText}>TEST NEW INCOMING BOOKING</Text>
+            </TouchableOpacity>
+          </View>
+        )}
 
         {/* QUICK SERVICE CONFIG SHORTCUT */}
         <TouchableOpacity
@@ -339,6 +340,7 @@ export const VendorDashboardScreen: React.FC = () => {
                 style={styles.drawerAvatar}
               />
               <View style={{ flex: 1, marginLeft: 12 }}>
+                <Text style={styles.greetingText}>Good morning,</Text>
                 <Text style={styles.drawerName}>Ramesh Sharma</Text>
                 <Text style={styles.drawerId}>ID: #WASH-PARTNER-8891</Text>
                 <View style={styles.drawerRatingRow}>
@@ -351,8 +353,55 @@ export const VendorDashboardScreen: React.FC = () => {
               </TouchableOpacity>
             </View>
 
+            {/* RAPIDO CAPTAIN DRAWER EARNINGS CARD */}
+            <View style={styles.drawerEarningsCard}>
+              <View style={styles.drawerEarningsHeader}>
+                <View>
+                  <Text style={styles.drawerEarningsLabel}>TODAY'S NET EARNINGS</Text>
+                  <Text style={styles.drawerEarningsAmount}>₹1,840.00</Text>
+                </View>
+                <TouchableOpacity
+                  style={styles.drawerPassbookBtn}
+                  onPress={() => {
+                    setDrawerVisible(false);
+                    navigation.navigate(Routes.VENDOR_EARNINGS_DASHBOARD as any);
+                  }}
+                  activeOpacity={0.8}
+                >
+                  <Text style={styles.drawerPassbookText}>Passbook</Text>
+                  <ChevronRight size={14} color="#FFC80A" />
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.drawerEarningsStatsRow}>
+                <View style={styles.drawerStatCol}>
+                  <Text style={styles.drawerStatVal}>6</Text>
+                  <Text style={styles.drawerStatKey}>Completed</Text>
+                </View>
+                <View style={styles.drawerStatCol}>
+                  <Text style={styles.drawerStatVal}>{hasActiveBooking ? '1' : '0'}</Text>
+                  <Text style={styles.drawerStatKey}>Active</Text>
+                </View>
+                <View style={styles.drawerStatCol}>
+                  <Text style={styles.drawerStatVal}>98%</Text>
+                  <Text style={styles.drawerStatKey}>Accept Rate</Text>
+                </View>
+              </View>
+            </View>
+
             {/* Menu Items */}
             <ScrollView style={styles.drawerMenu} showsVerticalScrollIndicator={false}>
+              <TouchableOpacity
+                style={styles.drawerItem}
+                onPress={() => {
+                  setDrawerVisible(false);
+                  navigation.navigate(Routes.VENDOR_EARNINGS_DASHBOARD as any);
+                }}
+              >
+                <Wallet size={18} color="#0F172A" />
+                <Text style={styles.drawerItemText}>Earnings & Passbook</Text>
+              </TouchableOpacity>
+
               <TouchableOpacity
                 style={styles.drawerItem}
                 onPress={() => {
@@ -406,6 +455,17 @@ export const VendorDashboardScreen: React.FC = () => {
               >
                 <Sliders size={18} color="#0F172A" />
                 <Text style={styles.drawerItemText}>Services & Add-ons Settings</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.drawerItem}
+                onPress={() => {
+                  setDrawerVisible(false);
+                  navigation.navigate(Routes.VENDOR_SERVICE_AREAS as any);
+                }}
+              >
+                <MapPin size={18} color="#0F172A" />
+                <Text style={styles.drawerItemText}>Operating Service Areas</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -583,10 +643,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginRight: 10,
   },
-  profileRow: {
+  topDutyBar: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#F8FAFC',
+    borderRadius: 20,
+    paddingHorizontal: 12,
+    paddingVertical: 5,
+    marginRight: 10,
+    borderWidth: 1.5,
+    borderColor: '#E2E8F0',
+    gap: 8,
+  },
+  dutyTextOnline: {
+    color: '#059669',
+    fontWeight: '800',
+  },
+  dutyTextOffline: {
+    color: '#64748B',
+    fontWeight: '700',
   },
   avatar: {
     width: 40,
@@ -790,26 +867,18 @@ const styles = StyleSheet.create({
     color: '#0F172A',
     fontWeight: '700',
   },
-  autoAssignChip: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 6,
+  autoAssignIconBtn: {
+    width: 28,
+    height: 28,
+    borderRadius: 7,
     backgroundColor: '#F1F5F9',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  autoAssignChipActive: {
-    backgroundColor: '#ECFDF5',
-  },
-  autoAssignText: {
-    fontSize: 10,
-    fontWeight: '600',
-    color: '#64748B',
-  },
-  autoAssignTextActive: {
-    color: '#059669',
-    fontWeight: '700',
+  autoAssignIconBtnActive: {
+    backgroundColor: '#FFFBEB',
+    borderWidth: 1.5,
+    borderColor: '#FFC80A',
   },
   earningsCard: {
     backgroundColor: '#FFFFFF',
@@ -967,6 +1036,79 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#0F172A',
   },
+  waitingCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 14,
+    padding: 16,
+    borderWidth: 1.5,
+    borderColor: '#E2E8F0',
+    marginBottom: 14,
+  },
+  waitingHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 6,
+  },
+  waitingPulseDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: '#059669',
+  },
+  waitingTitle: {
+    fontSize: 12,
+    fontWeight: '800',
+    color: '#059669',
+    letterSpacing: 0.5,
+  },
+  waitingSub: {
+    fontSize: 12,
+    color: '#64748B',
+    lineHeight: 18,
+    marginBottom: 14,
+  },
+  simulateRequestBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FFC80A',
+    height: 42,
+    borderRadius: 10,
+    gap: 8,
+  },
+  simulateRequestText: {
+    fontSize: 12.5,
+    fontWeight: '800',
+    color: '#0F172A',
+  },
+  offDutyNoticeCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F1F5F9',
+    borderRadius: 14,
+    padding: 14,
+    marginBottom: 14,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+  },
+  offDutyDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: '#94A3B8',
+  },
+  offDutyNoticeTitle: {
+    fontSize: 12,
+    fontWeight: '800',
+    color: '#475569',
+    marginBottom: 2,
+  },
+  offDutyNoticeSub: {
+    fontSize: 11,
+    color: '#64748B',
+    lineHeight: 16,
+  },
   servicesConfigBanner: {
     backgroundColor: '#FFFFFF',
     borderRadius: 14,
@@ -1049,6 +1191,69 @@ const styles = StyleSheet.create({
     backgroundColor: '#F1F5F9',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  drawerEarningsCard: {
+    backgroundColor: '#0F172A',
+    marginHorizontal: 16,
+    marginTop: 14,
+    marginBottom: 6,
+    borderRadius: 14,
+    padding: 14,
+  },
+  drawerEarningsHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  drawerEarningsLabel: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: '#94A3B8',
+    letterSpacing: 0.8,
+    marginBottom: 2,
+  },
+  drawerEarningsAmount: {
+    fontSize: 22,
+    fontWeight: '800',
+    color: '#FFC80A',
+  },
+  drawerPassbookBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#1E293B',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 8,
+    gap: 4,
+  },
+  drawerPassbookText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#FFFFFF',
+  },
+  drawerEarningsStatsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: '#1E293B',
+    marginTop: 4,
+  },
+  drawerStatCol: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  drawerStatVal: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#FFFFFF',
+  },
+  drawerStatKey: {
+    fontSize: 10,
+    fontWeight: '500',
+    color: '#94A3B8',
+    marginTop: 2,
   },
   drawerMenu: {
     padding: 16,
